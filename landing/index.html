@@ -85,13 +85,17 @@ p{margin:0}
 .stage-fallback{position:absolute; inset:0; display:grid; place-items:center; color:#8a7d6b; font-family:"IBM Plex Mono"; font-size:13px}
 
 .hero-copy{position:absolute; z-index:3; inset:0; pointer-events:none; display:flex; align-items:center}
-.hero-copy .wrap{width:100%}
-.hero-inner{max-width:580px; pointer-events:auto}
-.hero-tag{font-family:"IBM Plex Mono"; text-transform:uppercase; letter-spacing:.2em; font-size:12px; color:var(--oro-bright); display:inline-flex; align-items:center; gap:9px}
-.hero-tag::before{content:""; width:8px; height:8px; background:var(--oro-bright); border-radius:2px}
-.hero-inner h1{color:#f7f2ea; font-size:clamp(42px,6.8vw,80px); font-weight:900; margin-top:16px; letter-spacing:-.035em}
+.hero-copy::before{content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(90deg, rgba(10,8,6,.9) 0%, rgba(10,8,6,.6) 34%, rgba(10,8,6,0) 62%),
+             linear-gradient(0deg, rgba(10,8,6,.72) 0%, rgba(10,8,6,0) 26%)}
+.hero-copy .wrap{width:100%; position:relative}
+.hero-inner{max-width:560px; pointer-events:auto}
+.hero-tag{font-family:"IBM Plex Mono"; text-transform:uppercase; letter-spacing:.18em; font-size:11.5px; color:var(--oro-bright); display:inline-flex; align-items:center; gap:9px}
+.hero-tag::before{content:""; width:8px; height:8px; background:var(--oro-bright); border-radius:2px; flex:none}
+.hero-inner h1{color:#f7f2ea; font-size:clamp(42px,6.8vw,80px); font-weight:900; margin-top:16px; letter-spacing:-.035em; text-shadow:0 2px 34px rgba(0,0,0,.55)}
 .hero-inner h1 em{font-style:normal; color:var(--oro-bright)}
-.hero-inner .lead{color:#cfc3b1; font-size:clamp(17px,2.2vw,20px); margin-top:20px; max-width:40ch}
+.hero-inner .lead{color:#dccfbc; font-size:clamp(16px,2.2vw,20px); margin-top:20px; max-width:40ch; text-shadow:0 1px 16px rgba(0,0,0,.6)}
+@media(max-width:760px){ .hero-copy::before{background:linear-gradient(0deg, rgba(10,8,6,.78) 0%, rgba(10,8,6,.28) 42%, rgba(10,8,6,.68) 100%)} }
 .hero-inner .cta{display:flex; gap:12px; margin-top:28px; flex-wrap:wrap}
 .hero-inner .meta{margin-top:30px; display:flex; border-top:1px solid rgba(243,238,230,.14); padding-top:16px}
 .hero-inner .meta div{padding-right:22px; margin-right:22px; border-right:1px solid rgba(243,238,230,.12)}
@@ -110,6 +114,7 @@ p{margin:0}
   font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.1em; color:#f3eee6;
   background:rgba(16,14,11,.62); border:1px solid rgba(255,255,255,.12); border-radius:8px; padding:8px 13px; display:flex; align-items:center; gap:9px}
 .variant-chip .sq{width:9px;height:9px;border-radius:2px;background:var(--oro-bright)}
+@media(max-width:680px){ .variant-chip{top:auto; bottom:72px; right:16px} }
 .scroll-hint{position:absolute; z-index:3; bottom:22px; left:50%; transform:translateX(-50%);
   color:#8a7d6b; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.18em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:8px; transition:opacity .3s}
 .scroll-hint .m{width:22px;height:34px;border:1.5px solid #55493a;border-radius:11px;position:relative}
@@ -154,6 +159,21 @@ section.alt{background:var(--bg-2); background-image:radial-gradient(var(--grid)
 @media(max-width:860px){ .flow{grid-template-columns:repeat(2,1fr)} .flow::before{display:none} }
 @media(max-width:480px){ .flow{grid-template-columns:1fr} }
 
+/* uso (secuencia gráfica) */
+.usage-intro{margin:52px 0 18px; font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); display:flex; align-items:center; gap:10px}
+.usage-intro::before{content:""; width:8px;height:8px;border-radius:2px;background:var(--oro)}
+.usage{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+.uframe{background:var(--carbon); border:1px solid var(--line-2); border-radius:14px; padding:16px; overflow:hidden}
+.usvg{width:100%; height:auto; display:block; margin-bottom:12px}
+.usvg .lk{fill:#1f1a12; stroke:#4a4130; stroke-width:2}
+.usvg .fig{stroke:#e9ddc7}
+.uframe .code{font-family:"IBM Plex Mono"; font-size:11px; color:var(--oro-bright); letter-spacing:.1em}
+.uframe h3{color:#f3eee6; font-size:15px; margin-top:5px; font-weight:700}
+.uframe p{color:#bcae9b; font-size:13px; margin-top:6px}
+@keyframes tapPulse{0%,100%{opacity:.15} 50%{opacity:1}}
+@media(prefers-reduced-motion:no-preference){ .usvg .r1{animation:tapPulse 1.8s ease-in-out infinite} .usvg .r2{animation:tapPulse 1.8s ease-in-out .3s infinite} .usvg .r3{animation:tapPulse 1.8s ease-in-out .6s infinite} }
+@media(max-width:860px){ .usage{grid-template-columns:1fr 1fr} }
+
 /* variantes */
 .variants{display:grid; grid-template-columns:1fr 1fr; gap:18px}
 .variant{border:1px solid var(--line-2); border-radius:var(--radius); background:var(--panel); overflow:hidden; transition:transform .2s, border-color .2s}
@@ -189,7 +209,7 @@ section.alt{background:var(--bg-2); background-image:radial-gradient(var(--grid)
 .spec-table tr:first-child td{border-top:1px solid var(--line-2)}
 .spec-table td:first-child{color:var(--ink-3); font-family:"IBM Plex Mono"; width:40%; font-size:12.5px; letter-spacing:.03em}
 .note{background:var(--panel); border:1px solid var(--line-2); border-radius:12px; padding:22px}
-.note .k{display:inline-flex; align-items:center; gap:9px; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--oro); margin-bottom:12px}
+.note .k{display:flex; align-items:center; gap:9px; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--oro); margin-bottom:12px}
 .note .k::before{content:""; width:8px; height:8px; border-radius:2px; background:var(--oro-bright)}
 .note{font-size:14px; color:var(--ink-2)} .note b{color:var(--ink)}
 @media(max-width:760px){ .specs{grid-template-columns:1fr} }
@@ -247,9 +267,9 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
 
     <div class="hero-copy" id="herocopy">
       <div class="wrap"><div class="hero-inner">
-        <div class="hero-tag">Casilleros inteligentes · Córdoba, AR</div>
+        <div class="hero-tag">Casilleros inteligentes · Córdoba</div>
         <h1>Tu locker,<br><em>un toque.</em></h1>
-        <p class="lead">Sin llaves, sin candados, sin fichas. Acercás el celular al tag NFC y se abre. Scrolleá para ver cómo está hecho por dentro.</p>
+        <p class="lead">Sin llaves, sin candados, sin fichas. Acercás el celular y se abre.</p>
         <div class="cta">
           <a class="btn on-dark" href="#contacto">Quiero LockIt en mi local</a>
           <a class="btn ghost on-dark" href="#como">Cómo funciona</a>
@@ -301,6 +321,57 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
       <div class="step alt-node reveal"><span class="node"></span><span class="code">03</span><h3>Se libera la traba</h3><p>El ESP32 activa la cerradura con un pulso. La puerta se abre sola.</p></div>
       <div class="step alt-node reveal"><span class="node"></span><span class="code">04</span><h3>Confirma el cierre</h3><p>Un sensor magnético detecta la puerta cerrada y actualiza el panel.</p></div>
     </div>
+
+    <div class="usage-intro">Así de simple para quien lo usa</div>
+    <div class="usage">
+      <div class="uframe framed reveal">
+        <svg class="usvg" viewBox="0 0 140 116" aria-hidden="true">
+          <rect class="lk" x="80" y="12" width="50" height="92" rx="8"/>
+          <rect x="86" y="18" width="38" height="80" rx="5" fill="none" stroke="#4a4130" stroke-width="1.3"/>
+          <rect x="99" y="90" width="16" height="4" rx="2" fill="#3a3223"/>
+          <path class="fig" d="M6 92 q16 -4 30 -12" fill="none" stroke-width="3" stroke-linecap="round"/>
+          <rect x="34" y="50" width="20" height="34" rx="4" transform="rotate(20 44 67)" fill="#241d13" stroke="#E7A23C" stroke-width="2"/>
+          <g fill="none" stroke="#E7A23C" stroke-linecap="round" stroke-width="2.4">
+            <path class="r1" d="M62 56 a12 12 0 0 1 0 24"/>
+            <path class="r2" d="M70 51 a18 18 0 0 1 0 34"/>
+            <path class="r3" d="M78 46 a24 24 0 0 1 0 44"/>
+          </g>
+        </svg>
+        <div class="code">01</div><h3>Acercás el celu</h3><p>A la puerta del locker. Sin app, sin llave.</p>
+      </div>
+      <div class="uframe framed reveal">
+        <svg class="usvg" viewBox="0 0 140 116" aria-hidden="true">
+          <rect class="lk" x="66" y="12" width="50" height="92" rx="8"/>
+          <rect x="72" y="18" width="38" height="80" rx="5" fill="#0e0c09"/>
+          <g transform="rotate(-36 72 58)"><rect x="34" y="18" width="38" height="80" rx="5" fill="#241d13" stroke="#E7A23C" stroke-width="1.6"/><circle cx="42" cy="58" r="3.4" fill="none" stroke="#E7A23C" stroke-width="1.6"/></g>
+          <rect x="85" y="90" width="16" height="4" rx="2" fill="#E7A23C"/>
+        </svg>
+        <div class="code">02</div><h3>Se abre sola</h3><p>La cerradura se libera y la puerta se abre.</p>
+      </div>
+      <div class="uframe framed reveal">
+        <svg class="usvg" viewBox="0 0 140 116" aria-hidden="true">
+          <rect class="lk" x="74" y="12" width="50" height="92" rx="8"/>
+          <rect x="80" y="18" width="38" height="80" rx="5" fill="#0e0c09"/>
+          <rect x="26" y="54" width="42" height="26" rx="12" fill="#241d13" stroke="#8a7d6b" stroke-width="2"/>
+          <path d="M40 54 a11 8 0 0 1 18 0" fill="none" stroke="#8a7d6b" stroke-width="2"/>
+          <path d="M70 67 h16 M86 67 l-6 -4 M86 67 l-6 4" fill="none" stroke="#E7A23C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="code">03</div><h3>Guardás tus cosas</h3><p>Dejás lo tuyo y cerrás la puerta.</p>
+      </div>
+      <div class="uframe framed reveal">
+        <svg class="usvg" viewBox="0 0 140 116" aria-hidden="true">
+          <rect class="lk" x="42" y="12" width="50" height="92" rx="8"/>
+          <rect x="48" y="18" width="38" height="80" rx="5" fill="none" stroke="#4a4130" stroke-width="1.3"/>
+          <rect x="60" y="90" width="16" height="4" rx="2" fill="#E7A23C"/>
+          <g transform="translate(84 42)">
+            <path d="M6 13 V9 a6 6 0 0 1 12 0 V13" fill="none" stroke="#E7A23C" stroke-width="2.6" stroke-linecap="round"/>
+            <rect x="2" y="13" width="20" height="16" rx="4" fill="#E7A23C"/>
+            <path d="M8 21 l3 3 5 -6" fill="none" stroke="#171310" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+        <div class="code">04</div><h3>Trabado y listo</h3><p>Queda cerrado y solo lo abrís vos.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -311,12 +382,12 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
     <div class="variants">
       <div class="variant clear framed reveal">
         <div class="hd"><div class="code">LÍNEA·01</div><h3><span class="dot"></span>LockIt Clear</h3></div>
-        <ul><li>Puerta transparente en policarbonato resistente a golpes.</li><li>Ves si hay algo adentro: cero dudas de "¿está usado?".</li><li>LED perimetral de estado.</li><li>La opción más accesible. Ideal para gimnasios y clubes.</li></ul>
+        <ul><li>Puerta transparente en policarbonato resistente a golpes.</li><li>Ves el interior de un vistazo: sabés al instante si está libre.</li><li>Indicador luminoso perimetral de estado.</li><li>La opción más accesible, ideal para gimnasios y clubes.</li></ul>
         <div class="spec"><div>MATERIAL<b>Policarbonato</b></div><div>ESTADO<b>LED perimetral</b></div><div>MEDIDA<b>330×430×465</b></div></div>
       </div>
       <div class="variant glow framed reveal">
         <div class="hd"><div class="code">LÍNEA·02</div><h3><span class="dot"></span>LockIt Glow</h3></div>
-        <ul><li>Puerta opaca para máxima privacidad.</li><li>Indicador OLED embutido: número, estado y animaciones.</li><li>Estética premium, más "tech". Ideal para oficinas y coworkings.</li><li>Mismo nodo ESP32 + NFC + cerradura + sensor.</li></ul>
+        <ul><li>Puerta opaca para máxima privacidad.</li><li>Indicador OLED embutido con número y estado.</li><li>Estética premium, ideal para oficinas y coworkings.</li><li>La misma cerradura electrónica con tag NFC.</li></ul>
         <div class="spec"><div>MATERIAL<b>Opaca + OLED</b></div><div>ESTADO<b>OLED embutido</b></div><div>MEDIDA<b>330×430×465</b></div></div>
       </div>
     </div>
@@ -342,13 +413,13 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
       <h2>Ingeniería honesta, fabricable en Córdoba.</h2></div>
     <div class="specs">
       <table class="spec-table">
-        <tr><td>Apertura</td><td>Tag NFC pasivo (NTAG) → webapp/PWA. Sin instalar app.</td></tr>
-        <tr><td>Controlador</td><td>ESP32 por puerta (WiFi + BLE + ESP-NOW).</td></tr>
-        <tr><td>Red</td><td>Malla ESP-NOW entre lockers + 1 gateway al WiFi del local.</td></tr>
-        <tr><td>Cerradura</td><td>Solenoide 12 V por pulso, driver MOSFET con diodo flyback.</td></tr>
-        <tr><td>Sensor de puerta</td><td>Efecto Hall + imán: confirma cerrado/abierto real.</td></tr>
+        <tr><td>Apertura</td><td>Cerradura electrónica con tag NFC. Sin llaves ni app.</td></tr>
+        <tr><td>Inteligencia</td><td>Cada puerta es autónoma y está conectada en red.</td></tr>
+        <tr><td>Conectividad</td><td>Red propia entre lockers — no depende del WiFi del local.</td></tr>
+        <tr><td>Cierre</td><td>Confirmación real de cierre por sensor magnético.</td></tr>
+        <tr><td>Estado</td><td>Indicador luminoso por puerta: libre / ocupado.</td></tr>
         <tr><td>Medida interior</td><td>300 × 400 × 450 mm (módulo de gimnasio).</td></tr>
-        <tr><td>Sin internet</td><td>Modo degradado: cache local + llave maestra de staff.</td></tr>
+        <tr><td>Sin internet</td><td>Sigue funcionando en modo local.</td></tr>
       </table>
       <div class="note framed"><div class="k">Estado del proyecto</div>LockIt está en etapa de fundación: producto, arquitectura, CAD paramétrico (STEP/STL/DXF listos para taller) y este material de venta. El próximo paso es el <b>prototipo físico</b> y un <b>gimnasio piloto</b> en Córdoba.</div>
     </div>
@@ -385,22 +456,53 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
   if (typeof THREE === "undefined"){ if(fallback) fallback.textContent="No se pudo cargar el 3D."; return; }
 
   var COL = { carbon:0x171310, metal:0x2b241b, oro:0xE7A23C, coral:0xF0764F };
-  var renderer, scene, camera, group, env, parts=[], doors=[];
+  var renderer, scene, camera, group, env, parts=[], doors=[], TEX={};
   var W=3.3, D=4.65, MH=4.3, N=3, WALL=0.15, BASE=1.0, CAP=0.4;
 
-  function mat(color,m,r,opts){ return new THREE.MeshStandardMaterial(Object.assign({color:color,metalness:(m==null?0.55:m),roughness:(r==null?0.45:r)},opts||{})); }
+  // --- Texturas procedurales (micro-detalle tipo "escaneado", sin assets externos) ---
+  function makeTextures(){
+    // ruido de rugosidad
+    var s=256, c=document.createElement("canvas"); c.width=c.height=s; var g=c.getContext("2d");
+    var img=g.createImageData(s,s), d=img.data;
+    for(var i=0;i<s*s;i++){ var v=150+Math.random()*95; d[i*4]=d[i*4+1]=d[i*4+2]=v; d[i*4+3]=255; }
+    g.putImageData(img,0,0);
+    TEX.rough=new THREE.CanvasTexture(c); TEX.rough.wrapS=TEX.rough.wrapT=THREE.RepeatWrapping; TEX.rough.repeat.set(3,3);
+    // micro-cepillado (bump)
+    var c2=document.createElement("canvas"); c2.width=c2.height=s; var g2=c2.getContext("2d");
+    g2.fillStyle="#7f7f7f"; g2.fillRect(0,0,s,s);
+    for(var k=0;k<s*4;k++){ var y=Math.random()*s; g2.globalAlpha=0.06+Math.random()*0.14; g2.strokeStyle=Math.random()>0.5?"#d8d8d8":"#3a3a3a"; g2.beginPath(); g2.moveTo(0,y); g2.lineTo(s,y+(Math.random()-0.5)*1.5); g2.stroke(); }
+    g2.globalAlpha=1;
+    TEX.bump=new THREE.CanvasTexture(c2); TEX.bump.wrapS=TEX.bump.wrapT=THREE.RepeatWrapping; TEX.bump.repeat.set(1,4);
+    // sombra de contacto (AO blob)
+    var c3=document.createElement("canvas"); c3.width=c3.height=256; var g3=c3.getContext("2d");
+    var grd=g3.createRadialGradient(128,128,10,128,128,128); grd.addColorStop(0,"rgba(0,0,0,.6)"); grd.addColorStop(.55,"rgba(0,0,0,.28)"); grd.addColorStop(1,"rgba(0,0,0,0)");
+    g3.fillStyle=grd; g3.fillRect(0,0,256,256); TEX.contact=new THREE.CanvasTexture(c3);
+  }
+  function mat(color,m,r,opts){
+    var o=Object.assign({color:color,metalness:(m==null?0.55:m),roughness:(r==null?0.45:r)},opts||{});
+    if(TEX.rough){ o.roughnessMap=TEX.rough; o.bumpMap=TEX.bump; o.bumpScale=0.004; }
+    return new THREE.MeshStandardMaterial(o);
+  }
   function addPart(mesh,dir,amt){ mesh.userData.base=mesh.position.clone(); parts.push({mesh:mesh,dir:dir,amt:amt}); group.add(mesh); return mesh; }
   function box(w,h,d,material){ var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material); m.castShadow=true; m.receiveShadow=true; return m; }
+  function cyl(r,h,material,seg){ var m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,seg||18),material); m.castShadow=true; m.receiveShadow=true; return m; }
 
   function buildEnv(){
-    var s=new THREE.Scene(); s.background=new THREE.Color(0x140f0a);
-    function L(x,y,z,c,i){ var p=new THREE.Mesh(new THREE.PlaneGeometry(8,8),new THREE.MeshBasicMaterial({color:c})); p.position.set(x,y,z); p.lookAt(0,0,0); p.material.color.multiplyScalar(i); s.add(p); }
-    L(6,5,6,0xffdca0,0.7); L(-7,3,4,0xE7A23C,0.4); L(0,8,-6,0xfff0d6,0.6); L(0,-6,3,0x140f0a,1);
-    return new THREE.PMREMGenerator(renderer).fromScene(s,0.04).texture;
+    var s=new THREE.Scene(); s.background=new THREE.Color(0x120d09);
+    // sala envolvente tenue para reflejos con contexto
+    s.add(new THREE.Mesh(new THREE.BoxGeometry(34,22,34), new THREE.MeshBasicMaterial({color:0x1a130c, side:THREE.BackSide})));
+    function P(x,y,z,w,h,c,i){ var p=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:c})); p.position.set(x,y,z); p.lookAt(0,0,0); p.material.color.multiplyScalar(i); s.add(p); }
+    P(8,6,7,11,11,0xffe3b0,1.0);   // softbox cálido (key)
+    P(-9,4,3,8,13,0xE7A23C,0.5);   // rim oro
+    P(0,11,-3,15,7,0xfff2d8,0.95); // cenital
+    P(3,-8,4,13,9,0x241608,1.0);   // rebote piso
+    return new THREE.PMREMGenerator(renderer).fromScene(s,0.03).texture;
   }
   function buildLocker(){
     group=new THREE.Group(); var bodyMat=mat(COL.metal,0.6,0.42,{envMapIntensity:1.15}); var Htot=BASE+N*MH+CAP;
     var base=box(W+0.1,BASE,D,mat(COL.carbon,0.5,0.6)); base.position.set(0,BASE/2,0); addPart(base,new THREE.Vector3(0,-1,0),2.4);
+    var footMat=mat(0x0c0a07,0.3,0.72);
+    [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(s){ var f=cyl(0.13,0.2,footMat,16); f.position.set(s[0]*(W/2-0.28),0.1,s[1]*(D/2-0.4)); addPart(f,new THREE.Vector3(0,-1,0),2.4); });
     var cap=box(W+0.1,CAP,D,bodyMat); cap.position.set(0,BASE+N*MH+CAP/2,0); addPart(cap,new THREE.Vector3(0,1,0),2.8);
     var lw=box(WALL,N*MH,D,bodyMat); lw.position.set(-W/2+WALL/2,BASE+N*MH/2,0); addPart(lw,new THREE.Vector3(-1,0,0),3.4);
     var rw=box(WALL,N*MH,D,bodyMat); rw.position.set(W/2-WALL/2,BASE+N*MH/2,0); addPart(rw,new THREE.Vector3(1,0,0),3.4);
@@ -424,7 +526,13 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
     var led=box(dw-2*border,0.09,0.06,ledMat); led.position.set(0,cy-dh/2+border/2,z+0.04); addPart(led,out.clone(),4.6);
     var ledGlow=new THREE.Sprite(glowSprite(COL.oro)); ledGlow.scale.set(3,0.7,1); ledGlow.position.set(0,cy-dh/2+border/2,z+0.12); addPart(ledGlow,out.clone(),4.6);
     var nfcMat=new THREE.MeshStandardMaterial({color:0x35291b,emissive:new THREE.Color(COL.oro),emissiveIntensity:0.5,metalness:0.3,roughness:0.5});
-    var nfc=new THREE.Mesh(new THREE.TorusGeometry(0.24,0.05,10,28),nfcMat); nfc.position.set(dw/2-0.55,cy-0.2,z+0.05); addPart(nfc,out.clone(),5.4);
+    var nfc=new THREE.Mesh(new THREE.TorusGeometry(0.24,0.05,12,32),nfcMat); nfc.position.set(dw/2-0.55,cy-0.2,z+0.05); addPart(nfc,out.clone(),5.4);
+    // --- Herrajes reales ---
+    var hwMat=mat(0x171009,0.8,0.34);
+    [dh/2-0.55,-dh/2+0.55].forEach(function(hy){ var hg=cyl(0.075,0.5,hwMat,14); hg.position.set(-dw/2+0.07,cy+hy,z+0.02); addPart(hg,out.clone(),4.6); });
+    var handle=box(0.09,1.1,0.16,mat(0x2f2717,0.85,0.28)); handle.position.set(dw/2-0.28,cy,z+0.13); addPart(handle,out.clone(),4.9);
+    var scrMat=mat(0x40351f,0.9,0.3);
+    [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(s2){ var sc=cyl(0.05,0.05,scrMat,10); sc.rotation.x=Math.PI/2; sc.position.set(s2[0]*(dw/2-0.22),cy+s2[1]*(dh/2-0.22),z+dt/2+0.01); addPart(sc,out.clone(),4.6); });
     doors.push({glass:glass,opaque:opaque,oled:oled,led:led,ledGlow:ledGlow});
   }
   function glowSprite(color){ var c=document.createElement("canvas"); c.width=c.height=128; var g=c.getContext("2d"); var col=new THREE.Color(color);
@@ -434,17 +542,22 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
   function init(){
     renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-    renderer.outputEncoding=THREE.sRGBEncoding; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.08;
+    renderer.outputEncoding=THREE.sRGBEncoding; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.02;
     renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+    makeTextures();
     scene=new THREE.Scene(); env=buildEnv(); scene.environment=env;
     camera=new THREE.PerspectiveCamera(32,1,0.1,200);
-    var key=new THREE.DirectionalLight(0xffe6b8,2.5); key.position.set(7,11,9); key.castShadow=true; key.shadow.mapSize.set(1024,1024);
-    key.shadow.camera.near=1; key.shadow.camera.far=60; key.shadow.camera.left=-12; key.shadow.camera.right=12; key.shadow.camera.top=14; key.shadow.camera.bottom=-14; key.shadow.bias=-0.0004; scene.add(key);
-    var fill=new THREE.DirectionalLight(0xffd9a0,0.6); fill.position.set(-8,3,5); scene.add(fill);
-    var rim=new THREE.DirectionalLight(0xE7A23C,1.0); rim.position.set(-4,6,-8); scene.add(rim);
-    scene.add(new THREE.AmbientLight(0x3a2c1c,0.7));
+    var key=new THREE.DirectionalLight(0xffe6b8,2.6); key.position.set(8,12,9); key.castShadow=true; key.shadow.mapSize.set(2048,2048); key.shadow.radius=4;
+    key.shadow.camera.near=1; key.shadow.camera.far=70; key.shadow.camera.left=-13; key.shadow.camera.right=13; key.shadow.camera.top=15; key.shadow.camera.bottom=-15; key.shadow.bias=-0.00035; scene.add(key);
+    var fill=new THREE.DirectionalLight(0xffd9a0,0.55); fill.position.set(-8,3,5); scene.add(fill);
+    var rim=new THREE.DirectionalLight(0xE7A23C,1.1); rim.position.set(-4,6,-8); scene.add(rim);
+    scene.add(new THREE.HemisphereLight(0x2a2416,0x140f0a,0.5));
+    scene.add(new THREE.AmbientLight(0x2a2014,0.45));
     var Htot=buildLocker();
-    var floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.ShadowMaterial({opacity:0.36})); floor.rotation.x=-Math.PI/2; floor.position.y=-Htot/2; floor.receiveShadow=true; scene.add(floor);
+    var floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.ShadowMaterial({opacity:0.4})); floor.rotation.x=-Math.PI/2; floor.position.y=-Htot/2; floor.receiveShadow=true; scene.add(floor);
+    // sombra de contacto suave (AO) bajo la columna
+    var contact=new THREE.Mesh(new THREE.PlaneGeometry(W*2.4,D*2.6), new THREE.MeshBasicMaterial({map:TEX.contact,transparent:true,opacity:0.85,depthWrite:false,color:0x000000}));
+    contact.rotation.x=-Math.PI/2; contact.position.y=-Htot/2+0.02; scene.add(contact);
     resize(); if(fallback) fallback.style.display="none";
     window.addEventListener("resize",resize); window.addEventListener("scroll",onScroll,{passive:true}); window.addEventListener("pointermove",onPointer,{passive:true});
     onScroll(); requestAnimationFrame(loop);
@@ -464,14 +577,14 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
         vname=document.getElementById("vname"), anTag=document.getElementById("an-tag"), anTitle=document.getElementById("an-title"), anText=document.getElementById("an-text");
     var op=1-smooth(0.02,0.10,p); hero.style.opacity=op; hint.style.opacity=op;
     var caps=[
-      [0.12,0.20,"ANATOMÍA · CLEAR","El gabinete","Panel anti-humedad con ventilación trasera. Melamina hidrófuga o chapa plegada."],
-      [0.20,0.28,"ANATOMÍA · CLEAR","La puerta de policarbonato","Transparente y resistente a golpes: ves el interior sin abrir."],
-      [0.28,0.36,"ANATOMÍA · CLEAR","Cerradura + ESP32","Solenoide 12 V por pulso y el cerebro de cada puerta, embutidos."],
-      [0.36,0.46,"ANATOMÍA · CLEAR","Tag NFC + sensor","El tag que abre la webapp y el sensor magnético que confirma el cierre."],
-      [0.46,0.60,"SE ARMA SOLO","De Clear a Glow","La misma electrónica, otra piel. Seguí scrolleando."],
-      [0.62,0.72,"ANATOMÍA · GLOW","Puerta opaca premium","Privacidad total y estética sobria para oficinas y coworkings."],
-      [0.72,0.82,"ANATOMÍA · GLOW","Indicador OLED","Muestra número, estado y animaciones. El detalle 'wow'."],
-      [0.82,0.94,"ANATOMÍA · GLOW","Malla + panel","Los lockers se hablan por ESP-NOW y reportan al panel del local."]
+      [0.12,0.20,"ANATOMÍA · CLEAR","Estructura","Cuerpo anti-humedad con ventilación, pensado para vestuarios."],
+      [0.20,0.28,"ANATOMÍA · CLEAR","Puerta de policarbonato","Transparente y resistente a golpes: ves el interior sin abrir."],
+      [0.28,0.36,"ANATOMÍA · CLEAR","Cerradura electrónica","Se libera con el tag NFC, sin llaves ni fichas."],
+      [0.36,0.46,"ANATOMÍA · CLEAR","Tag NFC y sensor","Apertura por tag NFC y confirmación de cierre por sensor magnético."],
+      [0.46,0.60,"MISMA TECNOLOGÍA","De Clear a Glow","La misma cerradura inteligente, otra terminación."],
+      [0.62,0.72,"ANATOMÍA · GLOW","Puerta opaca premium","Privacidad total y estética sobria para oficinas."],
+      [0.72,0.82,"ANATOMÍA · GLOW","Indicador OLED","Número y estado de cada puerta, en pantalla."],
+      [0.82,0.94,"ANATOMÍA · GLOW","Lockers en red","Conectados entre sí y reportando a un panel central."]
     ];
     var a=null; for(var i=0;i<caps.length;i++){ if(p>=caps[i][0]&&p<caps[i][1]){ a=caps[i]; break; } }
     if(a&&p>=0.10){ an.style.opacity=1; anTag.textContent=a[2]; anTitle.textContent=a[3]; anText.textContent=a[4]; } else an.style.opacity=0;
