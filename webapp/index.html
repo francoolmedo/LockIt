@@ -24,7 +24,7 @@ body{margin:0; background:radial-gradient(120% 80% at 50% 0%, color-mix(in srgb,
   display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px}
 .app{width:100%; max-width:400px; display:flex; flex-direction:column; gap:20px}
 .brand{display:flex; align-items:center; gap:9px; justify-content:center; font-family:"Archivo"; font-weight:800; font-size:20px}
-.brand .dot{width:11px; height:11px; border-radius:4px; background:var(--free); box-shadow:0 0 0 4px color-mix(in srgb,var(--free) 22%,transparent)}
+.brand svg{width:27px; height:27px; display:block} .brand b{color:var(--brand)}
 .card{background:linear-gradient(155deg,var(--panel),var(--panel-2)); border:1px solid var(--line);
   border-radius:22px; padding:26px; text-align:center; box-shadow:0 18px 46px rgba(0,0,0,.35)}
 .loc{font-family:"IBM Plex Mono"; color:var(--ink-3); letter-spacing:.1em; font-size:13px}
@@ -51,7 +51,14 @@ body{margin:0; background:radial-gradient(120% 80% at 50% 0%, color-mix(in srgb,
 </style>
 
 <div class="app">
-  <div class="brand"><span class="dot"></span>LockIt</div>
+  <div class="brand">
+    <svg viewBox="0 0 128 128" aria-label="LockIt">
+      <rect x="8" y="8" width="112" height="112" rx="30" fill="#15120E"/>
+      <path d="M46 57 V44 a18 18 0 0 1 36 0 V57" fill="none" stroke="#E7A23C" stroke-width="9" stroke-linecap="round"/>
+      <rect x="38" y="56" width="52" height="48" rx="13" fill="#E7A23C"/>
+      <rect x="44.5" y="62.5" width="39" height="35" rx="9" fill="none" stroke="#15120E" stroke-width="2" opacity="0.45"/>
+      <circle cx="64" cy="80" r="6" fill="#15120E"/><path d="M60.5 81 L58 97 h12 L67.5 81 Z" fill="#15120E"/>
+    </svg>Lock<b>It</b></div>
   <div class="card">
     <div class="loc" id="loc">GYM01 · LOCKER 014</div>
     <div class="state" id="state"><span class="led"></span>LIBRE</div>

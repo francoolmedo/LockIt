@@ -2,209 +2,238 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* ============================== BRAND TOKENS ==============================
-   Paleta: Carbón (casi negro cálido) + Oro/Ámbar (marca) + Coral (acento).
-   Inspirada en el premium tech de los smart gyms (negro+oro). */
+/* ================= TOKENS · Carbón + Oro + Coral ================= */
 :root{
   --carbon:#15120E; --carbon-2:#100E0B;
-  --bg:#F4EFE7; --bg-2:#ECE5D9; --panel:#FBF7F0; --panel-2:#F3ECE0;
-  --ink:#211A12; --ink-2:#574C3E; --ink-3:#877A69; --line:#E2D9C9; --line-2:#D2C6B2;
-  --oro:#B07A1E;              /* oro legible sobre claro (texto/bordes) */
-  --oro-bright:#E7A23C;       /* oro de relleno (botones, siempre) */
-  --oro-hi:#F2B255;           /* hover */
-  --coral:#CE543A; --crema:#F0E6D6;
-  --accent-ink:#1A1206;
-  --shadow:0 1px 2px rgba(26,18,6,.05), 0 10px 30px rgba(26,18,6,.07);
-  --radius:12px; --radius-s:9px; --maxw:1120px;
+  --bg:#F5F0E8; --bg-2:#ECE5D8; --panel:#FCF8F1; --panel-2:#F3ECE0;
+  --ink:#211A12; --ink-2:#5A4F41; --ink-3:#8A7D6B; --line:#E1D7C6; --line-2:#D0C4AF;
+  --oro:#B07A1E; --oro-bright:#E7A23C; --oro-hi:#F2B255; --coral:#CE543A;
+  --accent-ink:#1A1206; --grid:rgba(33,26,18,.05);
+  --radius:14px; --radius-s:10px; --maxw:1140px;
   color-scheme:light;
 }
 :root:not([data-theme="light"]){ @media (prefers-color-scheme:dark){
-  --bg:#100E0B; --bg-2:#0B0A08; --panel:#1C1811; --panel-2:#161209;
-  --ink:#F3EEE6; --ink-2:#BCB09E; --ink-3:#8A7F6E; --line:#2C2619; --line-2:#3A3223;
-  --oro:#E7A23C; --oro-bright:#E7A23C; --oro-hi:#F2B255; --coral:#F0764F;
-  --shadow:0 1px 2px rgba(0,0,0,.5), 0 20px 46px rgba(0,0,0,.5);
+  --bg:#100E0B; --bg-2:#0B0A08; --panel:#1B1710; --panel-2:#151109;
+  --ink:#F3EEE6; --ink-2:#BEB2A0; --ink-3:#897E6D; --line:#2A2418; --line-2:#3A3223;
+  --oro:#E7A23C; --coral:#F0764F; --grid:rgba(243,238,230,.045);
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#100E0B; --bg-2:#0B0A08; --panel:#1C1811; --panel-2:#161209;
-  --ink:#F3EEE6; --ink-2:#BCB09E; --ink-3:#8A7F6E; --line:#2C2619; --line-2:#3A3223;
-  --oro:#E7A23C; --oro-bright:#E7A23C; --oro-hi:#F2B255; --coral:#F0764F;
-  --shadow:0 1px 2px rgba(0,0,0,.5), 0 20px 46px rgba(0,0,0,.5);
+  --bg:#100E0B; --bg-2:#0B0A08; --panel:#1B1710; --panel-2:#151109;
+  --ink:#F3EEE6; --ink-2:#BEB2A0; --ink-3:#897E6D; --line:#2A2418; --line-2:#3A3223;
+  --oro:#E7A23C; --coral:#F0764F; --grid:rgba(243,238,230,.045);
   color-scheme:dark;
 }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0; background:var(--bg); color:var(--ink);
-  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; font-size:16px; line-height:1.6;
-  -webkit-font-smoothing:antialiased; overflow-x:hidden}
-h1,h2,h3{font-family:"Archivo",system-ui,sans-serif; text-wrap:balance; margin:0; line-height:1.04; letter-spacing:-.015em}
+body{margin:0; background:var(--bg); color:var(--ink); overflow-x:hidden;
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif; text-wrap:balance; margin:0; line-height:1.03; letter-spacing:-.02em}
 p{margin:0}
-.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:22px}
+.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:24px}
 .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
-.eyebrow{font-family:"IBM Plex Mono",monospace; text-transform:uppercase; letter-spacing:.2em; font-size:12px; color:var(--oro)}
+.ic{width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
 
-/* ============================== BUTTONS ============================== */
+/* marca de registro (esquinas técnicas) */
+.framed{position:relative}
+.framed::before,.framed::after{content:""; position:absolute; width:13px; height:13px; border:1.5px solid var(--oro); opacity:.55; pointer-events:none}
+.framed::before{top:9px; left:9px; border-width:1.5px 0 0 1.5px}
+.framed::after{bottom:9px; right:9px; border-width:0 1.5px 1.5px 0}
+
+/* ================= BOTONES ================= */
 .btn{position:relative; display:inline-flex; align-items:center; gap:9px; border:none; cursor:pointer;
   font-family:"IBM Plex Sans"; font-weight:600; font-size:15px; padding:13px 22px; border-radius:9px;
   background:var(--oro-bright); color:var(--accent-ink); text-decoration:none;
-  transition:transform .16s cubic-bezier(.4,0,.2,1), box-shadow .22s, background .2s;
-  box-shadow:0 1px 0 rgba(255,255,255,.22) inset, 0 3px 12px rgba(20,14,6,.20)}
+  transition:transform .16s cubic-bezier(.4,0,.2,1), background .2s, box-shadow .2s;
+  box-shadow:inset 0 0 0 1px rgba(26,18,6,.12)}
 .btn:not(.ghost)::after{content:"→"; font-weight:600; transition:transform .2s cubic-bezier(.4,0,.2,1)}
 .btn:not(.ghost):hover::after{transform:translateX(4px)}
-.btn:hover{transform:translateY(-2px); background:var(--oro-hi); box-shadow:0 1px 0 rgba(255,255,255,.3) inset, 0 9px 22px rgba(20,14,6,.28)}
+.btn:hover{transform:translateY(-2px); background:var(--oro-hi)}
 .btn:active{transform:translateY(0)}
 .btn:focus-visible{outline:2px solid var(--oro-bright); outline-offset:3px}
 .btn.ghost{background:transparent; color:var(--ink); border:1px solid var(--line-2); box-shadow:none}
-.btn.ghost:hover{border-color:var(--oro); color:var(--oro); transform:translateY(-2px)}
+.btn.ghost:hover{border-color:var(--oro); color:var(--oro)}
 .btn.on-dark{color:var(--accent-ink)}
-.btn.ghost.on-dark{color:#f3eee6; border-color:rgba(243,238,230,.28)}
+.btn.ghost.on-dark{color:#f3eee6; border-color:rgba(243,238,230,.26)}
 .btn.ghost.on-dark:hover{border-color:var(--oro-bright); color:var(--oro-bright)}
 
-/* ============================== NAV ============================== */
-.nav{position:fixed; top:0; left:0; right:0; z-index:60; height:62px; padding-top:env(safe-area-inset-top,0px);
-  backdrop-filter:blur(14px); background:color-mix(in srgb,var(--carbon) 72%, transparent); border-bottom:1px solid rgba(255,255,255,.06)}
+/* ================= NAV ================= */
+.nav{position:fixed; inset:0 0 auto 0; z-index:60; height:62px; padding-top:env(safe-area-inset-top,0px);
+  backdrop-filter:blur(14px); background:color-mix(in srgb,var(--carbon) 74%, transparent); border-bottom:1px solid rgba(255,255,255,.07)}
 .nav .wrap{display:flex; align-items:center; gap:16px; height:62px}
-.logo{display:flex; align-items:center; gap:10px; font-family:"Archivo"; font-weight:800; font-size:20px; letter-spacing:-.02em; color:#f3eee6}
+.logo{display:flex; align-items:center; gap:11px; font-family:"Archivo"; font-weight:800; font-size:20px; letter-spacing:-.03em; color:#f3eee6; text-decoration:none}
 .logo svg{width:30px; height:30px; display:block}
-.logo b{color:var(--oro-bright); font-weight:800}
+.logo b{color:var(--oro-bright)}
+.logo .tag{font-family:"IBM Plex Mono"; font-weight:400; font-size:10px; letter-spacing:.16em; color:#8a7d6b; text-transform:uppercase; border-left:1px solid rgba(243,238,230,.16); padding-left:11px; margin-left:2px}
 .nav nav{margin-left:auto; display:flex; gap:24px; font-size:14px; color:#c3b8a6}
 .nav nav a{text-decoration:none} .nav nav a:hover{color:#fff}
 .nav .btn{padding:9px 16px}
-@media(max-width:760px){ .nav nav{display:none} }
+@media(max-width:820px){ .nav nav, .logo .tag{display:none} }
 
-/* ============================== SHOWCASE 3D ============================== */
+/* ================= SHOWCASE 3D ================= */
 .showcase{position:relative; height:560vh; background:var(--carbon)}
 .stage{position:sticky; top:0; height:100vh; height:100svh; overflow:hidden;
-  background:
-    radial-gradient(75% 55% at 70% 32%, rgba(231,162,60,.14), transparent 62%),
-    radial-gradient(65% 55% at 22% 88%, rgba(206,84,58,.08), transparent 62%),
-    linear-gradient(180deg,#171310,#120F0C 60%,#15120E)}
-#gl{position:absolute; inset:0; width:100%; height:100%; display:block}
-.stage-fallback{position:absolute; inset:0; display:grid; place-items:center; color:#8a7f6e; font-family:"IBM Plex Mono"; font-size:13px}
+  background:radial-gradient(130% 100% at 50% -12%, #1c1611, #100E0B 62%)}
+.stage::before{content:""; position:absolute; inset:0; z-index:0;
+  background-image:linear-gradient(rgba(243,238,230,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(243,238,230,.035) 1px,transparent 1px);
+  background-size:46px 46px; mask-image:radial-gradient(70% 70% at 50% 45%,#000,transparent 85%)}
+.stage::after{content:""; position:absolute; inset:0; z-index:0; pointer-events:none; box-shadow:inset 0 0 180px 40px rgba(9,7,5,.75)}
+#gl{position:absolute; inset:0; width:100%; height:100%; display:block; z-index:1}
+.stage-fallback{position:absolute; inset:0; display:grid; place-items:center; color:#8a7d6b; font-family:"IBM Plex Mono"; font-size:13px}
 
 .hero-copy{position:absolute; z-index:3; inset:0; pointer-events:none; display:flex; align-items:center}
 .hero-copy .wrap{width:100%}
-.hero-inner{max-width:560px; pointer-events:auto}
-.hero-inner h1{color:#f6f1e9; font-size:clamp(40px,6.6vw,76px); font-weight:800}
+.hero-inner{max-width:580px; pointer-events:auto}
+.hero-tag{font-family:"IBM Plex Mono"; text-transform:uppercase; letter-spacing:.2em; font-size:12px; color:var(--oro-bright); display:inline-flex; align-items:center; gap:9px}
+.hero-tag::before{content:""; width:8px; height:8px; background:var(--oro-bright); border-radius:2px}
+.hero-inner h1{color:#f7f2ea; font-size:clamp(42px,6.8vw,80px); font-weight:900; margin-top:16px; letter-spacing:-.035em}
 .hero-inner h1 em{font-style:normal; color:var(--oro-bright)}
-.hero-inner .lead{color:#cdc1af; font-size:clamp(17px,2.2vw,20px); margin-top:20px; max-width:38ch}
+.hero-inner .lead{color:#cfc3b1; font-size:clamp(17px,2.2vw,20px); margin-top:20px; max-width:40ch}
 .hero-inner .cta{display:flex; gap:12px; margin-top:28px; flex-wrap:wrap}
-.hero-inner .meta{margin-top:26px; display:flex; gap:20px; flex-wrap:wrap; color:#9c8f7c; font-size:13px}
-.hero-inner .meta b{color:#f3eee6}
+.hero-inner .meta{margin-top:30px; display:flex; border-top:1px solid rgba(243,238,230,.14); padding-top:16px}
+.hero-inner .meta div{padding-right:22px; margin-right:22px; border-right:1px solid rgba(243,238,230,.12)}
+.hero-inner .meta div:last-child{border:none;margin:0;padding:0}
+.hero-inner .meta .v{font-family:"Archivo"; font-weight:800; font-size:21px; color:#f3eee6; display:block}
+.hero-inner .meta .k{font-family:"IBM Plex Mono"; font-size:10.5px; letter-spacing:.08em; color:#9c8f7c; text-transform:uppercase}
 
 .anatomy{position:absolute; z-index:3; left:0; right:0; bottom:8%; pointer-events:none; opacity:0; transition:opacity .35s}
-.anatomy .card{max-width:340px; background:rgba(21,18,14,.72); backdrop-filter:blur(8px);
-  border:1px solid rgba(231,162,60,.24); border-radius:12px; padding:16px 18px}
-.anatomy .tag{font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; color:var(--oro-bright); text-transform:uppercase}
-.anatomy h3{color:#f3eee6; font-size:20px; margin-top:6px; font-family:"Archivo"; font-weight:700}
-.anatomy p{color:#b8ac9a; font-size:14px; margin-top:6px}
+.anatomy .card{max-width:344px; background:rgba(16,14,11,.78); backdrop-filter:blur(8px); border:1px solid var(--line-2); border-radius:12px; padding:18px 20px}
+.anatomy .tag{font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; color:var(--oro-bright); text-transform:uppercase; display:flex; align-items:center; gap:8px}
+.anatomy .tag::before{content:""; width:6px; height:6px; background:var(--oro-bright); border-radius:1px}
+.anatomy h3{color:#f3eee6; font-size:21px; margin-top:8px; font-family:"Archivo"; font-weight:700}
+.anatomy p{color:#bcae9b; font-size:14px; margin-top:6px}
 
-.variant-chip{position:absolute; z-index:3; top:calc(84px + env(safe-area-inset-top,0px)); right:22px;
+.variant-chip{position:absolute; z-index:3; top:calc(84px + env(safe-area-inset-top,0px)); right:24px;
   font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.1em; color:#f3eee6;
-  background:rgba(21,18,14,.6); border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:7px 14px; display:flex; align-items:center; gap:8px}
-.variant-chip .d{width:9px;height:9px;border-radius:50%;background:var(--oro-bright);box-shadow:0 0 0 4px rgba(231,162,60,.2)}
+  background:rgba(16,14,11,.62); border:1px solid rgba(255,255,255,.12); border-radius:8px; padding:8px 13px; display:flex; align-items:center; gap:9px}
+.variant-chip .sq{width:9px;height:9px;border-radius:2px;background:var(--oro-bright)}
 .scroll-hint{position:absolute; z-index:3; bottom:22px; left:50%; transform:translateX(-50%);
-  color:#8a7f6e; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.18em; text-transform:uppercase;
-  display:flex; flex-direction:column; align-items:center; gap:7px; transition:opacity .3s}
-.scroll-hint .m{width:22px;height:34px;border:1.5px solid #55493a;border-radius:12px;position:relative}
+  color:#8a7d6b; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.18em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:8px; transition:opacity .3s}
+.scroll-hint .m{width:22px;height:34px;border:1.5px solid #55493a;border-radius:11px;position:relative}
 .scroll-hint .m::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:6px;border-radius:2px;background:var(--oro-bright);animation:wheel 1.6s ease-in-out infinite}
 @keyframes wheel{0%,100%{opacity:.2;transform:translate(-50%,0)}50%{opacity:1;transform:translate(-50%,7px)}}
-@media(max-width:760px){ .anatomy{bottom:14%} .hero-inner .lead{max-width:100%} }
+@media(max-width:760px){ .anatomy{bottom:13%} .hero-inner .lead{max-width:100%} }
 
-/* ============================== CONTENT ============================== */
-section.content{padding-block:78px; position:relative; z-index:2; background:var(--bg)}
-section.alt{background:var(--bg-2); border-block:1px solid var(--line)}
-.sec-head{max-width:58ch; margin-bottom:42px}
-.sec-head h2{font-size:clamp(27px,3.8vw,42px); font-weight:700; margin-top:12px}
-.sec-head p{margin-top:14px; color:var(--ink-2); font-size:17px}
+/* ================= TICKER ================= */
+.ticker{overflow:hidden; background:var(--carbon); border-block:1px solid rgba(243,238,230,.08); position:relative; z-index:2}
+.ticker .track{display:inline-flex; white-space:nowrap; will-change:transform; animation:marq 30s linear infinite}
+.ticker b{font-family:"IBM Plex Mono"; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:#c3b8a6; font-size:12.5px; padding:13px 0; display:inline-flex; align-items:center}
+.ticker b span{padding:0 26px} .ticker b i{color:var(--oro-bright); font-style:normal}
+@keyframes marq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){ .ticker .track{animation:none} }
 
-.problems{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-.prob{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:24px; transition:border-color .2s, transform .2s}
-.prob:hover{border-color:var(--line-2); transform:translateY(-2px)}
-.prob .n{font-family:"IBM Plex Mono"; color:var(--coral); font-size:13px; font-weight:600}
-.prob h3{font-size:18px; margin-top:10px} .prob p{color:var(--ink-2); margin-top:8px; font-size:15px}
+/* ================= SECCIONES ================= */
+section.content{padding-block:80px; position:relative; z-index:2; background:var(--bg)}
+section.alt{background:var(--bg-2); background-image:radial-gradient(var(--grid) 1.1px, transparent 1.4px); background-size:24px 24px}
+.shead{border-top:1px solid var(--line-2); padding-top:18px; margin-bottom:44px; max-width:62ch}
+.shead .tab{display:inline-flex; align-items:center; gap:10px; font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2)}
+.shead .tab .sq{width:8px;height:8px;border-radius:2px;background:var(--oro)}
+.shead .tab .code{color:var(--oro)}
+.shead h2{margin-top:18px; font-size:clamp(28px,3.9vw,44px); font-weight:800}
+.shead .sub{margin-top:14px; color:var(--ink-2); font-size:17px}
+
+/* problemas */
+.problems{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+.prob{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:24px 22px 22px; transition:transform .2s, border-color .2s}
+.prob:hover{transform:translateY(-3px); border-color:var(--line-2)}
+.prob .code{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.1em; color:var(--coral)}
+.prob h3{font-size:18px; margin-top:14px} .prob p{color:var(--ink-2); margin-top:8px; font-size:15px}
 @media(max-width:760px){ .problems{grid-template-columns:1fr} }
 
-.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; counter-reset:s}
-.step{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:22px; position:relative}
-.step::before{counter-increment:s; content:"0" counter(s); font-family:"IBM Plex Mono"; font-weight:600; color:var(--oro); font-size:13px; letter-spacing:.1em}
-.step h3{font-size:16px; margin-top:12px} .step p{color:var(--ink-2); font-size:14px; margin-top:8px}
-@media(max-width:860px){ .steps{grid-template-columns:repeat(2,1fr)} }
-@media(max-width:480px){ .steps{grid-template-columns:1fr} }
+/* flujo (proceso) */
+.flow{position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:6px}
+.flow::before{content:""; position:absolute; top:28px; left:9%; right:9%; height:1px; background:var(--line-2); z-index:0}
+.step{position:relative; padding:52px 16px 0}
+.step .node{position:absolute; top:21px; left:16px; width:15px; height:15px; background:var(--bg); border:1.5px solid var(--oro); transform:rotate(45deg); z-index:1}
+.step.alt-node .node{background:var(--bg-2)}
+.step .code{font-family:"IBM Plex Mono"; font-size:12px; color:var(--oro); letter-spacing:.1em}
+.step h3{font-size:16px; margin-top:8px} .step p{color:var(--ink-2); font-size:14px; margin-top:8px}
+@media(max-width:860px){ .flow{grid-template-columns:repeat(2,1fr)} .flow::before{display:none} }
+@media(max-width:480px){ .flow{grid-template-columns:1fr} }
 
-.variants{display:grid; grid-template-columns:1fr 1fr; gap:20px}
-.variant{border:1px solid var(--line-2); border-radius:var(--radius); padding:28px; background:var(--panel); transition:border-color .2s, transform .2s}
+/* variantes */
+.variants{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+.variant{border:1px solid var(--line-2); border-radius:var(--radius); background:var(--panel); overflow:hidden; transition:transform .2s, border-color .2s}
 .variant:hover{transform:translateY(-3px); border-color:var(--oro)}
-.variant .tag{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.12em; color:var(--ink-3)}
-.variant h3{font-size:27px; margin-top:8px; font-weight:700; display:flex; align-items:center; gap:10px}
-.variant h3::before{content:""; width:11px; height:11px; border-radius:3px}
-.variant.clear h3::before{background:var(--coral)} .variant.glow h3::before{background:var(--oro-bright)}
-.variant ul{margin:16px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px}
-.variant li{display:flex; gap:10px; color:var(--ink-2); font-size:15px}
-.variant li::before{content:"›"; color:var(--oro); font-family:"IBM Plex Mono"; font-weight:600}
+.variant .hd{padding:26px 26px 0; background-image:radial-gradient(var(--grid) 1px,transparent 1.3px); background-size:18px 18px}
+.variant .code{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.12em; color:var(--ink-3)}
+.variant h3{font-size:26px; margin-top:8px; font-weight:800; display:flex; align-items:center; gap:11px}
+.variant h3 .dot{width:12px; height:12px; border-radius:3px}
+.variant.clear h3 .dot{background:var(--coral)} .variant.glow h3 .dot{background:var(--oro-bright)}
+.variant ul{margin:18px 0 0; padding:0 26px; list-style:none; display:flex; flex-direction:column; gap:11px}
+.variant li{display:flex; gap:11px; color:var(--ink-2); font-size:15px}
+.variant li::before{content:"→"; color:var(--oro); font-family:"IBM Plex Mono"}
+.variant .spec{display:flex; gap:24px; flex-wrap:wrap; font-family:"IBM Plex Mono"; font-size:11px; color:var(--ink-3); padding:20px 26px; margin-top:22px; border-top:1px solid var(--line)}
+.variant .spec b{color:var(--ink); font-weight:600; display:block; font-family:"Archivo"; font-size:13px; margin-top:3px}
 @media(max-width:760px){ .variants{grid-template-columns:1fr} }
 
+/* segmentos */
 .segs{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
-.seg{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-s); padding:20px; transition:transform .2s, border-color .2s}
-.seg:hover{transform:translateY(-2px)}
-.seg .ico{font-size:26px} .seg h3{font-size:15px; margin-top:10px}
+.seg{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-s); padding:22px 20px; transition:transform .2s}
+.seg:hover{transform:translateY(-3px)}
+.seg .top{display:flex; align-items:center; justify-content:space-between}
+.seg .ic{color:var(--oro)} .seg .code{font-family:"IBM Plex Mono"; font-size:10.5px; color:var(--ink-3); letter-spacing:.08em}
+.seg h3{font-size:16px; margin-top:16px}
 .seg.anchor{border-color:var(--oro)}
-.seg .badge{display:inline-block; margin-top:8px; font-family:"IBM Plex Mono"; font-size:10px; letter-spacing:.1em; color:var(--oro); border:1px solid var(--oro); border-radius:6px; padding:2px 6px}
+.seg.anchor .badge{display:inline-block; margin-top:10px; font-family:"IBM Plex Mono"; font-size:10px; letter-spacing:.1em; color:var(--oro)}
+.seg.anchor .badge::before{content:"[ "} .seg.anchor .badge::after{content:" ]"}
 @media(max-width:760px){ .segs{grid-template-columns:1fr 1fr} }
 
-.specs{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; align-items:start}
+/* specs */
+.specs{display:grid; grid-template-columns:1.15fr .85fr; gap:22px; align-items:start}
 .spec-table{width:100%; border-collapse:collapse; font-size:14.5px}
-.spec-table td{padding:13px 4px; border-bottom:1px solid var(--line); vertical-align:top}
-.spec-table td:first-child{color:var(--ink-3); font-family:"IBM Plex Mono"; width:42%; font-size:13px}
-.note{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:20px 22px; font-size:14px; color:var(--ink-2)}
-.note .k{display:inline-flex; align-items:center; gap:8px; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--oro); margin-bottom:11px}
-.note .k::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--oro-bright); box-shadow:0 0 0 3px color-mix(in srgb,var(--oro-bright) 24%,transparent)}
-.note b{color:var(--ink)}
+.spec-table td{padding:14px 4px; border-bottom:1px solid var(--line); vertical-align:top}
+.spec-table tr:first-child td{border-top:1px solid var(--line-2)}
+.spec-table td:first-child{color:var(--ink-3); font-family:"IBM Plex Mono"; width:40%; font-size:12.5px; letter-spacing:.03em}
+.note{background:var(--panel); border:1px solid var(--line-2); border-radius:12px; padding:22px}
+.note .k{display:inline-flex; align-items:center; gap:9px; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--oro); margin-bottom:12px}
+.note .k::before{content:""; width:8px; height:8px; border-radius:2px; background:var(--oro-bright)}
+.note{font-size:14px; color:var(--ink-2)} .note b{color:var(--ink)}
 @media(max-width:760px){ .specs{grid-template-columns:1fr} }
 
-.cta-band{background:linear-gradient(150deg, var(--carbon), #241a10); border-radius:20px; padding:48px; text-align:center; overflow:hidden; position:relative}
-.cta-band::before{content:""; position:absolute; inset:0; background:radial-gradient(60% 80% at 50% 0%, rgba(231,162,60,.2), transparent 60%)}
-.cta-band > *{position:relative}
-.cta-band h2{font-size:clamp(27px,4.2vw,42px); font-weight:800; color:#f6f1e9}
+/* CTA */
+.cta-band{background:var(--carbon); border:1px solid var(--line-2); border-radius:20px; padding:52px 40px; text-align:center; overflow:hidden; position:relative;
+  background-image:radial-gradient(rgba(243,238,230,.05) 1px,transparent 1.3px); background-size:26px 26px}
+.cta-band .tab{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--oro-bright)}
+.cta-band h2{font-size:clamp(28px,4.3vw,44px); font-weight:900; color:#f7f2ea; margin-top:14px; letter-spacing:-.03em}
 .cta-band p{margin:14px auto 0; color:#c8bca8; max-width:46ch}
 .cta-band .cta{margin-top:28px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
 
-footer{border-top:1px solid var(--line); padding-block:36px; color:var(--ink-3); font-size:13px; background:var(--bg)}
+footer{border-top:1px solid var(--line-2); padding-block:34px; color:var(--ink-3); font-size:13px; background:var(--bg)}
 footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center}
-footer .logo{color:var(--ink)}
+footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
 
 .reveal{opacity:1}
 @media (prefers-reduced-motion:no-preference){
-  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1; transform:none}
 }
 </style>
 
-<!-- Marca gráfica reutilizable -->
+<!-- ================= SVG defs (logo + íconos) ================= -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-  <g id="lockit-mark">
+  <g id="mark">
     <rect x="8" y="8" width="112" height="112" rx="30" fill="#15120E"/>
-    <g fill="none" stroke="#E7A23C" stroke-linecap="round">
-      <path d="M64 92 A 30 30 0 0 1 64 32" stroke-width="7" opacity="0.32"/>
-      <path d="M64 82 A 20 20 0 0 1 64 42" stroke-width="7" opacity="0.58"/>
-      <path d="M64 72 A 10 10 0 0 1 64 52" stroke-width="7"/>
-    </g>
-    <circle cx="64" cy="62" r="7.5" fill="#E7A23C"/>
-    <circle cx="64" cy="62" r="12.5" fill="none" stroke="#E7A23C" stroke-width="1.5" opacity="0.4"/>
+    <path d="M46 57 V44 a18 18 0 0 1 36 0 V57" fill="none" stroke="#E7A23C" stroke-width="9" stroke-linecap="round"/>
+    <rect x="38" y="56" width="52" height="48" rx="13" fill="#E7A23C"/>
+    <rect x="44.5" y="62.5" width="39" height="35" rx="9" fill="none" stroke="#15120E" stroke-width="2" opacity="0.45"/>
+    <circle cx="64" cy="80" r="6" fill="#15120E"/>
+    <path d="M60.5 81 L58 97 h12 L67.5 81 Z" fill="#15120E"/>
   </g>
+  <symbol id="ic-gym" viewBox="0 0 24 24"><path d="M5 9v6M8 8v8M16 8v8M19 9v6M8 12h8"/></symbol>
+  <symbol id="ic-office" viewBox="0 0 24 24"><rect x="3" y="7.5" width="18" height="12.5" rx="2"/><path d="M8 7.5V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.5M3 12.5h18"/></symbol>
+  <symbol id="ic-club" viewBox="0 0 24 24"><path d="M9 17V5l10-2v12"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="14.5" r="2.5"/></symbol>
+  <symbol id="ic-air" viewBox="0 0 24 24"><path d="M21 3 3 10.6l7 2.6 2.4 7L21 3z"/><path d="m10 13.2 11-10.2"/></symbol>
 </defs></svg>
 
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="#top" style="text-decoration:none"><svg viewBox="0 0 128 128"><use href="#lockit-mark"/></svg>Lock<b>It</b></a>
+    <a class="logo" href="#top"><svg viewBox="0 0 128 128"><use href="#mark"/></svg>Lock<b>It</b><span class="tag">Smart Lockers</span></a>
     <nav>
-      <a href="#como">Cómo funciona</a>
-      <a href="#lineas">Líneas</a>
-      <a href="#para-quien">Para quién</a>
-      <a href="#specs">Specs</a>
+      <a href="#como">Cómo funciona</a><a href="#lineas">Líneas</a><a href="#para-quien">Para quién</a><a href="#specs">Specs</a>
     </nav>
     <a class="btn on-dark" href="#contacto">Pedir demo</a>
   </div>
@@ -214,85 +243,103 @@ footer .logo{color:var(--ink)}
   <div class="stage">
     <canvas id="gl"></canvas>
     <div class="stage-fallback" id="fallback">Cargando modelo 3D…</div>
-    <div class="variant-chip" id="vchip"><span class="d"></span><span id="vname">LOCKIT CLEAR</span></div>
+    <div class="variant-chip" id="vchip"><span class="sq"></span><span id="vname">LOCKIT CLEAR</span></div>
 
     <div class="hero-copy" id="herocopy">
       <div class="wrap"><div class="hero-inner">
-        <div class="eyebrow">Casilleros inteligentes · Córdoba, AR</div>
+        <div class="hero-tag">Casilleros inteligentes · Córdoba, AR</div>
         <h1>Tu locker,<br><em>un toque.</em></h1>
         <p class="lead">Sin llaves, sin candados, sin fichas. Acercás el celular al tag NFC y se abre. Scrolleá para ver cómo está hecho por dentro.</p>
         <div class="cta">
           <a class="btn on-dark" href="#contacto">Quiero LockIt en mi local</a>
           <a class="btn ghost on-dark" href="#como">Cómo funciona</a>
         </div>
-        <div class="meta"><span><b>2 s</b> para abrir</span><span><b>0</b> llaves que reponer</span><span><b>Malla WiFi</b> sin cablear datos</span></div>
+        <div class="meta">
+          <div><span class="v">2 s</span><span class="k">para abrir</span></div>
+          <div><span class="v">0</span><span class="k">llaves que reponer</span></div>
+          <div><span class="v">Malla</span><span class="k">WiFi sin cablear</span></div>
+        </div>
       </div></div>
     </div>
 
     <div class="anatomy" id="anatomy">
-      <div class="wrap"><div class="card">
+      <div class="wrap"><div class="card framed">
         <div class="tag" id="an-tag">ANATOMÍA</div>
         <h3 id="an-title">El gabinete</h3>
         <p id="an-text">Cada pieza cumple una función.</p>
       </div></div>
     </div>
-
     <div class="scroll-hint" id="hint"><span>Scrolleá</span><span class="m"></span></div>
   </div>
 </div>
 
+<div class="ticker" aria-hidden="true"><div class="track" id="track">
+  <b><span>Sin llaves</span><i>◆</i><span>Sin candados</span><i>◆</i><span>Sin fichas</span><i>◆</i><span>Un toque y se abre</span><i>◆</i><span>Hecho en Córdoba</span><i>◆</i></b>
+  <b><span>Sin llaves</span><i>◆</i><span>Sin candados</span><i>◆</i><span>Sin fichas</span><i>◆</i><span>Un toque y se abre</span><i>◆</i><span>Hecho en Córdoba</span><i>◆</i></b>
+</div></div>
+
 <section class="content" id="problema">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">El casillero no cambió en 50 años</div>
+    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§01</span><span>El problema</span></div>
       <h2>Llaves que se pierden. Candados que no controlás. "¿Cuál está libre?"</h2></div>
     <div class="problems">
-      <div class="prob reveal"><div class="n">01</div><h3>Llaves y fichas</h3><p>Se pierden, se roban y hay que reponerlas. Un costo y una fricción constante.</p></div>
-      <div class="prob reveal"><div class="n">02</div><h3>Ocupación a ciegas</h3><p>La gente prueba puerta por puerta para ver cuál está libre. Da imagen de desorden.</p></div>
-      <div class="prob reveal"><div class="n">03</div><h3>Candados propios</h3><p>El cliente trae el suyo: el local no puede liberar, ni auditar, ni cobrar por el uso.</p></div>
+      <div class="prob framed reveal"><div class="code">ISSUE·01</div><h3>Llaves y fichas</h3><p>Se pierden, se roban y hay que reponerlas. Un costo y una fricción constante.</p></div>
+      <div class="prob framed reveal"><div class="code">ISSUE·02</div><h3>Ocupación a ciegas</h3><p>La gente prueba puerta por puerta para ver cuál está libre. Da imagen de desorden.</p></div>
+      <div class="prob framed reveal"><div class="code">ISSUE·03</div><h3>Candados propios</h3><p>El cliente trae el suyo: el local no puede liberar, ni auditar, ni cobrar por el uso.</p></div>
     </div>
   </div>
 </section>
 
 <section class="content alt" id="como">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">Cómo funciona</div><h2>Acercás. Se abre. El sistema sabe.</h2>
-      <p>Un tag NFC en la puerta abre una webapp rápida — sin instalar nada. Los lockers se hablan en malla por el WiFi del local y confirman con un sensor magnético si la puerta quedó bien cerrada.</p></div>
-    <div class="steps">
-      <div class="step reveal"><h3>Acercás el celu</h3><p>El tag NFC abre la webapp de LockIt en el navegador. Sin app.</p></div>
-      <div class="step reveal"><h3>Se identifica el locker</h3><p>Reconoce cuál es y valida que estás ahí, en el WiFi del local.</p></div>
-      <div class="step reveal"><h3>Se libera la traba</h3><p>El ESP32 activa la cerradura con un pulso. La puerta se abre sola.</p></div>
-      <div class="step reveal"><h3>Confirma el cierre</h3><p>Un sensor magnético detecta la puerta cerrada y actualiza el panel.</p></div>
+    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§02</span><span>Cómo funciona</span></div>
+      <h2>Acercás. Se abre. El sistema sabe.</h2>
+      <p class="sub">Un tag NFC en la puerta abre una webapp rápida — sin instalar nada. Los lockers se hablan en malla por el WiFi del local y confirman con un sensor magnético si la puerta quedó bien cerrada.</p></div>
+    <div class="flow">
+      <div class="step alt-node reveal"><span class="node"></span><span class="code">01</span><h3>Acercás el celu</h3><p>El tag NFC abre la webapp de LockIt en el navegador. Sin app.</p></div>
+      <div class="step alt-node reveal"><span class="node"></span><span class="code">02</span><h3>Se identifica el locker</h3><p>Reconoce cuál es y valida que estás ahí, en el WiFi del local.</p></div>
+      <div class="step alt-node reveal"><span class="node"></span><span class="code">03</span><h3>Se libera la traba</h3><p>El ESP32 activa la cerradura con un pulso. La puerta se abre sola.</p></div>
+      <div class="step alt-node reveal"><span class="node"></span><span class="code">04</span><h3>Confirma el cierre</h3><p>Un sensor magnético detecta la puerta cerrada y actualiza el panel.</p></div>
     </div>
   </div>
 </section>
 
 <section class="content" id="lineas">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">Dos líneas, la misma inteligencia</div><h2>Elegís cómo se ve. La electrónica es la misma.</h2></div>
+    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§03</span><span>Dos líneas</span></div>
+      <h2>Elegís cómo se ve. La electrónica es la misma.</h2></div>
     <div class="variants">
-      <div class="variant clear reveal"><div class="tag mono">LÍNEA 01</div><h3>LockIt Clear</h3>
-        <ul><li>Puerta transparente en policarbonato resistente a golpes.</li><li>Ves si hay algo adentro: cero dudas de "¿está usado?".</li><li>LED perimetral de estado.</li><li>La opción más accesible. Ideal para gimnasios y clubes.</li></ul></div>
-      <div class="variant glow reveal"><div class="tag mono">LÍNEA 02</div><h3>LockIt Glow</h3>
-        <ul><li>Puerta opaca para máxima privacidad.</li><li>Indicador OLED embutido: número, estado y animaciones.</li><li>Estética premium, más "tech". Ideal para oficinas y coworkings.</li><li>Mismo nodo ESP32 + NFC + cerradura + sensor.</li></ul></div>
+      <div class="variant clear framed reveal">
+        <div class="hd"><div class="code">LÍNEA·01</div><h3><span class="dot"></span>LockIt Clear</h3></div>
+        <ul><li>Puerta transparente en policarbonato resistente a golpes.</li><li>Ves si hay algo adentro: cero dudas de "¿está usado?".</li><li>LED perimetral de estado.</li><li>La opción más accesible. Ideal para gimnasios y clubes.</li></ul>
+        <div class="spec"><div>MATERIAL<b>Policarbonato</b></div><div>ESTADO<b>LED perimetral</b></div><div>MEDIDA<b>330×430×465</b></div></div>
+      </div>
+      <div class="variant glow framed reveal">
+        <div class="hd"><div class="code">LÍNEA·02</div><h3><span class="dot"></span>LockIt Glow</h3></div>
+        <ul><li>Puerta opaca para máxima privacidad.</li><li>Indicador OLED embutido: número, estado y animaciones.</li><li>Estética premium, más "tech". Ideal para oficinas y coworkings.</li><li>Mismo nodo ESP32 + NFC + cerradura + sensor.</li></ul>
+        <div class="spec"><div>MATERIAL<b>Opaca + OLED</b></div><div>ESTADO<b>OLED embutido</b></div><div>MEDIDA<b>330×430×465</b></div></div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="content alt" id="para-quien">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">Para quién</div><h2>Arrancamos por gimnasios. Escala a todo lo demás.</h2></div>
+    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§04</span><span>Para quién</span></div>
+      <h2>Arrancamos por gimnasios. Escala a todo lo demás.</h2></div>
     <div class="segs">
-      <div class="seg anchor reveal"><div class="ico">🏋️</div><h3>Gimnasios</h3><span class="badge">MERCADO ANCLA</span></div>
-      <div class="seg reveal"><div class="ico">💼</div><h3>Oficinas y coworkings</h3></div>
-      <div class="seg reveal"><div class="ico">🎭</div><h3>Clubes, danza y música</h3></div>
-      <div class="seg reveal"><div class="ico">✈️</div><h3>Aeropuertos y espacios públicos</h3></div>
+      <div class="seg anchor framed reveal"><div class="top"><svg class="ic"><use href="#ic-gym"/></svg><span class="code">SEG·01</span></div><h3>Gimnasios</h3><span class="badge">MERCADO ANCLA</span></div>
+      <div class="seg reveal"><div class="top"><svg class="ic"><use href="#ic-office"/></svg><span class="code">SEG·02</span></div><h3>Oficinas y coworkings</h3></div>
+      <div class="seg reveal"><div class="top"><svg class="ic"><use href="#ic-club"/></svg><span class="code">SEG·03</span></div><h3>Clubes, danza y música</h3></div>
+      <div class="seg reveal"><div class="top"><svg class="ic"><use href="#ic-air"/></svg><span class="code">SEG·04</span></div><h3>Aeropuertos y público</h3></div>
     </div>
   </div>
 </section>
 
 <section class="content" id="specs">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">Ficha técnica</div><h2>Ingeniería honesta, fabricable en Córdoba.</h2></div>
+    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§05</span><span>Ficha técnica</span></div>
+      <h2>Ingeniería honesta, fabricable en Córdoba.</h2></div>
     <div class="specs">
       <table class="spec-table">
         <tr><td>Apertura</td><td>Tag NFC pasivo (NTAG) → webapp/PWA. Sin instalar app.</td></tr>
@@ -303,15 +350,15 @@ footer .logo{color:var(--ink)}
         <tr><td>Medida interior</td><td>300 × 400 × 450 mm (módulo de gimnasio).</td></tr>
         <tr><td>Sin internet</td><td>Modo degradado: cache local + llave maestra de staff.</td></tr>
       </table>
-      <div class="note"><div class="k">Estado del proyecto</div>LockIt está en etapa de fundación: producto, arquitectura, CAD paramétrico (STEP/STL/DXF listos para taller) y este material de venta. El próximo paso es el <b>prototipo físico</b> y un <b>gimnasio piloto</b> en Córdoba.</div>
+      <div class="note framed"><div class="k">Estado del proyecto</div>LockIt está en etapa de fundación: producto, arquitectura, CAD paramétrico (STEP/STL/DXF listos para taller) y este material de venta. El próximo paso es el <b>prototipo físico</b> y un <b>gimnasio piloto</b> en Córdoba.</div>
     </div>
   </div>
 </section>
 
 <section class="content" id="contacto">
   <div class="wrap">
-    <div class="cta-band">
-      <div class="eyebrow">Córdoba, Argentina</div>
+    <div class="cta-band framed">
+      <div class="tab">Córdoba, Argentina</div>
       <h2>¿Tenés un gimnasio o local con casilleros?</h2>
       <p>Sumate al piloto de LockIt. Modernizás tus lockers, sacás las llaves del medio y te diferenciás.</p>
       <div class="cta">
@@ -324,7 +371,7 @@ footer .logo{color:var(--ink)}
 
 <footer>
   <div class="wrap">
-    <a class="logo" href="#top" style="text-decoration:none"><svg viewBox="0 0 128 128" width="26" height="26"><use href="#lockit-mark"/></svg>Lock<b style="color:var(--oro)">It</b></a>
+    <a class="logo" href="#top"><svg viewBox="0 0 128 128" width="26" height="26"><use href="#mark"/></svg>Lock<b>It</b></a>
     <span class="mono">Casilleros inteligentes NFC · Córdoba, AR · Tu locker, un toque</span>
   </div>
 </footer>
@@ -334,137 +381,88 @@ footer .logo{color:var(--ink)}
 /* ================= LockIt · showcase 3D (Three.js) ================= */
 (function(){
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-  var canvas = document.getElementById("gl");
-  var fallback = document.getElementById("fallback");
+  var canvas = document.getElementById("gl"), fallback = document.getElementById("fallback");
   if (typeof THREE === "undefined"){ if(fallback) fallback.textContent="No se pudo cargar el 3D."; return; }
 
-  var COL = { carbon:0x171310, metal:0x2b241b, oro:0xE7A23C, coral:0xF0764F, crema:0xF0E6D6 };
-  var renderer, scene, camera, group, env;
-  var parts = [], doors = [];
+  var COL = { carbon:0x171310, metal:0x2b241b, oro:0xE7A23C, coral:0xF0764F };
+  var renderer, scene, camera, group, env, parts=[], doors=[];
   var W=3.3, D=4.65, MH=4.3, N=3, WALL=0.15, BASE=1.0, CAP=0.4;
 
-  function mat(color, m, r, opts){ return new THREE.MeshStandardMaterial(Object.assign({color:color, metalness:(m==null?0.55:m), roughness:(r==null?0.45:r)}, opts||{})); }
-  function addPart(mesh, dir, amt){ mesh.userData.base = mesh.position.clone(); parts.push({mesh:mesh, dir:dir, amt:amt}); group.add(mesh); return mesh; }
+  function mat(color,m,r,opts){ return new THREE.MeshStandardMaterial(Object.assign({color:color,metalness:(m==null?0.55:m),roughness:(r==null?0.45:r)},opts||{})); }
+  function addPart(mesh,dir,amt){ mesh.userData.base=mesh.position.clone(); parts.push({mesh:mesh,dir:dir,amt:amt}); group.add(mesh); return mesh; }
   function box(w,h,d,material){ var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material); m.castShadow=true; m.receiveShadow=true; return m; }
 
   function buildEnv(){
-    var s = new THREE.Scene(); s.background = new THREE.Color(0x140f0a);
-    function light(x,y,z,c,i){ var p=new THREE.Mesh(new THREE.PlaneGeometry(8,8), new THREE.MeshBasicMaterial({color:c})); p.position.set(x,y,z); p.lookAt(0,0,0); p.material.color.multiplyScalar(i); s.add(p); }
-    light(6,5,6,0xffdca0,0.7); light(-7,3,4,0xE7A23C,0.4); light(0,8,-6,0xfff0d6,0.6); light(0,-6,3,0x140f0a,1);
-    var pmrem = new THREE.PMREMGenerator(renderer);
-    return pmrem.fromScene(s, 0.04).texture;
+    var s=new THREE.Scene(); s.background=new THREE.Color(0x140f0a);
+    function L(x,y,z,c,i){ var p=new THREE.Mesh(new THREE.PlaneGeometry(8,8),new THREE.MeshBasicMaterial({color:c})); p.position.set(x,y,z); p.lookAt(0,0,0); p.material.color.multiplyScalar(i); s.add(p); }
+    L(6,5,6,0xffdca0,0.7); L(-7,3,4,0xE7A23C,0.4); L(0,8,-6,0xfff0d6,0.6); L(0,-6,3,0x140f0a,1);
+    return new THREE.PMREMGenerator(renderer).fromScene(s,0.04).texture;
   }
-
   function buildLocker(){
-    group = new THREE.Group();
-    var bodyMat = mat(COL.metal, 0.6, 0.42, {envMapIntensity:1.15});
-    var Htot = BASE + N*MH + CAP;
-    var base = box(W+0.1, BASE, D, mat(COL.carbon,0.5,0.6)); base.position.set(0, BASE/2, 0); addPart(base, new THREE.Vector3(0,-1,0), 2.4);
-    var cap = box(W+0.1, CAP, D, bodyMat); cap.position.set(0, BASE+N*MH+CAP/2, 0); addPart(cap, new THREE.Vector3(0,1,0), 2.8);
-    var lw = box(WALL, N*MH, D, bodyMat); lw.position.set(-W/2+WALL/2, BASE+N*MH/2, 0); addPart(lw, new THREE.Vector3(-1,0,0), 3.4);
-    var rw = box(WALL, N*MH, D, bodyMat); rw.position.set(W/2-WALL/2, BASE+N*MH/2, 0); addPart(rw, new THREE.Vector3(1,0,0), 3.4);
-    var back = box(W-2*WALL, N*MH, WALL, mat(COL.metal,0.55,0.5)); back.position.set(0, BASE+N*MH/2, -D/2+WALL/2); addPart(back, new THREE.Vector3(0,0,-1), 3.8);
-    for(var k=1;k<N;k++){ var dv=box(W-2*WALL, WALL, D, bodyMat); dv.position.set(0, BASE+k*MH, 0); addPart(dv, new THREE.Vector3(0, (k<N/2?-1:1), 0), 1.6); }
-    for(var i=0;i<N;i++){
-      var cy = BASE + i*MH + MH/2; buildDoor(i, cy);
-      var lb = box(0.7, 0.9, 0.5, mat(0x35291b,0.4,0.6)); lb.position.set(W/2-WALL-0.45, cy, D/2-0.6); addPart(lb, new THREE.Vector3(1.4,0,0.4), 3.0);
-    }
-    group.position.y = -Htot/2; scene.add(group); return Htot;
+    group=new THREE.Group(); var bodyMat=mat(COL.metal,0.6,0.42,{envMapIntensity:1.15}); var Htot=BASE+N*MH+CAP;
+    var base=box(W+0.1,BASE,D,mat(COL.carbon,0.5,0.6)); base.position.set(0,BASE/2,0); addPart(base,new THREE.Vector3(0,-1,0),2.4);
+    var cap=box(W+0.1,CAP,D,bodyMat); cap.position.set(0,BASE+N*MH+CAP/2,0); addPart(cap,new THREE.Vector3(0,1,0),2.8);
+    var lw=box(WALL,N*MH,D,bodyMat); lw.position.set(-W/2+WALL/2,BASE+N*MH/2,0); addPart(lw,new THREE.Vector3(-1,0,0),3.4);
+    var rw=box(WALL,N*MH,D,bodyMat); rw.position.set(W/2-WALL/2,BASE+N*MH/2,0); addPart(rw,new THREE.Vector3(1,0,0),3.4);
+    var back=box(W-2*WALL,N*MH,WALL,mat(COL.metal,0.55,0.5)); back.position.set(0,BASE+N*MH/2,-D/2+WALL/2); addPart(back,new THREE.Vector3(0,0,-1),3.8);
+    for(var k=1;k<N;k++){ var dv=box(W-2*WALL,WALL,D,bodyMat); dv.position.set(0,BASE+k*MH,0); addPart(dv,new THREE.Vector3(0,(k<N/2?-1:1),0),1.6); }
+    for(var i=0;i<N;i++){ var cy=BASE+i*MH+MH/2; buildDoor(i,cy);
+      var lb=box(0.7,0.9,0.5,mat(0x35291b,0.4,0.6)); lb.position.set(W/2-WALL-0.45,cy,D/2-0.6); addPart(lb,new THREE.Vector3(1.4,0,0.4),3.0); }
+    group.position.y=-Htot/2; scene.add(group); return Htot;
   }
-
-  function buildDoor(i, cy){
-    var dw = W-0.06, dh = MH-0.08, dt = 0.16, z = D/2 + dt/2;
-    var frameMat = mat(COL.metal,0.62,0.4,{envMapIntensity:1.25});
-    var out = new THREE.Vector3(0,0,1);
-    var border = 0.42;
-    function bar(w,h,x,y){ var b=box(w,h,dt,frameMat); b.position.set(x, cy+y, z); return b; }
-    [bar(dw,border,0,dh/2-border/2), bar(dw,border,0,-dh/2+border/2), bar(border,dh-2*border,-dw/2+border/2,0), bar(border,dh-2*border,dw/2-border/2,0)]
-      .forEach(function(b){ addPart(b, out.clone(), 4.6); });
-
-    var glassMat = new THREE.MeshStandardMaterial({color:0xdfe6ea, metalness:0, roughness:0.08, transparent:true, opacity:0.24, envMapIntensity:2.4});
-    var glass = box(dw-2*border+0.1, dh-2*border+0.1, 0.05, glassMat); glass.position.set(0, cy, z); addPart(glass, out.clone(), 4.6);
-
-    var opaqueMat = new THREE.MeshStandardMaterial({color:0x241d13, metalness:0.5, roughness:0.5, transparent:true, opacity:0});
-    var opaque = box(dw-2*border+0.1, dh-2*border+0.1, 0.07, opaqueMat); opaque.position.set(0, cy, z); opaque.visible=false; addPart(opaque, out.clone(), 4.6);
-
-    var oledMat = new THREE.MeshStandardMaterial({color:0x2a1a05, emissive:new THREE.Color(COL.oro), emissiveIntensity:0, transparent:true, opacity:0});
-    var oled = box(0.9, 0.5, 0.02, oledMat); oled.position.set(0, cy+dh/2-0.55, z+0.06); oled.visible=false; addPart(oled, out.clone(), 4.6);
-
-    var ledMat = new THREE.MeshStandardMaterial({color:0x241805, emissive:new THREE.Color(COL.oro), emissiveIntensity:2.2});
-    var led = box(dw-2*border, 0.09, 0.06, ledMat); led.position.set(0, cy-dh/2+border/2, z+0.04); addPart(led, out.clone(), 4.6);
-    var ledGlow = new THREE.Sprite(glowSprite(COL.oro)); ledGlow.scale.set(3,0.7,1); ledGlow.position.set(0, cy-dh/2+border/2, z+0.12); addPart(ledGlow, out.clone(), 4.6);
-
-    var nfcMat = new THREE.MeshStandardMaterial({color:0x35291b, emissive:new THREE.Color(COL.oro), emissiveIntensity:0.5, metalness:0.3, roughness:0.5});
-    var nfc = new THREE.Mesh(new THREE.TorusGeometry(0.24,0.05,10,28), nfcMat); nfc.position.set(dw/2-0.55, cy-0.2, z+0.05); addPart(nfc, out.clone(), 5.4);
-
-    doors.push({glass:glass, opaque:opaque, oled:oled, led:led, ledGlow:ledGlow});
+  function buildDoor(i,cy){
+    var dw=W-0.06, dh=MH-0.08, dt=0.16, z=D/2+dt/2; var frameMat=mat(COL.metal,0.62,0.4,{envMapIntensity:1.25}); var out=new THREE.Vector3(0,0,1); var border=0.42;
+    function bar(w,h,x,y){ var b=box(w,h,dt,frameMat); b.position.set(x,cy+y,z); return b; }
+    [bar(dw,border,0,dh/2-border/2),bar(dw,border,0,-dh/2+border/2),bar(border,dh-2*border,-dw/2+border/2,0),bar(border,dh-2*border,dw/2-border/2,0)].forEach(function(b){ addPart(b,out.clone(),4.6); });
+    var glassMat=new THREE.MeshStandardMaterial({color:0xdfe6ea,metalness:0,roughness:0.08,transparent:true,opacity:0.24,envMapIntensity:2.4});
+    var glass=box(dw-2*border+0.1,dh-2*border+0.1,0.05,glassMat); glass.position.set(0,cy,z); addPart(glass,out.clone(),4.6);
+    var opaqueMat=new THREE.MeshStandardMaterial({color:0x241d13,metalness:0.5,roughness:0.5,transparent:true,opacity:0});
+    var opaque=box(dw-2*border+0.1,dh-2*border+0.1,0.07,opaqueMat); opaque.position.set(0,cy,z); opaque.visible=false; addPart(opaque,out.clone(),4.6);
+    var oledMat=new THREE.MeshStandardMaterial({color:0x2a1a05,emissive:new THREE.Color(COL.oro),emissiveIntensity:0,transparent:true,opacity:0});
+    var oled=box(0.9,0.5,0.02,oledMat); oled.position.set(0,cy+dh/2-0.55,z+0.06); oled.visible=false; addPart(oled,out.clone(),4.6);
+    var ledMat=new THREE.MeshStandardMaterial({color:0x241805,emissive:new THREE.Color(COL.oro),emissiveIntensity:2.2});
+    var led=box(dw-2*border,0.09,0.06,ledMat); led.position.set(0,cy-dh/2+border/2,z+0.04); addPart(led,out.clone(),4.6);
+    var ledGlow=new THREE.Sprite(glowSprite(COL.oro)); ledGlow.scale.set(3,0.7,1); ledGlow.position.set(0,cy-dh/2+border/2,z+0.12); addPart(ledGlow,out.clone(),4.6);
+    var nfcMat=new THREE.MeshStandardMaterial({color:0x35291b,emissive:new THREE.Color(COL.oro),emissiveIntensity:0.5,metalness:0.3,roughness:0.5});
+    var nfc=new THREE.Mesh(new THREE.TorusGeometry(0.24,0.05,10,28),nfcMat); nfc.position.set(dw/2-0.55,cy-0.2,z+0.05); addPart(nfc,out.clone(),5.4);
+    doors.push({glass:glass,opaque:opaque,oled:oled,led:led,ledGlow:ledGlow});
   }
-
-  function glowSprite(color){
-    var c=document.createElement("canvas"); c.width=c.height=128; var g=c.getContext("2d"); var col=new THREE.Color(color);
-    var grd=g.createRadialGradient(64,64,0,64,64,64);
-    grd.addColorStop(0,"rgba("+(col.r*255|0)+","+(col.g*255|0)+","+(col.b*255|0)+",0.9)"); grd.addColorStop(1,"rgba(0,0,0,0)");
-    g.fillStyle=grd; g.fillRect(0,0,128,128);
-    return new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c), blending:THREE.AdditiveBlending, depthWrite:false, transparent:true});
-  }
+  function glowSprite(color){ var c=document.createElement("canvas"); c.width=c.height=128; var g=c.getContext("2d"); var col=new THREE.Color(color);
+    var grd=g.createRadialGradient(64,64,0,64,64,64); grd.addColorStop(0,"rgba("+(col.r*255|0)+","+(col.g*255|0)+","+(col.b*255|0)+",0.9)"); grd.addColorStop(1,"rgba(0,0,0,0)"); g.fillStyle=grd; g.fillRect(0,0,128,128);
+    return new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}); }
 
   function init(){
-    renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08;
-    renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-    scene = new THREE.Scene();
-    env = buildEnv(); scene.environment = env;
-    camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
-
-    // Luz cálida
-    var key = new THREE.DirectionalLight(0xffe6b8, 2.5); key.position.set(7,11,9);
-    key.castShadow=true; key.shadow.mapSize.set(1024,1024); key.shadow.camera.near=1; key.shadow.camera.far=60;
-    key.shadow.camera.left=-12; key.shadow.camera.right=12; key.shadow.camera.top=14; key.shadow.camera.bottom=-14; key.shadow.bias=-0.0004;
-    scene.add(key);
-    var fill = new THREE.DirectionalLight(0xffd9a0, 0.6); fill.position.set(-8,3,5); scene.add(fill);
-    var rim = new THREE.DirectionalLight(0xE7A23C, 1.0); rim.position.set(-4,6,-8); scene.add(rim);
-    scene.add(new THREE.AmbientLight(0x3a2c1c, 0.7));
-
-    var Htot = buildLocker();
-    var floor = new THREE.Mesh(new THREE.PlaneGeometry(60,60), new THREE.ShadowMaterial({opacity:0.36}));
-    floor.rotation.x=-Math.PI/2; floor.position.y=-Htot/2; floor.receiveShadow=true; scene.add(floor);
-
-    resize();
-    if(fallback) fallback.style.display="none";
-    window.addEventListener("resize", resize);
-    window.addEventListener("scroll", onScroll, {passive:true});
-    window.addEventListener("pointermove", onPointer, {passive:true});
+    renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+    renderer.outputEncoding=THREE.sRGBEncoding; renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.08;
+    renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+    scene=new THREE.Scene(); env=buildEnv(); scene.environment=env;
+    camera=new THREE.PerspectiveCamera(32,1,0.1,200);
+    var key=new THREE.DirectionalLight(0xffe6b8,2.5); key.position.set(7,11,9); key.castShadow=true; key.shadow.mapSize.set(1024,1024);
+    key.shadow.camera.near=1; key.shadow.camera.far=60; key.shadow.camera.left=-12; key.shadow.camera.right=12; key.shadow.camera.top=14; key.shadow.camera.bottom=-14; key.shadow.bias=-0.0004; scene.add(key);
+    var fill=new THREE.DirectionalLight(0xffd9a0,0.6); fill.position.set(-8,3,5); scene.add(fill);
+    var rim=new THREE.DirectionalLight(0xE7A23C,1.0); rim.position.set(-4,6,-8); scene.add(rim);
+    scene.add(new THREE.AmbientLight(0x3a2c1c,0.7));
+    var Htot=buildLocker();
+    var floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.ShadowMaterial({opacity:0.36})); floor.rotation.x=-Math.PI/2; floor.position.y=-Htot/2; floor.receiveShadow=true; scene.add(floor);
+    resize(); if(fallback) fallback.style.display="none";
+    window.addEventListener("resize",resize); window.addEventListener("scroll",onScroll,{passive:true}); window.addEventListener("pointermove",onPointer,{passive:true});
     onScroll(); requestAnimationFrame(loop);
   }
-
-  var vw=1, vh=1;
+  var vw=1,vh=1;
   function resize(){ vw=canvas.clientWidth||innerWidth; vh=canvas.clientHeight||innerHeight; renderer.setSize(vw,vh,false); camera.aspect=vw/vh; camera.updateProjectionMatrix(); }
-
   var prog=0;
-  function onScroll(){ var sc=document.getElementById("top"); if(!sc) return; var rect=sc.getBoundingClientRect(); var total=sc.offsetHeight-innerHeight; prog=Math.min(1,Math.max(0,-rect.top/Math.max(1,total))); updateOverlays(); }
-  var px=0, py=0;
-  function onPointer(e){ if(reduce) return; px=(e.clientX/innerWidth-0.5); py=(e.clientY/innerHeight-0.5); }
-
+  function onScroll(){ var sc=document.getElementById("top"); if(!sc) return; var r=sc.getBoundingClientRect(); var total=sc.offsetHeight-innerHeight; prog=Math.min(1,Math.max(0,-r.top/Math.max(1,total))); updateOverlays(); }
+  var px=0,py=0; function onPointer(e){ if(reduce) return; px=(e.clientX/innerWidth-0.5); py=(e.clientY/innerHeight-0.5); }
   function smooth(a,b,x){ x=Math.min(1,Math.max(0,(x-a)/(b-a))); return x*x*(3-2*x); }
-  function bump(p,a,peak,b){ return p<peak ? smooth(a,peak,p) : 1-smooth(peak,b,p); }
-  function kf(p, pts){ for(var i=0;i<pts.length-1;i++){ var a=pts[i], b=pts[i+1]; if(p<=b[0]){ return a[1]+(b[1]-a[1])*smooth(a[0],b[0],p); } } return pts[pts.length-1][1]; }
-
-  function explodeFactor(p){
-    if(p<0.10) return 0;
-    var e1=(p>=0.10&&p<=0.46)?bump(p,0.12,0.29,0.46):0;
-    var e2=(p>=0.60&&p<=0.94)?bump(p,0.62,0.78,0.94):0;
-    return Math.max(0,Math.min(1,e1+e2));
-  }
+  function bump(p,a,pk,b){ return p<pk?smooth(a,pk,p):1-smooth(pk,b,p); }
+  function kf(p,pts){ for(var i=0;i<pts.length-1;i++){ var a=pts[i],b=pts[i+1]; if(p<=b[0]) return a[1]+(b[1]-a[1])*smooth(a[0],b[0],p); } return pts[pts.length-1][1]; }
+  function explodeFactor(p){ if(p<0.10) return 0; var e1=(p>=0.10&&p<=0.46)?bump(p,0.12,0.29,0.46):0; var e2=(p>=0.60&&p<=0.94)?bump(p,0.62,0.78,0.94):0; return Math.max(0,Math.min(1,e1+e2)); }
   function variantFactor(p){ return smooth(0.47,0.57,p); }
-
   function updateOverlays(){
-    var p=prog;
-    var hero=document.getElementById("herocopy"), an=document.getElementById("anatomy"), hint=document.getElementById("hint"),
+    var p=prog, hero=document.getElementById("herocopy"), an=document.getElementById("anatomy"), hint=document.getElementById("hint"),
         vname=document.getElementById("vname"), anTag=document.getElementById("an-tag"), anTitle=document.getElementById("an-title"), anText=document.getElementById("an-text");
-    var heroOp=1-smooth(0.02,0.10,p); hero.style.opacity=heroOp; hint.style.opacity=heroOp;
+    var op=1-smooth(0.02,0.10,p); hero.style.opacity=op; hint.style.opacity=op;
     var caps=[
       [0.12,0.20,"ANATOMÍA · CLEAR","El gabinete","Panel anti-humedad con ventilación trasera. Melamina hidrófuga o chapa plegada."],
       [0.20,0.28,"ANATOMÍA · CLEAR","La puerta de policarbonato","Transparente y resistente a golpes: ves el interior sin abrir."],
@@ -475,16 +473,14 @@ footer .logo{color:var(--ink)}
       [0.72,0.82,"ANATOMÍA · GLOW","Indicador OLED","Muestra número, estado y animaciones. El detalle 'wow'."],
       [0.82,0.94,"ANATOMÍA · GLOW","Malla + panel","Los lockers se hablan por ESP-NOW y reportan al panel del local."]
     ];
-    var active=null; for(var i=0;i<caps.length;i++){ if(p>=caps[i][0]&&p<caps[i][1]){ active=caps[i]; break; } }
-    if(active&&p>=0.10){ an.style.opacity=1; anTag.textContent=active[2]; anTitle.textContent=active[3]; anText.textContent=active[4]; } else an.style.opacity=0;
-    vname.textContent = variantFactor(p)>0.5 ? "LOCKIT GLOW" : "LOCKIT CLEAR";
+    var a=null; for(var i=0;i<caps.length;i++){ if(p>=caps[i][0]&&p<caps[i][1]){ a=caps[i]; break; } }
+    if(a&&p>=0.10){ an.style.opacity=1; anTag.textContent=a[2]; anTitle.textContent=a[3]; anText.textContent=a[4]; } else an.style.opacity=0;
+    vname.textContent=variantFactor(p)>0.5?"LOCKIT GLOW":"LOCKIT CLEAR";
   }
-
   var t0=performance.now();
   function loop(now){
-    var t=(now-t0)/1000;
-    var p=reduce?0:prog, E=reduce?0:explodeFactor(p), V=reduce?0:variantFactor(p);
-    for(var i=0;i<parts.length;i++){ var pt=parts[i]; pt.mesh.position.copy(pt.mesh.userData.base).addScaledVector(pt.dir, E*pt.amt); }
+    var t=(now-t0)/1000, p=reduce?0:prog, E=reduce?0:explodeFactor(p), V=reduce?0:variantFactor(p);
+    for(var i=0;i<parts.length;i++){ var pt=parts[i]; pt.mesh.position.copy(pt.mesh.userData.base).addScaledVector(pt.dir,E*pt.amt); }
     var breathe=1.9+Math.sin(t*1.6)*0.5;
     for(var d=0;d<doors.length;d++){ var D2=doors[d];
       D2.glass.material.opacity=0.24*(1-V); D2.glass.visible=V<0.98;
@@ -492,18 +488,11 @@ footer .logo{color:var(--ink)}
       D2.oled.material.opacity=V; D2.oled.material.emissiveIntensity=V*breathe; D2.oled.visible=V>0.02;
       D2.led.material.emissiveIntensity=(1-V)*breathe; D2.ledGlow.material.opacity=(1-V); D2.ledGlow.visible=V<0.98;
     }
-    // Rotación: vuelta 360° completa (la puerta Glow da la cara)
-    var rotY = kf(p, [[0,-0.30],[0.12,-0.30],[0.33,-1.20],[0.50,0.0],[0.62,0.0],[0.86,-2*Math.PI],[1,-2*Math.PI-0.30]]);
-    group.rotation.y = rotY + (reduce?0:Math.sin(t*0.35)*0.02);
-    group.rotation.x = reduce?0:(-0.02 + py*0.05);
-    // Cámara: menos zoom
-    var dist = 34 + E*5;
-    camera.position.set(px*2.4, 2.0 + py*1.3, dist);
-    camera.lookAt(0,0,0);
-    renderer.render(scene, camera);
-    requestAnimationFrame(loop);
+    group.rotation.y=kf(p,[[0,-0.30],[0.12,-0.30],[0.33,-1.20],[0.50,0.0],[0.62,0.0],[0.86,-2*Math.PI],[1,-2*Math.PI-0.30]])+(reduce?0:Math.sin(t*0.35)*0.02);
+    group.rotation.x=reduce?0:(-0.02+py*0.05);
+    var dist=34+E*5; camera.position.set(px*2.4,2.0+py*1.3,dist); camera.lookAt(0,0,0);
+    renderer.render(scene,camera); requestAnimationFrame(loop);
   }
-
   try{ init(); }catch(err){ if(fallback){ fallback.style.display="grid"; fallback.textContent="3D no disponible en este navegador."; } console.error(err); }
 
   if("IntersectionObserver" in window){

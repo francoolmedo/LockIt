@@ -1,15 +1,12 @@
-<svg width="420" height="128" viewBox="0 0 420 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LockIt">
-  <!-- Isotipo -->
-  <rect x="8" y="8" width="112" height="112" rx="30" fill="#15120E"/>
-  <g fill="none" stroke="#E7A23C" stroke-linecap="round">
-    <path d="M64 92 A 30 30 0 0 1 64 32" stroke-width="7" opacity="0.35"/>
-    <path d="M64 82 A 20 20 0 0 1 64 42" stroke-width="7" opacity="0.6"/>
-    <path d="M64 72 A 10 10 0 0 1 64 52" stroke-width="7" opacity="1"/>
-  </g>
-  <circle cx="64" cy="62" r="7.5" fill="#E7A23C"/>
-  <circle cx="64" cy="62" r="12.5" fill="none" stroke="#E7A23C" stroke-width="1.5" opacity="0.4"/>
+<svg width="440" height="128" viewBox="0 0 440 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LockIt">
+  <!-- Candado oro (versión para fondo oscuro; el calado usa el color del fondo) -->
+  <path d="M46 57 V44 a18 18 0 0 1 36 0 V57" fill="none" stroke="#E7A23C" stroke-width="9" stroke-linecap="round"/>
+  <rect x="38" y="56" width="52" height="48" rx="13" fill="#E7A23C"/>
+  <rect x="44.5" y="62.5" width="39" height="35" rx="9" fill="none" stroke="#15120E" stroke-width="2" opacity="0.5"/>
+  <circle cx="64" cy="80" r="6" fill="#100E0B"/>
+  <path d="M60.5 81 L58 97 h12 L67.5 81 Z" fill="#100E0B"/>
   <!-- Wordmark -->
-  <text x="150" y="82" font-family="Archivo, system-ui, sans-serif" font-size="62" font-weight="800" letter-spacing="-2">
-    <tspan fill="#EAF0ED">Lock</tspan><tspan fill="#E7A23C">It</tspan>
+  <text x="112" y="90" font-family="Archivo, system-ui, sans-serif" font-size="60" font-weight="800" letter-spacing="-2.5">
+    <tspan fill="#F3EEE6">Lock</tspan><tspan fill="#E7A23C">It</tspan>
   </text>
 </svg>

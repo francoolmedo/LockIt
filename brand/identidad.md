@@ -47,15 +47,16 @@ a la vez; el resto es carbón y cremas.
 
 ## Logo
 
-Marca gráfica: una **puerta de locker redondeada** cuyo arco de cerradura se transforma en una
-**onda de pulso**, con un **punto de estado** (el LED / el tap NFC).
+Marca gráfica: un **candado premium** en oro con un **marco interior grabado** que evoca la
+puertita del locker (el chiche que le da personalidad), y el ojo de cerradura calado.
+Significado directo: **seguridad + se abre fácil**.
 
-- Versión completa: símbolo + wordmark "LockIt" (Archivo ExtraBold, tracking ajustado).
-- Isotipo (ícono/app/favicon): solo el símbolo, en un cuadrado redondeado carbón con la
-  onda en oro.
+- Versión completa: símbolo + wordmark "LockIt" (Archivo 800, "It" en oro, tracking ajustado).
+- Isotipo (ícono/app/favicon): el candado dentro de un cuadrado redondeado carbón. El calado
+  del ojo de la cerradura usa el color del fondo (se lee como hueco real).
 - Construcción y SVGs de referencia: [`logo.svg`](logo.svg) e [`isotipo.svg`](isotipo.svg).
-- Área de protección: el alto del punto de estado alrededor del logo. No deformar, no rotar,
-  no cambiar los colores fuera de las variantes definidas.
+- Área de protección: el alto del cuerpo del candado alrededor del logo. No deformar, no
+  rotar, no cambiar los colores fuera de las variantes definidas.
 
 ### Variantes de color del logo
 - Sobre carbón: símbolo en Oro, wordmark en Crema.
