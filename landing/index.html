@@ -1,0 +1,596 @@
+<title>LockIt · Tu locker, un toque</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* ============================== BRAND TOKENS ============================== */
+:root{
+  /* Tema claro (contenido). El "escenario" 3D es siempre oscuro (abajo). */
+  --graf:#0E1417; --graf-2:#161F24;
+  --bg:#eef2ef; --bg-2:#e4ebe6; --panel:#ffffff; --panel-2:#f4f8f5;
+  --ink:#10201a; --ink-2:#43554d; --ink-3:#6f8078; --line:#d5ded8; --line-2:#c4cfc8;
+  --pulso:#0c9d6f;            /* pulso legible sobre claro */
+  --pulso-bright:#10E0A0;     /* pulso vívido (siempre) */
+  --senal:#e07a2a; --cristal:#2f9fce;
+  --accent-ink:#04140d;
+  --shadow:0 1px 2px rgba(12,30,22,.06), 0 14px 40px rgba(12,30,22,.10);
+  --radius:18px; --radius-s:11px; --maxw:1120px;
+  color-scheme:light;
+}
+:root:not([data-theme="light"]){ @media (prefers-color-scheme:dark){
+  --bg:#0b1114; --bg-2:#080d10; --panel:#131b1f; --panel-2:#0f171a;
+  --ink:#eaf2ec; --ink-2:#a6b8b0; --ink-3:#728379; --line:#202c2f; --line-2:#293739;
+  --pulso:#10E0A0; --senal:#FF8A3D; --cristal:#74D3F0;
+  --accent-ink:#04140d;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 20px 50px rgba(0,0,0,.55);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b1114; --bg-2:#080d10; --panel:#131b1f; --panel-2:#0f171a;
+  --ink:#eaf2ec; --ink-2:#a6b8b0; --ink-3:#728379; --line:#202c2f; --line-2:#293739;
+  --pulso:#10E0A0; --senal:#FF8A3D; --cristal:#74D3F0;
+  --accent-ink:#04140d;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 20px 50px rgba(0,0,0,.55);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif; text-wrap:balance; margin:0; line-height:1.04; letter-spacing:-.015em}
+p{margin:0}
+.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:22px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.eyebrow{font-family:"IBM Plex Mono",monospace; text-transform:uppercase; letter-spacing:.2em; font-size:12px; color:var(--pulso)}
+
+/* ============================== BUTTONS (pulso) ============================== */
+.btn{position:relative; overflow:hidden; display:inline-flex; align-items:center; gap:8px; border:none; cursor:pointer;
+  font-family:"IBM Plex Sans"; font-weight:600; font-size:15px; padding:12px 20px; border-radius:var(--radius-s);
+  background:var(--pulso-bright); color:var(--accent-ink); text-decoration:none;
+  transition:transform .14s ease, filter .14s, box-shadow .2s; box-shadow:0 6px 20px color-mix(in srgb,var(--pulso-bright) 30%,transparent)}
+.btn:hover{transform:translateY(-1px); filter:brightness(1.05)}
+.btn::after{content:""; position:absolute; inset:0; border-radius:inherit; background:radial-gradient(circle at center, rgba(255,255,255,.5), transparent 60%);
+  opacity:0; transform:scale(.2); transition:opacity .5s, transform .5s}
+.btn:hover::after{opacity:.35; transform:scale(1)}
+.btn.ghost{background:transparent; color:var(--ink); border:1px solid var(--line-2); box-shadow:none}
+.btn.ghost:hover{border-color:var(--pulso); color:var(--pulso)}
+.btn.on-dark{color:var(--accent-ink)} .btn.ghost.on-dark{color:#eaf2ec; border-color:rgba(234,242,236,.25)}
+
+/* ============================== NAV ============================== */
+.nav{position:fixed; top:0; left:0; right:0; z-index:60; height:62px;
+  padding-top:env(safe-area-inset-top,0px);
+  backdrop-filter:blur(14px); background:color-mix(in srgb,var(--graf) 70%, transparent); border-bottom:1px solid rgba(255,255,255,.06)}
+.nav .wrap{display:flex; align-items:center; gap:16px; height:62px}
+.logo{display:flex; align-items:center; gap:10px; font-family:"Archivo"; font-weight:800; font-size:20px; letter-spacing:-.02em; color:#eaf0ed}
+.logo svg{width:30px; height:30px; display:block}
+.logo b{color:var(--pulso-bright); font-weight:800}
+.nav nav{margin-left:auto; display:flex; gap:24px; font-size:14px; color:#b6c6be}
+.nav nav a{text-decoration:none} .nav nav a:hover{color:#fff}
+.nav .btn{padding:9px 15px}
+@media(max-width:760px){ .nav nav{display:none} }
+
+/* ============================== SHOWCASE (3D + scroll) ============================== */
+.showcase{position:relative; height:560vh; background:var(--graf)}
+.stage{position:sticky; top:0; height:100vh; height:100svh; overflow:hidden;
+  background:
+    radial-gradient(80% 60% at 72% 30%, rgba(16,224,160,.10), transparent 60%),
+    radial-gradient(70% 60% at 20% 85%, rgba(116,211,240,.07), transparent 60%),
+    linear-gradient(180deg,#0c1215,#0a1013 60%,#0e1417)}
+#gl{position:absolute; inset:0; width:100%; height:100%; display:block}
+.stage-fallback{position:absolute; inset:0; display:grid; place-items:center; color:#6f8079; font-family:"IBM Plex Mono"; font-size:13px}
+
+/* overlays sobre el 3D */
+.hero-copy{position:absolute; z-index:3; left:0; right:0; top:0; bottom:0; pointer-events:none;
+  display:flex; align-items:center}
+.hero-copy .wrap{width:100%}
+.hero-inner{max-width:560px; pointer-events:auto}
+.hero-inner h1{color:#f2f7f4; font-size:clamp(40px,6.6vw,76px); font-weight:800}
+.hero-inner h1 em{font-style:normal; color:var(--pulso-bright)}
+.hero-inner .lead{color:#c2d1ca; font-size:clamp(17px,2.2vw,20px); margin-top:20px; max-width:38ch}
+.hero-inner .cta{display:flex; gap:12px; margin-top:28px; flex-wrap:wrap}
+.hero-inner .meta{margin-top:26px; display:flex; gap:20px; flex-wrap:wrap; color:#8ea097; font-size:13px}
+.hero-inner .meta b{color:#eaf0ed}
+
+/* caption técnica (aparece al desarmar) */
+.anatomy{position:absolute; z-index:3; left:0; right:0; bottom:8%; pointer-events:none; opacity:0; transition:opacity .35s}
+.anatomy .card{max-width:340px; background:rgba(14,20,23,.72); backdrop-filter:blur(8px);
+  border:1px solid rgba(16,224,160,.22); border-radius:14px; padding:16px 18px}
+.anatomy .tag{font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; color:var(--pulso-bright); text-transform:uppercase}
+.anatomy h3{color:#eaf0ed; font-size:20px; margin-top:6px; font-family:"Archivo"; font-weight:700}
+.anatomy p{color:#a8b8b0; font-size:14px; margin-top:6px}
+
+/* chip de variante + hint scroll */
+.variant-chip{position:absolute; z-index:3; top:calc(84px + env(safe-area-inset-top,0px)); right:22px;
+  font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.1em; color:#eaf0ed;
+  background:rgba(14,20,23,.6); border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:7px 14px;
+  display:flex; align-items:center; gap:8px}
+.variant-chip .d{width:9px;height:9px;border-radius:50%;background:var(--pulso-bright);box-shadow:0 0 0 4px rgba(16,224,160,.2)}
+.scroll-hint{position:absolute; z-index:3; bottom:22px; left:50%; transform:translateX(-50%);
+  color:#7f9089; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.18em; text-transform:uppercase;
+  display:flex; flex-direction:column; align-items:center; gap:7px; transition:opacity .3s}
+.scroll-hint .m{width:22px;height:34px;border:1.5px solid #48584f;border-radius:12px;position:relative}
+.scroll-hint .m::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:6px;border-radius:2px;background:var(--pulso-bright);animation:wheel 1.6s ease-in-out infinite}
+@keyframes wheel{0%,100%{opacity:.2;transform:translate(-50%,0)}50%{opacity:1;transform:translate(-50%,7px)}}
+@media(max-width:760px){ .anatomy{bottom:14%} .hero-inner .lead{max-width:100%} }
+
+/* ============================== CONTENT SECTIONS ============================== */
+section.content{padding-block:78px; position:relative; z-index:2; background:var(--bg)}
+section.alt{background:var(--bg-2); border-block:1px solid var(--line)}
+.sec-head{max-width:58ch; margin-bottom:42px}
+.sec-head h2{font-size:clamp(27px,3.8vw,42px); font-weight:700; margin-top:12px}
+.sec-head p{margin-top:14px; color:var(--ink-2); font-size:17px}
+
+.problems{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+.prob{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow)}
+.prob .n{font-family:"IBM Plex Mono"; color:var(--senal); font-size:13px; font-weight:600}
+.prob h3{font-size:18px; margin-top:10px} .prob p{color:var(--ink-2); margin-top:8px; font-size:15px}
+@media(max-width:760px){ .problems{grid-template-columns:1fr} }
+
+.steps{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; counter-reset:s}
+.step{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:22px; position:relative}
+.step::before{counter-increment:s; content:"0" counter(s); font-family:"IBM Plex Mono"; font-weight:600; color:var(--pulso); font-size:13px; letter-spacing:.1em}
+.step h3{font-size:16px; margin-top:12px} .step p{color:var(--ink-2); font-size:14px; margin-top:8px}
+@media(max-width:860px){ .steps{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:480px){ .steps{grid-template-columns:1fr} }
+
+.variants{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+.variant{border:1px solid var(--line-2); border-radius:var(--radius); padding:28px; background:var(--panel); position:relative; overflow:hidden; box-shadow:var(--shadow)}
+.variant .tag{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.1em; color:var(--ink-3)}
+.variant h3{font-size:27px; margin-top:8px; font-weight:700}
+.variant.clear h3{color:var(--cristal)} .variant.glow h3{color:var(--pulso)}
+.variant ul{margin:16px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px}
+.variant li{display:flex; gap:10px; color:var(--ink-2); font-size:15px}
+.variant li::before{content:"›"; color:var(--pulso); font-family:"IBM Plex Mono"; font-weight:600}
+.variant .swatch{position:absolute; right:-34px; top:-34px; width:130px; height:130px; border-radius:50%; opacity:.13}
+.variant.clear .swatch{background:var(--cristal)} .variant.glow .swatch{background:var(--pulso-bright)}
+@media(max-width:760px){ .variants{grid-template-columns:1fr} }
+
+.segs{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+.seg{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-s); padding:20px}
+.seg .ico{font-size:26px} .seg h3{font-size:15px; margin-top:10px}
+.seg.anchor{border-color:var(--pulso); box-shadow:0 0 0 1px var(--pulso) inset}
+.seg .badge{display:inline-block; margin-top:8px; font-family:"IBM Plex Mono"; font-size:10px; letter-spacing:.1em; color:var(--pulso); border:1px solid var(--pulso); border-radius:6px; padding:2px 6px}
+@media(max-width:760px){ .segs{grid-template-columns:1fr 1fr} }
+
+.specs{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; align-items:start}
+.spec-table{width:100%; border-collapse:collapse; font-size:14.5px}
+.spec-table td{padding:13px 4px; border-bottom:1px solid var(--line); vertical-align:top}
+.spec-table td:first-child{color:var(--ink-3); font-family:"IBM Plex Mono"; width:42%; font-size:13px}
+.note{background:var(--panel); border:1px solid var(--line); border-left:3px solid var(--pulso); border-radius:var(--radius-s); padding:20px; font-size:14px; color:var(--ink-2)}
+.note b{color:var(--ink)}
+@media(max-width:760px){ .specs{grid-template-columns:1fr} }
+
+.cta-band{background:linear-gradient(150deg, var(--graf), #10201a); border-radius:26px; padding:48px; text-align:center; overflow:hidden; position:relative}
+.cta-band::before{content:""; position:absolute; inset:0; background:radial-gradient(60% 80% at 50% 0%, rgba(16,224,160,.18), transparent 60%)}
+.cta-band > *{position:relative}
+.cta-band h2{font-size:clamp(27px,4.2vw,42px); font-weight:800; color:#f2f7f4}
+.cta-band p{margin:14px auto 0; color:#bacabf; max-width:46ch}
+.cta-band .cta{margin-top:28px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+
+footer{border-top:1px solid var(--line); padding-block:36px; color:var(--ink-3); font-size:13px; background:var(--bg)}
+footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center}
+footer .logo{color:var(--ink)}
+
+.reveal{opacity:1}
+@media (prefers-reduced-motion:no-preference){
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1; transform:none}
+  .scroll-hint{}
+}
+</style>
+
+<!-- Marca gráfica reutilizable -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="lockit-mark">
+    <rect x="8" y="8" width="112" height="112" rx="30" fill="#0E1417"/>
+    <g fill="none" stroke="#10E0A0" stroke-linecap="round">
+      <path d="M64 92 A 30 30 0 0 1 64 32" stroke-width="7" opacity="0.35"/>
+      <path d="M64 82 A 20 20 0 0 1 64 42" stroke-width="7" opacity="0.6"/>
+      <path d="M64 72 A 10 10 0 0 1 64 52" stroke-width="7"/>
+    </g>
+    <circle cx="64" cy="62" r="7.5" fill="#10E0A0"/>
+    <circle cx="64" cy="62" r="12.5" fill="none" stroke="#10E0A0" stroke-width="1.5" opacity="0.4"/>
+  </g>
+</defs></svg>
+
+<!-- ============================== NAV ============================== -->
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" style="text-decoration:none"><svg viewBox="0 0 128 128"><use href="#lockit-mark"/></svg>Lock<b>It</b></a>
+    <nav>
+      <a href="#como">Cómo funciona</a>
+      <a href="#lineas">Líneas</a>
+      <a href="#para-quien">Para quién</a>
+      <a href="#specs">Specs</a>
+    </nav>
+    <a class="btn on-dark" href="#contacto">Pedir demo</a>
+  </div>
+</header>
+
+<!-- ============================== SHOWCASE 3D ============================== -->
+<div class="showcase" id="top">
+  <div class="stage">
+    <canvas id="gl"></canvas>
+    <div class="stage-fallback" id="fallback">Cargando modelo 3D…</div>
+
+    <div class="variant-chip" id="vchip"><span class="d"></span><span id="vname">LOCKIT CLEAR</span></div>
+
+    <div class="hero-copy" id="herocopy">
+      <div class="wrap"><div class="hero-inner">
+        <div class="eyebrow">Casilleros inteligentes · Córdoba, AR</div>
+        <h1>Tu locker,<br><em>un toque.</em></h1>
+        <p class="lead">Sin llaves, sin candados, sin fichas. Acercás el celular al tag NFC y se abre. Scrolleá para ver cómo está hecho por dentro.</p>
+        <div class="cta">
+          <a class="btn on-dark" href="#contacto">Quiero LockIt en mi local</a>
+          <a class="btn ghost on-dark" href="#como">Cómo funciona</a>
+        </div>
+        <div class="meta"><span><b>2 s</b> para abrir</span><span><b>0</b> llaves que reponer</span><span><b>Malla WiFi</b> sin cablear datos</span></div>
+      </div></div>
+    </div>
+
+    <div class="anatomy" id="anatomy">
+      <div class="wrap"><div class="card">
+        <div class="tag" id="an-tag">ANATOMÍA</div>
+        <h3 id="an-title">El gabinete</h3>
+        <p id="an-text">Cada pieza cumple una función.</p>
+      </div></div>
+    </div>
+
+    <div class="scroll-hint" id="hint"><span>Scrolleá</span><span class="m"></span></div>
+  </div>
+</div>
+
+<!-- ============================== PROBLEM ============================== -->
+<section class="content" id="problema">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">El casillero no cambió en 50 años</div>
+      <h2>Llaves que se pierden. Candados que no controlás. "¿Cuál está libre?"</h2>
+    </div>
+    <div class="problems">
+      <div class="prob reveal"><div class="n">01</div><h3>Llaves y fichas</h3><p>Se pierden, se roban y hay que reponerlas. Un costo y una fricción constante.</p></div>
+      <div class="prob reveal"><div class="n">02</div><h3>Ocupación a ciegas</h3><p>La gente prueba puerta por puerta para ver cuál está libre. Da imagen de desorden.</p></div>
+      <div class="prob reveal"><div class="n">03</div><h3>Candados propios</h3><p>El cliente trae el suyo: el local no puede liberar, ni auditar, ni cobrar por el uso.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== HOW ============================== -->
+<section class="content alt" id="como">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Cómo funciona</div>
+      <h2>Acercás. Se abre. El sistema sabe.</h2>
+      <p>Un tag NFC en la puerta abre una webapp rápida — sin instalar nada. Los lockers se hablan en malla por el WiFi del local y confirman con un sensor magnético si la puerta quedó bien cerrada.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><h3>Acercás el celu</h3><p>El tag NFC abre la webapp de LockIt en el navegador. Sin app.</p></div>
+      <div class="step reveal"><h3>Se identifica el locker</h3><p>Reconoce cuál es y valida que estás ahí, en el WiFi del local.</p></div>
+      <div class="step reveal"><h3>Se libera la traba</h3><p>El ESP32 activa la cerradura con un pulso. La puerta se abre sola.</p></div>
+      <div class="step reveal"><h3>Confirma el cierre</h3><p>Un sensor magnético detecta la puerta cerrada y actualiza el panel.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== VARIANTS ============================== -->
+<section class="content" id="lineas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Dos líneas, la misma inteligencia</div>
+      <h2>Elegís cómo se ve. La electrónica es la misma.</h2>
+    </div>
+    <div class="variants">
+      <div class="variant clear reveal"><div class="swatch"></div><div class="tag mono">LÍNEA 01</div><h3>LockIt Clear</h3>
+        <ul><li>Puerta transparente en policarbonato resistente a golpes.</li><li>Ves si hay algo adentro: cero dudas de "¿está usado?".</li><li>LED perimetral: verde libre, ámbar ocupado.</li><li>La opción más accesible. Ideal para gimnasios y clubes.</li></ul>
+      </div>
+      <div class="variant glow reveal"><div class="swatch"></div><div class="tag mono">LÍNEA 02</div><h3>LockIt Glow</h3>
+        <ul><li>Puerta opaca para máxima privacidad.</li><li>Indicador OLED embutido: número, estado y animaciones.</li><li>Estética premium, más "tech". Ideal para oficinas y coworkings.</li><li>Mismo nodo ESP32 + NFC + cerradura + sensor.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SEGMENTS ============================== -->
+<section class="content alt" id="para-quien">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Para quién</div><h2>Arrancamos por gimnasios. Escala a todo lo demás.</h2></div>
+    <div class="segs">
+      <div class="seg anchor reveal"><div class="ico">🏋️</div><h3>Gimnasios</h3><span class="badge">MERCADO ANCLA</span></div>
+      <div class="seg reveal"><div class="ico">💼</div><h3>Oficinas y coworkings</h3></div>
+      <div class="seg reveal"><div class="ico">🎭</div><h3>Clubes, danza y música</h3></div>
+      <div class="seg reveal"><div class="ico">✈️</div><h3>Aeropuertos y espacios públicos</h3></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SPECS ============================== -->
+<section class="content" id="specs">
+  <div class="wrap">
+    <div class="sec-head"><div class="eyebrow">Ficha técnica</div><h2>Ingeniería honesta, fabricable en Córdoba.</h2></div>
+    <div class="specs">
+      <table class="spec-table">
+        <tr><td>Apertura</td><td>Tag NFC pasivo (NTAG) → webapp/PWA. Sin instalar app.</td></tr>
+        <tr><td>Controlador</td><td>ESP32 por puerta (WiFi + BLE + ESP-NOW).</td></tr>
+        <tr><td>Red</td><td>Malla ESP-NOW entre lockers + 1 gateway al WiFi del local.</td></tr>
+        <tr><td>Cerradura</td><td>Solenoide 12 V por pulso, driver MOSFET con diodo flyback.</td></tr>
+        <tr><td>Sensor de puerta</td><td>Efecto Hall + imán: confirma cerrado/abierto real.</td></tr>
+        <tr><td>Medida interior</td><td>300 × 400 × 450 mm (módulo de gimnasio).</td></tr>
+        <tr><td>Sin internet</td><td>Modo degradado: cache local + llave maestra de staff.</td></tr>
+      </table>
+      <div class="note"><b>Estado del proyecto.</b> LockIt está en etapa de fundación: producto, arquitectura, CAD paramétrico (STEP/STL/DXF listos para taller) y este material de venta. El próximo paso es el <b>prototipo físico</b> y un <b>gimnasio piloto</b> en Córdoba.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CTA ============================== -->
+<section class="content" id="contacto">
+  <div class="wrap">
+    <div class="cta-band">
+      <div class="eyebrow">Córdoba, Argentina</div>
+      <h2>¿Tenés un gimnasio o local con casilleros?</h2>
+      <p>Sumate al piloto de LockIt. Modernizás tus lockers, sacás las llaves del medio y te diferenciás.</p>
+      <div class="cta">
+        <a class="btn on-dark" href="mailto:olmedo.franco.fo@gmail.com?subject=Quiero%20LockIt%20en%20mi%20local">Escribinos</a>
+        <a class="btn ghost on-dark" href="#como">Ver cómo funciona</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top" style="text-decoration:none"><svg viewBox="0 0 128 128" width="26" height="26"><use href="#lockit-mark"/></svg>Lock<b style="color:var(--pulso)">It</b></a>
+    <span class="mono">Casilleros inteligentes NFC · Córdoba, AR · Tu locker, un toque</span>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ================= LockIt · showcase 3D (Three.js) ================= */
+(function(){
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var canvas = document.getElementById("gl");
+  var fallback = document.getElementById("fallback");
+  if (typeof THREE === "undefined"){ if(fallback) fallback.textContent="No se pudo cargar el 3D."; return; }
+
+  var COL = { graf:0x141c20, metal:0x232d31, pulso:0x10E0A0, senal:0xFF8A3D, cristal:0x9fdcf2 };
+  var renderer, scene, camera, group, env;
+  var parts = [];        // {mesh, dir:Vector3, amt}
+  var doors = [];        // {glass, opaque, oled, led, ledGlow}
+  var W=3.3, D=4.65, MH=4.3, N=3, WALL=0.15, BASE=1.0, CAP=0.4;
+
+  function mat(color, m, r, opts){ return new THREE.MeshStandardMaterial(Object.assign({color:color, metalness:(m==null?0.55:m), roughness:(r==null?0.45:r)}, opts||{})); }
+
+  function addPart(mesh, dir, amt){ mesh.userData.base = mesh.position.clone(); parts.push({mesh:mesh, dir:dir, amt:amt}); group.add(mesh); return mesh; }
+
+  function box(w,h,d,material){ var g=new THREE.BoxGeometry(w,h,d); var m=new THREE.Mesh(g,material); m.castShadow=true; m.receiveShadow=true; return m; }
+
+  function buildEnv(){
+    // Entorno simple para reflejos (studio) via PMREM
+    var s = new THREE.Scene();
+    s.background = new THREE.Color(0x0c1216);
+    function light(x,y,z,c,i){ var p=new THREE.Mesh(new THREE.PlaneGeometry(8,8), new THREE.MeshBasicMaterial({color:c})); p.position.set(x,y,z); p.lookAt(0,0,0); p.material.color.multiplyScalar(i); s.add(p); }
+    light(6,5,6,0x10E0A0,0.5); light(-7,3,4,0x74D3F0,0.35); light(0,8,-6,0xffffff,0.6); light(0,-6,3,0x0c1216,1);
+    var pmrem = new THREE.PMREMGenerator(renderer);
+    var rt = pmrem.fromScene(s, 0.04);
+    return rt.texture;
+  }
+
+  function buildLocker(){
+    group = new THREE.Group();
+    var bodyMat = mat(COL.metal, 0.6, 0.42, {envMapIntensity:1.1});
+    var Htot = BASE + N*MH + CAP;
+
+    // Base
+    var base = box(W+0.1, BASE, D, mat(COL.graf,0.5,0.6)); base.position.set(0, BASE/2, 0); addPart(base, new THREE.Vector3(0,-1,0), 2.4);
+    // Cap
+    var cap = box(W+0.1, CAP, D, bodyMat); cap.position.set(0, BASE+N*MH+CAP/2, 0); addPart(cap, new THREE.Vector3(0,1,0), 2.8);
+    // Side walls
+    var lw = box(WALL, N*MH, D, bodyMat); lw.position.set(-W/2+WALL/2, BASE+N*MH/2, 0); addPart(lw, new THREE.Vector3(-1,0,0), 3.4);
+    var rw = box(WALL, N*MH, D, bodyMat); rw.position.set(W/2-WALL/2, BASE+N*MH/2, 0); addPart(rw, new THREE.Vector3(1,0,0), 3.4);
+    // Back
+    var back = box(W-2*WALL, N*MH, WALL, mat(COL.metal,0.55,0.5)); back.position.set(0, BASE+N*MH/2, -D/2+WALL/2); addPart(back, new THREE.Vector3(0,0,-1), 3.8);
+    // Dividers
+    for(var k=1;k<N;k++){ var dv=box(W-2*WALL, WALL, D, bodyMat); dv.position.set(0, BASE+k*MH, 0); addPart(dv, new THREE.Vector3(0, (k<N/2?-1:1), 0), 1.6); }
+
+    // Módulos: puerta + cerradura + NFC + LED/OLED
+    for(var i=0;i<N;i++){
+      var cy = BASE + i*MH + MH/2;
+      buildDoor(i, cy);
+      // caja cerradura + ESP32 (interior, lado derecho)
+      var lb = box(0.7, 0.9, 0.5, mat(0x2a3438,0.4,0.6)); lb.position.set(W/2-WALL-0.45, cy, D/2-0.6); addPart(lb, new THREE.Vector3(1.4,0,0.4), 3.0);
+    }
+
+    group.position.y = -Htot/2;   // centrar
+    scene.add(group);
+    return Htot;
+  }
+
+  function buildDoor(i, cy){
+    var dw = W-0.06, dh = MH-0.08, dt = 0.16, z = D/2 + dt/2;
+    var frameMat = mat(COL.metal,0.62,0.4,{envMapIntensity:1.2});
+    // marco (con calado grande)
+    var frameGroupBase = new THREE.Vector3(0,0,4.6);
+    var border = 0.42;
+    // 4 barras del marco
+    function bar(w,h,x,y){ var b=box(w,h,dt,frameMat); b.position.set(x, cy+y, z); return b; }
+    var top=bar(dw, border, 0, dh/2-border/2), bot=bar(dw, border, 0, -dh/2+border/2),
+        left=bar(border, dh-2*border, -dw/2+border/2, 0), right=bar(border, dh-2*border, dw/2-border/2, 0);
+    [top,bot,left,right].forEach(function(b){ addPart(b, frameGroupBase.clone().normalize(), 4.6); });
+
+    // vidrio (Clear)
+    var glassMat = new THREE.MeshStandardMaterial({color:COL.cristal, metalness:0, roughness:0.08, transparent:true, opacity:0.26, envMapIntensity:2.2});
+    var glass = box(dw-2*border+0.1, dh-2*border+0.1, 0.05, glassMat); glass.position.set(0, cy, z); addPart(glass, frameGroupBase.clone().normalize(), 4.6);
+
+    // panel opaco (Glow) — arranca oculto
+    var opaqueMat = new THREE.MeshStandardMaterial({color:0x1a2327, metalness:0.5, roughness:0.5, transparent:true, opacity:0});
+    var opaque = box(dw-2*border+0.1, dh-2*border+0.1, 0.07, opaqueMat); opaque.position.set(0, cy, z); opaque.visible=false; addPart(opaque, frameGroupBase.clone().normalize(), 4.6);
+
+    // OLED (Glow) — emisivo, oculto al inicio
+    var oledMat = new THREE.MeshStandardMaterial({color:0x001a12, emissive:new THREE.Color(COL.pulso), emissiveIntensity:0, transparent:true, opacity:0});
+    var oled = box(0.9, 0.5, 0.02, oledMat); oled.position.set(0, cy+dh/2-0.55, z+0.06); oled.visible=false; addPart(oled, frameGroupBase.clone().normalize(), 4.6);
+
+    // LED de estado (Clear) — barra emisiva
+    var ledMat = new THREE.MeshStandardMaterial({color:0x0b241b, emissive:new THREE.Color(COL.pulso), emissiveIntensity:2.2});
+    var led = box(dw-2*border, 0.09, 0.06, ledMat); led.position.set(0, cy-dh/2+border/2, z+0.04); addPart(led, frameGroupBase.clone().normalize(), 4.6);
+    var ledGlow = new THREE.Sprite(glowSprite(COL.pulso)); ledGlow.scale.set(3,0.7,1); ledGlow.position.set(0, cy-dh/2+border/2, z+0.12); addPart(ledGlow, frameGroupBase.clone().normalize(), 4.6);
+
+    // NFC tap zone (toro)
+    var nfcMat = new THREE.MeshStandardMaterial({color:0x2a3438, emissive:new THREE.Color(COL.pulso), emissiveIntensity:0.5, metalness:0.3, roughness:0.5});
+    var nfc = new THREE.Mesh(new THREE.TorusGeometry(0.24,0.05,10,28), nfcMat); nfc.position.set(dw/2-0.55, cy-0.2, z+0.05); addPart(nfc, frameGroupBase.clone().normalize(), 5.4);
+
+    doors.push({glass:glass, opaque:opaque, oled:oled, led:led, ledGlow:ledGlow});
+  }
+
+  function glowSprite(color){
+    var c=document.createElement("canvas"); c.width=c.height=128; var g=c.getContext("2d");
+    var col = new THREE.Color(color);
+    var grd=g.createRadialGradient(64,64,0,64,64,64);
+    grd.addColorStop(0,"rgba("+(col.r*255|0)+","+(col.g*255|0)+","+(col.b*255|0)+",0.9)");
+    grd.addColorStop(1,"rgba(0,0,0,0)"); g.fillStyle=grd; g.fillRect(0,0,128,128);
+    var t=new THREE.CanvasTexture(c);
+    return new THREE.SpriteMaterial({map:t, blending:THREE.AdditiveBlending, depthWrite:false, transparent:true});
+  }
+
+  function init(){
+    renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
+    renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.physicallyCorrectLights = false;
+
+    scene = new THREE.Scene();
+    env = buildEnv(); scene.environment = env;
+
+    camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
+
+    // Luces
+    var key = new THREE.DirectionalLight(0xffffff, 2.4); key.position.set(7,10,9);
+    key.castShadow=true; key.shadow.mapSize.set(1024,1024); key.shadow.camera.near=1; key.shadow.camera.far=60;
+    key.shadow.camera.left=-12; key.shadow.camera.right=12; key.shadow.camera.top=14; key.shadow.camera.bottom=-14; key.shadow.bias=-0.0004;
+    scene.add(key);
+    scene.add(new THREE.DirectionalLight(0x74D3F0, 0.5).translateX(-8).translateY(3).translateZ(4));
+    var rim = new THREE.DirectionalLight(0x10E0A0, 0.8); rim.position.set(-4,6,-8); scene.add(rim);
+    scene.add(new THREE.AmbientLight(0x2a3a40, 0.6));
+
+    var Htot = buildLocker();
+
+    // Piso para sombra de contacto
+    var floor = new THREE.Mesh(new THREE.PlaneGeometry(60,60), new THREE.ShadowMaterial({opacity:0.35}));
+    floor.rotation.x=-Math.PI/2; floor.position.y=-Htot/2; floor.receiveShadow=true; scene.add(floor);
+
+    resize();
+    if(fallback) fallback.style.display="none";
+    window.addEventListener("resize", resize);
+    window.addEventListener("scroll", onScroll, {passive:true});
+    window.addEventListener("pointermove", onPointer, {passive:true});
+    onScroll();
+    requestAnimationFrame(loop);
+  }
+
+  var vw=1, vh=1;
+  function resize(){
+    vw = canvas.clientWidth||window.innerWidth; vh = canvas.clientHeight||window.innerHeight;
+    renderer.setSize(vw, vh, false); camera.aspect = vw/vh; camera.updateProjectionMatrix();
+  }
+
+  // ---- scroll → progreso ----
+  var prog=0;
+  function onScroll(){
+    var sc=document.getElementById("top"); if(!sc) return;
+    var rect = sc.getBoundingClientRect();
+    var total = sc.offsetHeight - window.innerHeight;
+    prog = Math.min(1, Math.max(0, -rect.top/Math.max(1,total)));
+    updateOverlays();
+  }
+
+  // ---- pointer parallax ----
+  var px=0, py=0;
+  function onPointer(e){ if(reduce) return; px=(e.clientX/window.innerWidth-0.5); py=(e.clientY/window.innerHeight-0.5); }
+
+  function smooth(a,b,x){ x=Math.min(1,Math.max(0,(x-a)/(b-a))); return x*x*(3-2*x); }
+  function bump(p, a, peak, b){ return p<peak ? smooth(a,peak,p) : 1-smooth(peak,b,p); }
+
+  // Fase de explosión y variante en función del scroll
+  function explodeFactor(p){
+    if(p<0.10) return 0;
+    var e1 = (p>=0.10 && p<=0.46) ? bump(p,0.12,0.29,0.46) : 0;   // Clear explota/arma
+    var e2 = (p>=0.60 && p<=0.94) ? bump(p,0.62,0.78,0.94) : 0;   // Glow explota/arma
+    return Math.max(0, Math.min(1, e1+e2));
+  }
+  function variantFactor(p){ return smooth(0.47,0.57,p); }  // 0=Clear, 1=Glow
+
+  function updateOverlays(){
+    var p=prog;
+    var hero=document.getElementById("herocopy"), an=document.getElementById("anatomy"),
+        hint=document.getElementById("hint"), vname=document.getElementById("vname"),
+        anTag=document.getElementById("an-tag"), anTitle=document.getElementById("an-title"), anText=document.getElementById("an-text");
+    var heroOp = 1 - smooth(0.02,0.10,p);
+    hero.style.opacity = heroOp; hint.style.opacity = heroOp;
+    // anatomía
+    var caps=[
+      [0.12,0.20,"ANATOMÍA · CLEAR","El gabinete","Panel anti-humedad con ventilación trasera. Melamina hidrófuga o chapa plegada."],
+      [0.20,0.28,"ANATOMÍA · CLEAR","La puerta de policarbonato","Transparente y resistente a golpes: ves el interior sin abrir."],
+      [0.28,0.36,"ANATOMÍA · CLEAR","Cerradura + ESP32","Solenoide 12 V por pulso y el cerebro de cada puerta, embutidos."],
+      [0.36,0.46,"ANATOMÍA · CLEAR","Tag NFC + sensor","El tag que abre la webapp y el sensor magnético que confirma el cierre."],
+      [0.46,0.60,"SE ARMA SOLO","De Clear a Glow","La misma electrónica, otra piel. Seguí scrolleando."],
+      [0.62,0.72,"ANATOMÍA · GLOW","Puerta opaca premium","Privacidad total y estética sobria para oficinas y coworkings."],
+      [0.72,0.82,"ANATOMÍA · GLOW","Indicador OLED","Muestra número, estado y animaciones. El detalle 'wow'."],
+      [0.82,0.94,"ANATOMÍA · GLOW","Malla + panel","Los lockers se hablan por ESP-NOW y reportan al panel del local."]
+    ];
+    var active=null;
+    for(var i=0;i<caps.length;i++){ if(p>=caps[i][0] && p<caps[i][1]){ active=caps[i]; break; } }
+    if(active && p>=0.10){ an.style.opacity=1; anTag.textContent=active[2]; anTitle.textContent=active[3]; anText.textContent=active[4]; }
+    else an.style.opacity=0;
+    vname.textContent = variantFactor(p) > 0.5 ? "LOCKIT GLOW" : "LOCKIT CLEAR";
+  }
+
+  var t0=performance.now();
+  function loop(now){
+    var t=(now-t0)/1000;
+    var p = reduce ? 0 : prog;
+    var E = reduce ? 0 : explodeFactor(p);
+    var V = reduce ? 0 : variantFactor(p);
+
+    // posiciones (exploded view)
+    for(var i=0;i<parts.length;i++){ var pt=parts[i];
+      pt.mesh.position.copy(pt.mesh.userData.base).addScaledVector(pt.dir, E*pt.amt);
+    }
+    // crossfade Clear/Glow + estado que respira
+    var breathe = 1.9 + Math.sin(t*1.6)*0.5;
+    for(var d=0; d<doors.length; d++){ var D2=doors[d];
+      D2.glass.material.opacity = 0.26*(1-V); D2.glass.visible = V<0.98;
+      D2.opaque.material.opacity = V; D2.opaque.visible = V>0.02;
+      D2.oled.material.opacity = V; D2.oled.material.emissiveIntensity = V*breathe; D2.oled.visible = V>0.02;
+      D2.led.material.emissiveIntensity = (1-V)*breathe; D2.ledGlow.material.opacity = (1-V);
+      D2.ledGlow.visible = V<0.98;
+    }
+
+    // rotación: idle + guiada por scroll
+    var baseRot = reduce ? -0.5 : (-0.5 + (t*0.12) *0 );
+    group.rotation.y = -0.55 + p*Math.PI*1.35 + (reduce?0:Math.sin(t*0.3)*0.03);
+    group.rotation.x = (reduce?0: -0.02 + py*0.06);
+
+    // cámara (encra el modelo, con leve parallax)
+    var dist = 26 + E*3;
+    camera.position.set(px*2.2, 1.5 + py*1.2, dist);
+    camera.lookAt(0,0,0);
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(loop);
+  }
+
+  try { init(); } catch(err){ if(fallback){ fallback.style.display="grid"; fallback.textContent="3D no disponible en este navegador."; } console.error(err); }
+
+  // reveal on scroll
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }); },{threshold:.14});
+    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  } else { document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); }); }
+})();
+</script>

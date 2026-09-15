@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# CAD scratch (los exports SÍ se versionan: son los archivos para el taller)
+cad/exports/_sweep.png
+cad/exports/renders/_*.png
+
+# OS
+.DS_Store
+Thumbs.db

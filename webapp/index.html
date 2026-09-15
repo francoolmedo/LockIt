@@ -1,0 +1,113 @@
+<title>LockIt · Abrir mi locker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* PWA mock — flujo de desbloqueo. No hay backend real: simula la secuencia. */
+:root{
+  --bg:#0d1512; --panel:#141d19; --panel-2:#101815;
+  --ink:#eaf2ec; --ink-2:#a7b8b0; --ink-3:#76877f; --line:#233029;
+  --free:#2bd48a; --busy:#f0a94c; --brand:#2bd48a; --accent-ink:#03130d;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{
+  --bg:#eef1ee; --panel:#ffffff; --panel-2:#f5f8f5;
+  --ink:#12201a; --ink-2:#41514a; --ink-3:#6d7d76; --line:#d3dcd6;
+  --free:#12a15f; --busy:#d9852b; --brand:#0e7a4f; --accent-ink:#ffffff;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0; background:radial-gradient(120% 80% at 50% 0%, color-mix(in srgb,var(--free) 10%,var(--bg)), var(--bg));
+  color:var(--ink); font-family:"IBM Plex Sans",system-ui,sans-serif;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px}
+.app{width:100%; max-width:400px; display:flex; flex-direction:column; gap:20px}
+.brand{display:flex; align-items:center; gap:9px; justify-content:center; font-family:"Archivo"; font-weight:800; font-size:20px}
+.brand .dot{width:11px; height:11px; border-radius:4px; background:var(--free); box-shadow:0 0 0 4px color-mix(in srgb,var(--free) 22%,transparent)}
+.card{background:linear-gradient(155deg,var(--panel),var(--panel-2)); border:1px solid var(--line);
+  border-radius:22px; padding:26px; text-align:center; box-shadow:0 18px 46px rgba(0,0,0,.35)}
+.loc{font-family:"IBM Plex Mono"; color:var(--ink-3); letter-spacing:.1em; font-size:13px}
+.state{font-family:"IBM Plex Mono"; font-size:13px; font-weight:600; margin-top:6px; display:inline-flex; align-items:center; gap:8px}
+.state .led{width:10px; height:10px; border-radius:50%; background:var(--free); box-shadow:0 0 0 5px color-mix(in srgb,var(--free) 20%,transparent)}
+.disc{position:relative; width:190px; height:190px; margin:22px auto 6px; display:grid; place-items:center}
+.disc .r{position:absolute; inset:0; border-radius:50%; border:2px solid color-mix(in srgb,var(--free) 55%,transparent)}
+@keyframes ping{0%{transform:scale(.7);opacity:.8}100%{transform:scale(1.25);opacity:0}}
+.disc .r.a{animation:ping 2s ease-out infinite}
+.disc .r.b{animation:ping 2s ease-out infinite 1s}
+.disc .core{width:120px; height:120px; border-radius:50%; background:var(--free); color:var(--accent-ink);
+  display:grid; place-items:center; box-shadow:0 10px 34px color-mix(in srgb,var(--free) 45%,transparent);
+  transition:background .3s}
+.disc .core svg{width:52px; height:52px}
+.title{font-family:"Archivo"; font-weight:700; font-size:24px; margin-top:8px; letter-spacing:-.01em}
+.sub{color:var(--ink-2); font-size:15px; margin-top:8px; line-height:1.5}
+.btn{width:100%; margin-top:22px; border:none; cursor:pointer; font-family:"IBM Plex Sans"; font-weight:600;
+  font-size:17px; padding:16px; border-radius:14px; background:var(--brand); color:var(--accent-ink);
+  transition:transform .12s, filter .12s}
+.btn:hover{transform:translateY(-1px); filter:brightness(1.06)}
+.btn:disabled{opacity:.5; cursor:default; transform:none}
+.foot{text-align:center; color:var(--ink-3); font-size:12px; font-family:"IBM Plex Mono"}
+.hidden{display:none}
+</style>
+
+<div class="app">
+  <div class="brand"><span class="dot"></span>LockIt</div>
+  <div class="card">
+    <div class="loc" id="loc">GYM01 · LOCKER 014</div>
+    <div class="state" id="state"><span class="led"></span>LIBRE</div>
+
+    <div class="disc" id="disc">
+      <span class="r a"></span><span class="r b"></span>
+      <div class="core" id="core">
+        <svg id="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="title" id="title">Locker disponible</div>
+    <div class="sub" id="sub">Este casillero está libre. Tocá para reservarlo y abrirlo — es tuyo mientras lo uses.</div>
+
+    <button class="btn" id="cta">Abrir mi locker</button>
+  </div>
+  <div class="foot">Detectado en el WiFi del local · sesión segura</div>
+</div>
+
+<script>
+// Mock del flujo real (ver docs/02-arquitectura-tecnica.md). Sin backend.
+var core=document.getElementById("core"), icon=document.getElementById("icon"),
+    title=document.getElementById("title"), sub=document.getElementById("sub"),
+    cta=document.getElementById("cta"), state=document.getElementById("state"),
+    disc=document.getElementById("disc");
+
+var lockedIcon='<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>';
+var openIcon='<rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0"/>';
+var checkIcon='<path d="M20 6 9 17l-5-5"/>';
+
+function setState(txt){ state.innerHTML='<span class="led"></span>'+txt; }
+
+cta.addEventListener("click", function(){
+  cta.disabled=true; cta.textContent="Abriendo…";
+  title.textContent="Liberando la traba";
+  sub.textContent="Mandamos la orden al locker por la malla. Un segundo…";
+  disc.querySelectorAll(".r").forEach(function(r){ r.style.borderColor="color-mix(in srgb,var(--busy) 55%,transparent)"; });
+  core.style.background="var(--busy)";
+
+  setTimeout(function(){
+    icon.innerHTML=openIcon;
+    setState("ABIERTO");
+    title.textContent="¡Locker abierto! 🎉";
+    sub.textContent="Ya podés dejar tus cosas. Cerrá la puerta y queda trabado hasta que vuelvas.";
+    core.style.background="var(--free)";
+    disc.querySelectorAll(".r").forEach(function(r){ r.style.borderColor="color-mix(in srgb,var(--free) 55%,transparent)"; });
+    cta.disabled=false; cta.textContent="Listo";
+  },1600);
+
+  setTimeout(function(){
+    // Simula el cierre confirmado por el sensor Hall
+    icon.innerHTML=checkIcon; setState("OCUPADO (tuyo)");
+    title.textContent="Cerrado y a salvo";
+    sub.textContent="El sensor confirmó la puerta cerrada. Volvé a acercar el celu para abrirlo cuando quieras.";
+  },5200);
+});
+</script>

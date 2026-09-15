@@ -1,0 +1,14 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LockIt">
+  <!-- Puerta de locker (cuadrado redondeado, grafito) -->
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="#0E1417"/>
+  <rect x="8.75" y="8.75" width="110.5" height="110.5" rx="29.25" fill="none" stroke="#1E2A2E" stroke-width="1.5"/>
+  <!-- Onda de pulso (el toque NFC) -->
+  <g fill="none" stroke="#10E0A0" stroke-linecap="round">
+    <path d="M64 92 A 30 30 0 0 1 64 32" stroke-width="7" opacity="0.35"/>
+    <path d="M64 82 A 20 20 0 0 1 64 42" stroke-width="7" opacity="0.6"/>
+    <path d="M64 72 A 10 10 0 0 1 64 52" stroke-width="7" opacity="1"/>
+  </g>
+  <!-- Punto de estado / LED / tap -->
+  <circle cx="64" cy="62" r="7.5" fill="#10E0A0"/>
+  <circle cx="64" cy="62" r="12.5" fill="none" stroke="#10E0A0" stroke-width="1.5" opacity="0.4"/>
+</svg>
