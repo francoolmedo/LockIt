@@ -1,0 +1,118 @@
+<title>LockIt · Reel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+  :root{ --carbon:#100E0B; --carbon2:#15120E; --oro:#E7A23C; --orohi:#F2B255; --cream:#F3EEE6; --mut:#8A7D6B; --line:#2A2418; }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; background:#000; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Sans',system-ui,sans-serif; color:var(--cream)}
+  /* Marco 9:16 que escala al alto disponible */
+  .stage{position:relative; height:100svh; aspect-ratio:9/16; max-width:100vw; overflow:hidden;
+    container-type:size;
+    background:radial-gradient(120% 80% at 50% 22%, #241a10 0%, var(--carbon2) 46%, var(--carbon) 100%)}
+  .grid{position:absolute; inset:0; background-image:linear-gradient(rgba(243,238,230,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(243,238,230,.03) 1px,transparent 1px); background-size:7cqw 7cqw}
+  .tick{position:absolute; width:5cqw; height:5cqw; border:0.4cqw solid var(--oro); opacity:.55}
+  .tl{top:5cqw; left:5cqw; border-width:0.4cqw 0 0 0.4cqw}
+  .br{bottom:5cqw; right:5cqw; border-width:0 0.4cqw 0.4cqw 0}
+
+  .brand{position:absolute; top:6cqw; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:2.5cqw; z-index:5}
+  .brand svg{width:9cqw; height:9cqw; display:block}
+  .brand b{font-family:'Archivo'; font-weight:800; font-size:6.5cqw; letter-spacing:-0.2cqw}
+  .brand .o{color:var(--oro)}
+
+  .scene{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; opacity:0; padding:12cqw}
+  .kicker{font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.9cqw; font-size:3.6cqw; color:var(--oro)}
+  .big{font-family:'Archivo'; font-weight:900; letter-spacing:-0.6cqw; line-height:.95; color:var(--cream)}
+
+  /* ----- Locker 2D ----- */
+  .locker{position:relative; width:54cqw; height:66cqw; border-radius:5cqw; background:linear-gradient(150deg,#221c13,#171208); border:0.5cqw solid #3a3122; box-shadow:0 6cqw 16cqw rgba(0,0,0,.6); overflow:hidden}
+  .cell{position:absolute; inset:5cqw; border-radius:3cqw; background:linear-gradient(160deg,#0e0b07,#070503); display:flex; align-items:flex-end; justify-content:center; padding-bottom:5cqw}
+  .led{width:22cqw; height:2.4cqw; border-radius:2cqw; background:#3a3122}
+  .door{position:absolute; inset:5cqw; border-radius:3cqw; background:linear-gradient(150deg,#2a2216,#1a1409); border:0.5cqw solid #4a3f28; transform-origin:left center; backface-visibility:hidden}
+  .door .handle{position:absolute; right:2.5cqw; top:50%; transform:translateY(-50%); width:1.4cqw; height:16cqw; border-radius:1cqw; background:#5a4c30}
+  .door .kh{position:absolute; right:6cqw; top:50%; transform:translateY(-50%); width:5cqw; height:5cqw; border-radius:50%; border:0.6cqw solid var(--oro); opacity:.8}
+
+  /* teléfono + ondas */
+  .phone{position:absolute; width:15cqw; height:30cqw; border-radius:3cqw; background:#0f0c08; border:0.6cqw solid var(--oro); left:-4cqw; top:38%}
+  .ripple{position:absolute; border:0.6cqw solid var(--oro); border-radius:50%; left:8cqw; top:44%; width:10cqw; height:10cqw; opacity:0}
+
+  .padbig svg{width:34cqw; height:34cqw; display:block}
+  .cta{margin-top:5cqw; background:var(--oro); color:#1A1206; font-family:'IBM Plex Sans'; font-weight:700; font-size:5cqw; padding:4cqw 9cqw; border-radius:3cqw}
+  .foot{position:absolute; bottom:7cqw; left:0; right:0; text-align:center; font-family:'IBM Plex Mono',monospace; font-size:3.4cqw; letter-spacing:0.5cqw; color:var(--mut); z-index:5}
+
+  /* ====== Timeline (loop 12s) ====== */
+  /* A: 0-22% acercás | B: 22-46% se abre | C: 46-74% claim | D: 74-100% cta */
+  @keyframes sA{0%,2%{opacity:0} 4%,20%{opacity:1} 23%{opacity:0} 100%{opacity:0}}
+  @keyframes sB{0%,22%{opacity:0} 26%,44%{opacity:1} 47%{opacity:0} 100%{opacity:0}}
+  @keyframes sC{0%,46%{opacity:0} 50%,72%{opacity:1} 75%{opacity:0} 100%{opacity:0}}
+  @keyframes sD{0%,74%{opacity:0} 78%,98%{opacity:1} 100%{opacity:1}}
+  #sceneA{animation:sA 12s infinite}
+  #sceneB{animation:sB 12s infinite}
+  #sceneC{animation:sC 12s infinite}
+  #sceneD{animation:sD 12s infinite}
+
+  @keyframes doorOpen{0%,26%{transform:perspective(120cqw) rotateY(0)} 40%,100%{transform:perspective(120cqw) rotateY(-105deg)}}
+  #doorB{animation:doorOpen 12s infinite}
+  @keyframes ledOn{0%,30%{background:#3a3122; box-shadow:none} 40%,100%{background:var(--oro); box-shadow:0 0 6cqw var(--oro)}}
+  #ledB{animation:ledOn 12s infinite}
+
+  @keyframes tap{0%,6%{opacity:0; transform:scale(.5)} 12%{opacity:.9; transform:scale(1)} 20%{opacity:0; transform:scale(2.2)} 100%{opacity:0}}
+  .r1{animation:tap 12s infinite} .r2{animation:tap 12s .5s infinite} .r3{animation:tap 12s 1s infinite}
+  @keyframes phoneIn{0%{transform:translateX(-6cqw)} 12%,22%{transform:translateX(4cqw)} 100%{transform:translateX(4cqw)}}
+  #phoneA{animation:phoneIn 12s infinite}
+
+  @keyframes popC{0%,46%{transform:scale(.7); opacity:0} 52%,72%{transform:scale(1); opacity:1} 100%{opacity:0}}
+  #padC{animation:popC 12s infinite}
+
+  @media (prefers-reduced-motion:reduce){ .scene{opacity:1} #sceneA,#sceneB,#sceneD{display:none} }
+</style>
+
+<div class="stage">
+  <div class="grid"></div>
+  <div class="tick tl"></div><div class="tick br"></div>
+
+  <div class="brand">
+    <svg viewBox="0 0 128 128"><path d="M46 57 V44 a18 18 0 0 1 36 0 V57" fill="none" stroke="#E7A23C" stroke-width="9" stroke-linecap="round"/><rect x="38" y="56" width="52" height="48" rx="13" fill="#E7A23C"/><rect x="44.5" y="62.5" width="39" height="35" rx="9" fill="none" stroke="#15120E" stroke-width="2" opacity="0.45"/><circle cx="64" cy="80" r="6" fill="#15120E"/><path d="M60.5 81 L58 97 h12 L67.5 81 Z" fill="#15120E"/></svg>
+    <b>Lock<span class="o">It</span></b>
+  </div>
+
+  <!-- A -->
+  <div class="scene" id="sceneA">
+    <div class="kicker" style="margin-bottom:8cqw">¿Otra vez la llave?</div>
+    <div class="locker">
+      <div class="cell"><div class="led"></div></div>
+      <div class="ripple r1"></div><div class="ripple r2"></div><div class="ripple r3"></div>
+      <div class="phone" id="phoneA"></div>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="scene" id="sceneB">
+    <div class="locker">
+      <div class="cell"><div class="led" id="ledB"></div></div>
+      <div class="door" id="doorB"><div class="handle"></div><div class="kh"></div></div>
+    </div>
+    <div class="kicker" style="margin-top:9cqw">Se abre sola</div>
+  </div>
+
+  <!-- C -->
+  <div class="scene" id="sceneC">
+    <div class="padbig" id="padC" style="margin-bottom:7cqw">
+      <svg viewBox="0 0 128 128"><path d="M46 57 V44 a18 18 0 0 1 36 0 V57" fill="none" stroke="#E7A23C" stroke-width="9" stroke-linecap="round"/><rect x="38" y="56" width="52" height="48" rx="13" fill="#E7A23C"/><rect x="44.5" y="62.5" width="39" height="35" rx="9" fill="none" stroke="#15120E" stroke-width="2" opacity="0.45"/><circle cx="64" cy="80" r="6" fill="#15120E"/><path d="M60.5 81 L58 97 h12 L67.5 81 Z" fill="#15120E"/></svg>
+    </div>
+    <div class="big" style="font-size:14cqw">Tu locker,<br><span style="color:var(--oro)">un toque.</span></div>
+    <div class="kicker" style="margin-top:6cqw">Sin llaves · sin candados · sin fichas</div>
+  </div>
+
+  <!-- D -->
+  <div class="scene" id="sceneD">
+    <div class="kicker">Casilleros inteligentes</div>
+    <div class="big" style="font-size:9cqw; margin-top:5cqw">¿Tenés un gimnasio<br>con casilleros?</div>
+    <div class="cta">Escribinos → @lockit</div>
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:3.6cqw; letter-spacing:0.6cqw; color:var(--mut); margin-top:6cqw; text-transform:uppercase">Hecho en Córdoba, Argentina</div>
+  </div>
+
+  <div class="foot">@lockit · Córdoba, AR</div>
+</div>

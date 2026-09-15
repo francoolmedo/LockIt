@@ -78,6 +78,40 @@
 
 ---
 
+## Kit de placas (archivos de diseño)
+
+Las placas están diseñadas en [`redes/`](redes/) como un **canvas de Claude Design**
+(`kit-redes-lockit.html`) — se abre, se edita a mano y se **exporta cada placa a PNG**.
+
+| Artboard | Uso | Medida |
+|---|---|---|
+| `Perfil.dc.html` | Foto de perfil | 1080×1080 |
+| `Main.dc.html` | Carrusel 1 · Hook "Tu locker, un toque" | 1080×1080 |
+| `Problema.dc.html` | Carrusel 2 · El problema | 1080×1080 |
+| `ComoFunciona.dc.html` | Carrusel 3 · Acercás, se abre | 1080×1080 |
+| `Lineas.dc.html` | Carrusel 4 · Clear vs Glow | 1080×1080 |
+| `ParaQuien.dc.html` | Carrusel 5 · Segmentos (gimnasios ancla) | 1080×1080 |
+| `CTA.dc.html` | Carrusel 6 · CTA | 1080×1080 |
+| `StoryAnuncio.dc.html` | Story de anuncio | 1080×1920 |
+| `reel.html` | Reel animado (grabar en pantalla) | 9:16 |
+
+> Reemplazá `@lockit` por tu handle real cuando lo tengas. El reel se **graba en pantalla**
+> (loop de ~12 s) y se sube como reel/short.
+
+### Caption lista para el carrusel de lanzamiento
+> El casillero no cambió en 50 años. Nosotros lo estamos cambiando. 🔐
+> **LockIt**: acercás el celu y se abre. Cero llaves, cero candados, cero fichas — y el local
+> controla todo desde un panel.
+> Estamos arrancando en Córdoba y buscamos gimnasios para el piloto. ¿Conocés uno? Etiquetalo 👇
+> `#Córdoba #Gimnasios #Fitness #Tecnología #NFC #Emprender #HechoEnCórdoba`
+
+### Caption para el reel
+> Sin llaves. Sin candados. Un toque. 🔐 Así de simple va a ser tu locker.
+> LockIt · casilleros inteligentes, hechos en Córdoba. ¿Tenés un gym? Escribinos.
+> `#LockIt #Córdoba #Gimnasios #NFC #Innovación`
+
+---
+
 ## Nota importante
 
 Yo (Claude) **no publico** en tus redes ni administro tus cuentas — no tengo acceso y no

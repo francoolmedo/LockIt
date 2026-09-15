@@ -1,0 +1,16 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html",         "title": "Carrusel 1 · Hook",       "x": 0,    "y": 0,    "w": 1080, "h": 1080 },
+    { "file": "Problema.dc.html",     "title": "Carrusel 2 · Problema",   "x": 1160, "y": 0,    "w": 1080, "h": 1080 },
+    { "file": "ComoFunciona.dc.html", "title": "Carrusel 3 · Cómo",       "x": 2320, "y": 0,    "w": 1080, "h": 1080 },
+    { "file": "Lineas.dc.html",       "title": "Carrusel 4 · Líneas",     "x": 3480, "y": 0,    "w": 1080, "h": 1080 },
+    { "file": "ParaQuien.dc.html",    "title": "Carrusel 5 · Para quién", "x": 4640, "y": 0,    "w": 1080, "h": 1080 },
+    { "file": "CTA.dc.html",          "title": "Carrusel 6 · CTA",        "x": 5800, "y": 0,    "w": 1080, "h": 1080 },
+    { "file": "Perfil.dc.html",       "title": "Foto de perfil",          "x": 0,    "y": 1240, "w": 1080, "h": 1080 },
+    { "file": "StoryAnuncio.dc.html", "title": "Story · Anuncio",         "x": 1160, "y": 1240, "w": 1080, "h": 1920 }
+  ],
+  "annotations": [
+    { "id": "nota-carrusel", "x": 0, "y": -150, "w": 900, "text": "Carrusel de lanzamiento (6 placas 1:1) → deslizá para editar. Abajo: foto de perfil y story. Export PNG desde cada artboard." }
+  ],
+  "launch": { "view": "canvas" }
+}
