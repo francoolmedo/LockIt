@@ -13,31 +13,35 @@ que se expande es el ADN visual de la marca: aparece en el logo, en el LED que r
 hover de los botones, en la animación del 3D. Nada es decoración: todo repite el gesto del
 producto.
 
+La piel de todo eso es **premium, oscura y cálida** — inspirada en el código visual de los
+smart gyms de Córdoba (negro + oro, tipo Qivox): elegante, moderno y con carácter, lejos del
+look "genérico de IA".
+
 ---
 
 ## Paleta (ownable)
 
-Nombres propios para que el equipo hable el mismo idioma. Sesgo de neutros hacia el verde-pulso.
+Nombres propios para que el equipo hable el mismo idioma. Base carbón cálido + oro como
+protagonista.
 
-| Token | Nombre | Hex | Uso |
+| Token | Nombre | Hex (oscuro / claro) | Uso |
 |---|---|---|---|
-| `--graf` | **Grafito** | `#0E1417` | Fondo principal / metal del locker (sesgo teal, no negro puro). |
-| `--graf-2` | Grafito claro | `#161F24` | Paneles, tarjetas sobre fondo oscuro. |
-| `--niebla` | **Niebla** | `#EAF0ED` | Fondo del tema claro. |
-| `--pulso` | **Pulso** ⭐ | `#10E0A0` | **Color de marca.** Estado LIBRE, acentos, CTA. Verde-menta vívido y propio. |
-| `--pulso-deep` | Pulso profundo | `#0C8F65` | Pulso sobre fondos claros (contraste de texto). |
-| `--senal` | **Señal** | `#FF8A3D` | Estado OCUPADO / segundo acento cálido (rompe el cliché del "único pop verde"). |
-| `--cristal` | Cristal | `#74D3F0` | Detalle del policarbonato / línea Clear. |
-| `--ink` | Tinta | `#EAF2EC` / `#10201A` | Texto (según tema). |
+| `--carbon` | **Carbón** | `#100E0B` / `#15120E` | Fondo principal / metal del locker. Casi negro **cálido** (no teal). |
+| `--panel` | Panel | `#1C1811` / `#FBF7F0` | Tarjetas y superficies. |
+| `--oro` | **Oro / Ámbar** ⭐ | `#E7A23C` | **Color de marca.** CTA, acentos, LED/OLED, logo. Cálido, premium. |
+| `--oro-hi` | Oro alto | `#F2B255` | Hover / brillo. |
+| `--coral` | **Coral** | `#F0764F` | Segundo acento, amigable y trendy. Energía / estado "ocupado". |
+| `--crema` | Crema | `#F0E6D6` | Detalle cálido / textos sobre carbón. |
+| `--ink` | Tinta | `#F3EEE6` / `#211A12` | Texto (según tema). |
 
-**Regla de oro:** el **Pulso** es la estrella y se usa con moderación (CTA, estado, un
-detalle por sección). El **Señal** (ámbar) solo para "ocupado" y micro-acentos. Nunca los dos
-gritando a la vez.
+**Regla de oro:** el **Oro** es la estrella y se usa con intención (CTA, estado, un detalle
+por sección). El **Coral** aporta calidez/energía como segundo acento. Nunca los dos gritando
+a la vez; el resto es carbón y cremas.
 
 ### Semántica de estado (parte del producto y de la marca)
-- 🟢 **Pulso** = Libre / abierto / éxito.
-- 🟠 **Señal** = Ocupado / en proceso.
-- 🔵 **Cristal** = Info / línea Clear.
+- 🟡 **Oro** = Libre / abierto / disponible (glow cálido que invita).
+- 🟠 **Coral** = Ocupado / en proceso / energía.
+- Luz general **cálida** (no fría): el producto se ve acogedor, no de laboratorio.
 
 ---
 
@@ -47,15 +51,15 @@ Marca gráfica: una **puerta de locker redondeada** cuyo arco de cerradura se tr
 **onda de pulso**, con un **punto de estado** (el LED / el tap NFC).
 
 - Versión completa: símbolo + wordmark "LockIt" (Archivo ExtraBold, tracking ajustado).
-- Isotipo (ícono/app/favicon): solo el símbolo, en un cuadrado redondeado grafito con el
-  pulso en verde.
+- Isotipo (ícono/app/favicon): solo el símbolo, en un cuadrado redondeado carbón con la
+  onda en oro.
 - Construcción y SVGs de referencia: [`logo.svg`](logo.svg) e [`isotipo.svg`](isotipo.svg).
 - Área de protección: el alto del punto de estado alrededor del logo. No deformar, no rotar,
   no cambiar los colores fuera de las variantes definidas.
 
 ### Variantes de color del logo
-- Sobre grafito: símbolo en Pulso, wordmark en Niebla.
-- Sobre claro: símbolo en Pulso profundo, wordmark en Grafito.
+- Sobre carbón: símbolo en Oro, wordmark en Crema.
+- Sobre claro: símbolo en Oro, wordmark en Carbón.
 - Monocromo (grabado en la puerta física): un solo tono, sin relleno de estado.
 
 ---
