@@ -9,9 +9,15 @@ Monorepo: `docs/` (visión, arquitectura, negocio) · `hardware/` (BOM, firmware
 `cad/` (modelo paramétrico CadQuery → STEP/STL/DXF) · `webapp/` · `panel/` · `landing/` ·
 `marketing/` · `brand/`. Índice completo en [`README.md`](README.md).
 
-## Reglas de diseño (IMPORTANTE)
-Todo lo visual (web, redes, panel, decks) sigue **[`brand/DESIGN.md`](brand/DESIGN.md)** —
-leerlo antes de diseñar. Lo no negociable:
+## Reglas de diseño y voz (IMPORTANTE)
+- **Diseño:** todo lo visual sigue **[`brand/DESIGN.md`](brand/DESIGN.md)** (formato tipo
+  google-labs/design.md: tokens en YAML + reglas + dials + lista negra de AI-tells). Leerlo
+  antes de diseñar. Dials de LockIt: minimalist-premium, varianza 6, motion 4, densidad 5,
+  easing `cubic-bezier(.4,0,.2,1)` (nunca bounce).
+- **Texto/copy:** todo el texto sigue **[`brand/VOICE.md`](brand/VOICE.md)** (Humanizer +
+  Stop-Slop en español). Sin muletillas de IA, voz activa, no inventar datos → `[placeholder]`.
+
+Lo no negociable de diseño:
 - **Usar los tokens de marca** (carbón + oro + coral; Archivo / IBM Plex Sans / IBM Plex Mono).
   Definidos en `brand/DESIGN.md` §1 y `brand/identidad.md`. No inventar colores/tipografías.
 - **Referencias antes que descripciones.** Diseñar mirando las referencias de `DESIGN.md` §4,
