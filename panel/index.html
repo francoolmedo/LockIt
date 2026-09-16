@@ -1,0 +1,241 @@
+<title>LockIt · Panel del local</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --carbon:#0E0C09; --panel:#161109; --panel-2:#1B1710; --line:#2A2418; --line-2:#3A3223;
+  --ink:#F3EEE6; --ink-2:#BEB2A0; --ink-3:#897E6D;
+  --oro:#E7A23C; --oro-hi:#F2B255; --accent-ink:#1A1206;
+  --libre:#3BA776; --ocupado:#F0764F; --reservado:#74D3F0; --abierto:#E7A23C;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0; background:var(--carbon); color:var(--ink); font-family:'IBM Plex Sans',system-ui,-apple-system,sans-serif; font-size:15px; -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(243,238,230,.02) 1px,transparent 1.4px); background-size:26px 26px;}
+h1,h2,h3{font-family:'Archivo',sans-serif; margin:0; letter-spacing:-.01em}
+.mono{font-family:'IBM Plex Mono',monospace}
+button{font-family:inherit; cursor:pointer}
+
+/* Topbar */
+.top{display:flex; align-items:center; gap:16px; padding:16px 22px; border-bottom:1px solid var(--line); position:sticky; top:0; background:color-mix(in srgb,var(--carbon) 88%,transparent); backdrop-filter:blur(10px); z-index:20; padding-top:calc(16px + env(safe-area-inset-top,0px))}
+.brandmark{display:flex; align-items:center; gap:10px; font-family:'Archivo'; font-weight:800; font-size:18px}
+.brandmark svg{width:28px;height:28px;display:block} .brandmark b{color:var(--oro)}
+.sep{width:1px; height:26px; background:var(--line-2)}
+.loc{font-family:'IBM Plex Mono'; font-size:13px; color:var(--ink-2); letter-spacing:.04em}
+.status{margin-left:auto; display:flex; align-items:center; gap:16px; flex-wrap:wrap}
+.chip{font-family:'IBM Plex Mono'; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--line-2); border-radius:7px; padding:6px 11px; color:var(--ink-2); display:flex; align-items:center; gap:8px}
+.chip .sq{width:8px;height:8px;border-radius:2px;background:var(--libre)}
+.chip.demo{color:var(--oro); border-color:var(--oro)}
+
+.wrap{max-width:1240px; margin:0 auto; padding:22px}
+
+/* KPIs */
+.kpis{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:22px}
+.kpi{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; position:relative; overflow:hidden}
+.kpi .k{font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3)}
+.kpi .v{font-family:'Archivo'; font-weight:800; font-size:40px; margin-top:6px; line-height:1}
+.kpi.libre .v{color:var(--libre)} .kpi.ocupado .v{color:var(--ocupado)} .kpi.reservado .v{color:var(--reservado)}
+.kpi .spark{position:absolute; right:14px; bottom:12px; opacity:.85}
+@media(max-width:900px){ .kpis{grid-template-columns:repeat(2,1fr)} }
+
+/* Layout */
+.grid2{display:grid; grid-template-columns:1fr 340px; gap:18px; align-items:start}
+@media(max-width:900px){ .grid2{grid-template-columns:1fr} }
+
+.card{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px}
+.card h2{font-size:19px; font-weight:700}
+.toolbar{display:flex; align-items:center; gap:10px; margin:16px 0 18px; flex-wrap:wrap}
+.search{flex:1; min-width:160px; background:var(--panel-2); border:1px solid var(--line-2); border-radius:9px; padding:10px 13px; color:var(--ink); font-family:'IBM Plex Mono'; font-size:13px}
+.search::placeholder{color:var(--ink-3)}
+.filt{display:flex; gap:6px; flex-wrap:wrap}
+.filt button{background:var(--panel-2); border:1px solid var(--line-2); color:var(--ink-2); border-radius:8px; padding:9px 13px; font-size:12.5px; font-family:'IBM Plex Mono'; letter-spacing:.03em}
+.filt button.on{border-color:var(--oro); color:var(--oro)}
+
+/* Locker grid */
+.walls{display:flex; gap:22px; flex-wrap:wrap}
+.wall{flex:1; min-width:150px}
+.wall .wl{font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:.1em; color:var(--ink-3); text-transform:uppercase; margin-bottom:10px}
+.col{display:flex; flex-direction:column; gap:8px}
+.lk{display:flex; align-items:center; gap:11px; background:var(--panel-2); border:1px solid var(--line-2); border-left:3px solid var(--line-2); border-radius:9px; padding:12px 13px; text-align:left; width:100%; transition:transform .12s, border-color .12s}
+.lk:hover{transform:translateX(2px)}
+.lk.sel{border-color:var(--oro); box-shadow:0 0 0 1px var(--oro) inset}
+.lk .num{font-family:'IBM Plex Mono'; font-weight:600; font-size:15px; color:var(--ink); min-width:52px}
+.lk .st{margin-left:auto; font-family:'IBM Plex Mono'; font-size:11px; letter-spacing:.05em; text-transform:uppercase}
+.lk .dot{width:10px;height:10px;border-radius:3px; flex:none}
+.lk[data-state="libre"]{border-left-color:var(--libre)} .lk[data-state="libre"] .dot{background:var(--libre)} .lk[data-state="libre"] .st{color:var(--libre)}
+.lk[data-state="ocupado"]{border-left-color:var(--ocupado)} .lk[data-state="ocupado"] .dot{background:var(--ocupado)} .lk[data-state="ocupado"] .st{color:var(--ocupado)}
+.lk[data-state="reservado"]{border-left-color:var(--reservado)} .lk[data-state="reservado"] .dot{background:var(--reservado)} .lk[data-state="reservado"] .st{color:var(--reservado)}
+.lk[data-state="abierto"]{border-left-color:var(--abierto)} .lk[data-state="abierto"] .dot{background:var(--abierto)} .lk[data-state="abierto"] .st{color:var(--abierto)}
+.lk.hidden{display:none}
+
+.legend{display:flex; gap:16px; flex-wrap:wrap; margin-top:18px; font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--ink-2)}
+.legend span{display:flex; align-items:center; gap:7px}
+.legend i{width:10px;height:10px;border-radius:3px; display:block}
+
+/* Detail + activity (right column) */
+.detail .empty{color:var(--ink-3); font-size:14px; font-family:'IBM Plex Mono'; text-align:center; padding:30px 10px}
+.detail .dnum{font-family:'Archivo'; font-weight:800; font-size:30px}
+.detail .drow{display:flex; justify-content:space-between; gap:10px; padding:11px 0; border-bottom:1px solid var(--line); font-size:14px}
+.detail .drow .kk{color:var(--ink-3); font-family:'IBM Plex Mono'; font-size:12px}
+.badge{font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:.05em; padding:3px 9px; border-radius:6px; border:1px solid currentColor}
+.actions{display:flex; flex-direction:column; gap:9px; margin-top:16px}
+.btn{border:none; border-radius:10px; padding:13px; font-weight:600; font-size:14px; background:var(--oro); color:var(--accent-ink); transition:transform .12s, filter .12s}
+.btn:hover{transform:translateY(-1px); filter:brightness(1.05)}
+.btn.ghost{background:transparent; border:1px solid var(--line-2); color:var(--ink)}
+.btn.ghost:hover{border-color:var(--oro); color:var(--oro)}
+.btn:disabled{opacity:.4; cursor:default; transform:none; filter:none}
+
+.log{margin-top:18px}
+.log h2{font-size:16px; margin-bottom:12px}
+.ev{display:flex; gap:11px; padding:9px 0; border-bottom:1px solid var(--line); font-size:13px}
+.ev .t{font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-3); min-width:44px}
+.ev .d{color:var(--ink-2)} .ev .d b{color:var(--ink); font-weight:600}
+.foot{max-width:1240px; margin:8px auto 30px; padding:0 22px; color:var(--ink-3); font-size:12px; font-family:'IBM Plex Mono'}
+</style>
+
+<div class="top">
+  <div class="brandmark">
+    <svg viewBox="0 0 128 128"><path d="M46 57 V44 a18 18 0 0 1 36 0 V57" fill="none" stroke="#E7A23C" stroke-width="9" stroke-linecap="round"/><rect x="38" y="56" width="52" height="48" rx="13" fill="#E7A23C"/><rect x="44.5" y="62.5" width="39" height="35" rx="9" fill="none" stroke="#15120E" stroke-width="2" opacity="0.45"/><circle cx="64" cy="80" r="6" fill="#15120E"/><path d="M60.5 81 L58 97 h12 L67.5 81 Z" fill="#15120E"/></svg>
+    Lock<b>It</b>
+  </div>
+  <div class="sep"></div>
+  <div class="loc">Panel · Gimnasio Demo · <span style="color:var(--ink-3)">GYM01</span></div>
+  <div class="status">
+    <div class="chip"><span class="sq"></span>En línea</div>
+    <div class="chip demo">Modo demo · datos de ejemplo</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="kpis">
+    <div class="kpi"><div class="k">Puertas</div><div class="v" id="kTotal">0</div></div>
+    <div class="kpi libre"><div class="k">Libres</div><div class="v" id="kLibre">0</div></div>
+    <div class="kpi ocupado"><div class="k">Ocupadas</div><div class="v" id="kOcup">0</div></div>
+    <div class="kpi reservado"><div class="k">Reservadas</div><div class="v" id="kResv">0</div></div>
+    <div class="kpi"><div class="k">Usos hoy</div><div class="v" id="kUsos">0</div>
+      <svg class="spark" width="90" height="34" viewBox="0 0 90 34"><polyline fill="none" stroke="#E7A23C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="2,28 14,22 26,25 38,14 50,18 62,9 74,12 88,4"/></svg>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Ocupación en vivo</h2>
+      <div class="toolbar">
+        <input class="search" id="search" placeholder="Buscar locker… (ej. B-03)">
+        <div class="filt" id="filt">
+          <button data-f="todos" class="on">Todos</button>
+          <button data-f="libre">Libres</button>
+          <button data-f="ocupado">Ocupadas</button>
+          <button data-f="reservado">Reservadas</button>
+        </div>
+      </div>
+      <div class="walls" id="walls"></div>
+      <div class="legend">
+        <span><i style="background:var(--libre)"></i>Libre</span>
+        <span><i style="background:var(--ocupado)"></i>Ocupada</span>
+        <span><i style="background:var(--reservado)"></i>Reservada</span>
+        <span><i style="background:var(--abierto)"></i>Abierta ahora</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="card detail" id="detail">
+        <div class="empty" id="detailEmpty">Seleccioná un locker<br>para ver el detalle</div>
+      </div>
+      <div class="card log">
+        <h2>Actividad reciente</h2>
+        <div id="log"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="foot">LockIt · Panel del local (demo) — sin backend, datos de ejemplo. // el producto real reporta en vivo desde los lockers.</div>
+
+<script>
+(function(){
+  var COLS = ["A","B","C","D"], PER=6;         // 4 columnas × 6 = 24 puertas
+  var STATES=["libre","ocupado","reservado"];
+  var NAMES=["Sofía","Mateo","Valen","Nico","Lucía","Tomás","Caro","Bruno","Jose","Mica","Fer","Agus"];
+  var LABEL={libre:"Libre",ocupado:"Ocupada",reservado:"Reservada",abierto:"Abierta"};
+  var seed=7; function rnd(){ seed=(seed*1103515245+12345)&0x7fffffff; return seed/0x7fffffff; }
+
+  var lockers=[];
+  COLS.forEach(function(c){ for(var i=1;i<=PER;i++){
+    var r=rnd(), st = r<0.5?"libre": r<0.82?"ocupado":"reservado";
+    lockers.push({ id:c+"-"+String(i).padStart(2,"0"), col:c, state:st,
+      user: st==="libre"?null:NAMES[Math.floor(rnd()*NAMES.length)],
+      since: st==="libre"?null:(8+Math.floor(rnd()*11))+":"+String(Math.floor(rnd()*60)).padStart(2,"0") });
+  }});
+  var usos=63, sel=null, filter="todos", q="";
+  var log=[
+    ["09:12","<b>B-03</b> abierta por su usuario"],
+    ["09:08","<b>A-05</b> liberada"],
+    ["08:57","<b>C-01</b> reservada desde la app"],
+    ["08:41","<b>D-02</b> abierta por su usuario"]
+  ];
+
+  var wallsEl=document.getElementById("walls"), logEl=document.getElementById("log"), detailEl=document.getElementById("detail");
+
+  function counts(){ var c={libre:0,ocupado:0,reservado:0,abierto:0}; lockers.forEach(function(l){c[l.state]++}); return c; }
+  function renderKPIs(){ var c=counts();
+    document.getElementById("kTotal").textContent=lockers.length;
+    document.getElementById("kLibre").textContent=c.libre;
+    document.getElementById("kOcup").textContent=c.ocupado+c.abierto;
+    document.getElementById("kResv").textContent=c.reservado;
+    document.getElementById("kUsos").textContent=usos;
+  }
+  function match(l){ if(filter!=="todos" && l.state!==filter && !(filter==="ocupado"&&l.state==="abierto")) return false;
+    if(q && l.id.toLowerCase().indexOf(q)<0) return false; return true; }
+  function renderGrid(){
+    wallsEl.innerHTML="";
+    COLS.forEach(function(c){
+      var wall=document.createElement("div"); wall.className="wall";
+      wall.innerHTML='<div class="wl">Columna '+c+'</div>';
+      var col=document.createElement("div"); col.className="col";
+      lockers.filter(function(l){return l.col===c}).forEach(function(l){
+        var b=document.createElement("button"); b.className="lk"+(sel===l.id?" sel":"")+(match(l)?"":" hidden");
+        b.setAttribute("data-state",l.state);
+        b.innerHTML='<span class="dot"></span><span class="num">'+l.id+'</span><span class="st">'+LABEL[l.state]+'</span>';
+        b.onclick=function(){ sel=l.id; renderGrid(); renderDetail(); };
+        col.appendChild(b);
+      });
+      wall.appendChild(col); wallsEl.appendChild(wall);
+    });
+  }
+  function addLog(msg){ var d=new Date(); log.unshift([String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"), msg]); if(log.length>8) log.pop(); renderLog(); }
+  function renderLog(){ logEl.innerHTML=log.map(function(e){ return '<div class="ev"><span class="t">'+e[0]+'</span><span class="d">'+e[1]+'</span></div>'; }).join(""); }
+
+  var COLV={libre:"var(--libre)",ocupado:"var(--ocupado)",reservado:"var(--reservado)",abierto:"var(--abierto)"};
+  function renderDetail(){
+    var l=lockers.find(function(x){return x.id===sel});
+    if(!l){ detailEl.innerHTML='<div class="empty">Seleccioná un locker<br>para ver el detalle</div>'; return; }
+    detailEl.innerHTML=
+      '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px">'
+      +'<div class="dnum">'+l.id+'</div>'
+      +'<span class="badge" style="color:'+COLV[l.state]+'">'+LABEL[l.state]+'</span></div>'
+      +'<div style="margin-top:14px">'
+      +'<div class="drow"><span class="kk">Usuario</span><span>'+(l.user||"—")+'</span></div>'
+      +'<div class="drow"><span class="kk">Desde</span><span>'+(l.since||"—")+'</span></div>'
+      +'<div class="drow"><span class="kk">Columna</span><span>'+l.col+'</span></div>'
+      +'</div>'
+      +'<div class="actions">'
+      +'<button class="btn" id="aOpen">Abrir puerta</button>'
+      +'<button class="btn ghost" id="aAssign"'+(l.state!=="libre"?" disabled":"")+'>Asignar</button>'
+      +'<button class="btn ghost" id="aFree"'+(l.state==="libre"?" disabled":"")+'>Liberar</button>'
+      +'</div>';
+    document.getElementById("aOpen").onclick=function(){ l.state="abierto"; addLog("<b>"+l.id+"</b> abierta desde el panel"); usos++; refresh(); };
+    var as=document.getElementById("aAssign"); if(as&&!as.disabled) as.onclick=function(){ l.state="ocupado"; l.user=NAMES[Math.floor(Math.random()*NAMES.length)]; var d=new Date(); l.since=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); addLog("<b>"+l.id+"</b> asignada a "+l.user); usos++; refresh(); };
+    var fr=document.getElementById("aFree"); if(fr&&!fr.disabled) fr.onclick=function(){ l.state="libre"; l.user=null; l.since=null; addLog("<b>"+l.id+"</b> liberada"); refresh(); };
+  }
+  function refresh(){ renderKPIs(); renderGrid(); renderDetail(); }
+
+  document.getElementById("search").addEventListener("input",function(e){ q=e.target.value.trim().toLowerCase(); renderGrid(); });
+  document.getElementById("filt").addEventListener("click",function(e){ var b=e.target.closest("button"); if(!b)return;
+    filter=b.getAttribute("data-f"); [].forEach.call(this.children,function(x){x.classList.toggle("on",x===b)}); renderGrid(); });
+
+  renderKPIs(); renderGrid(); renderLog(); renderDetail();
+})();
+</script>

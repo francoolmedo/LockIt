@@ -48,6 +48,7 @@ firmware, software y go-to-market.
 | [`hardware/`](hardware/) | **BOM** (lista de materiales con costos), esquemático de conexiones y **firmware** del ESP32. |
 | [`cad/`](cad/) | Modelo **CAD paramétrico** del locker (por código, exporta STEP/STL/DXF) y planos. |
 | [`webapp/`](webapp/) | La **webapp** que se abre al escanear el NFC (prototipo funcional). |
+| [`panel/`](panel/) | **Panel del local** (demo): ocupación en vivo, asignar/liberar/abrir. |
 | [`landing/`](landing/) | **Landing page** animada para vender el producto. |
 | [`marketing/`](marketing/) | Estrategia, copies de redes, guion de animación y outreach a empresas. |
 | [`brand/`](brand/) | Identidad de marca (nombre, tono, paleta, dirección de logo). |
