@@ -14,17 +14,17 @@
 | 3 | **MOSFET driver** | IRLZ44N + resistencias + diodo flyback | 1 | 0.8 | 0.8 |
 | 4 | **Sensor Hall + imán** | A3144 (o reed switch ~0.3) + imán de neodimio | 1 | 0.6 | 0.6 |
 | 5 | **Tag NFC pasivo** | NTAG213/215 sticker (grabado con URL NDEF) | 1 | 0.3 | 0.3 |
-| 6 | **Indicador** | Clear: 1 LED / anillo. Glow: OLED SSD1306 0.96" | 1 | 1.5 – 4.0 | 1.5 – 4.0 |
+| 6 | **Aro LED de estado** | Anillo WS2812 direccionable (12–16 px), Clear y Glow | 1 | 1.5 – 3.0 | 1.5 – 3.0 |
 | 7 | **Buck converter** | 12 V → 3.3/5 V (MP1584 o similar) | 1 | 0.7 | 0.7 |
 | 8 | **PCB / protoboard + conectores** | placa del nodo, borneras, cableado | 1 | 2.0 | 2.0 |
 | 9 | **Gabinete electrónico** | caja plástica del nodo (o impreso 3D) | 1 | 1.0 | 1.0 |
 | | | | | **Subtotal nodo** | **≈ USD 16.4 – 18.9** |
 
-- **Variante Clear:** indicador LED → extremo bajo (~USD 16.4 / **≈ ARS 23.000**).
-- **Variante Glow:** OLED → extremo alto (~USD 18.9 / **≈ ARS 26.500**).
+- **Variante Clear:** mismo aro LED sobre puerta transparente (~USD 16.4 / **≈ ARS 23.000**).
+- **Variante Glow:** mismo aro LED sobre puerta opaca; el costo extra está en la puerta, no en el indicador.
 - **Nodo "Pro" (con lector NFC PN532):** +USD 4–8 → apertura offline y credencial física.
 
-> ⚠️ La **cerradura** y el **indicador** son los ítems que más mueven el costo. Comprar por
+> ⚠️ La **cerradura** y la **puerta** son los ítems que más mueven el costo. Comprar por
 > volumen (50–100 u.) baja el nodo a **~USD 11–13** por puerta.
 
 ## Gateway (uno por local / por zona)
@@ -54,7 +54,7 @@
 
 ## Dónde comprar (Argentina / Córdoba)
 
-- **ESP32, sensores, MOSFET, buck, OLED:** MercadoLibre, Nubbeo, Vistronica, Electrocomponentes.
+- **ESP32, sensores, MOSFET, buck, aro LED WS2812:** MercadoLibre, Nubbeo, Vistronica, Electrocomponentes.
 - **Cerraduras solenoide 12 V "cabinet lock":** MercadoLibre / AliExpress (importar por volumen).
 - **Tags NFC NTAG213:** MercadoLibre / importación (baratísimos por cantidad).
 - **Fuentes 12 V:** proveedores de electrónica locales de Córdoba.

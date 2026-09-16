@@ -26,7 +26,7 @@
 3. "Acercás el celu al tag NFC → se abre. Sin instalar ninguna app."
 4. "¿Libre u ocupado? Se ve de una: puerta transparente o indicador luminoso."
 5. "Los lockers se hablan entre sí por WiFi y te muestran todo en un panel."
-6. "Dos líneas: Clear (transparente) y Glow (opaca + OLED)."
+6. "Dos líneas: Clear (transparente) y Glow (opaca + aro LED de color)."
 7. **Cierre/CTA:** "Hecho en Córdoba 🇦🇷. ¿Tenés un gym o local? Escribinos. → @lockit"
 
 **Caption:**
@@ -92,6 +92,9 @@ Las placas están diseñadas en [`redes/`](redes/) como un **canvas de Claude De
 | `Lineas.dc.html` | Carrusel 4 · Clear vs Glow | 1080×1080 |
 | `ParaQuien.dc.html` | Carrusel 5 · Segmentos (gimnasios ancla) | 1080×1080 |
 | `CTA.dc.html` | Carrusel 6 · CTA | 1080×1080 |
+| `Testimonios.dc.html` | Testimonios (plantilla con placeholders) | 1080×1080 |
+| `Precios.dc.html` | Precios (planes, montos placeholder) | 1080×1080 |
+| `Panel.dc.html` | Pantallazo del panel del local | 1080×1080 |
 | `StoryAnuncio.dc.html` | Story de anuncio | 1080×1920 |
 | `reel.html` | Reel animado (grabar en pantalla) | 9:16 |
 
@@ -108,6 +111,12 @@ Las placas están diseñadas en [`redes/`](redes/) como un **canvas de Claude De
 ### Caption para el reel
 > Sin llaves. Sin candados. Un toque. 🔐 Así de simple va a ser tu locker.
 > LockIt · casilleros inteligentes, hechos en Córdoba. ¿Tenés un gym? Escribinos.
+
+### Caption para la placa del panel
+> No es solo la puerta: el local ve todo en vivo. 📊 Cuáles están libres, ocupados o
+> reservados, cuántos usos hubo hoy — todo desde un panel, sin dar vueltas por el vestuario.
+> LockIt · casilleros inteligentes, hechos en Córdoba.
+> `#Gimnasios #Gestión #Tecnología #NFC #Córdoba`
 > `#LockIt #Córdoba #Gimnasios #NFC #Innovación`
 
 ---

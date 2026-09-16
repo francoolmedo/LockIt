@@ -62,13 +62,13 @@ la electrónica, cambiando puerta e indicador.
 
 ### 🌗 LockIt Glow
 - **Puerta opaca** (melamina, MDF laminado o chapa plegada) para **privacidad**.
-- Indicador **OLED chico** (o anillo/tira LED direccionable) embutido en la puerta que
-  muestra estado, número de locker, ícono de "acercá el celu", animaciones.
+- **Aro LED direccionable (WS2812)** embutido en la puerta que muestra el estado por color
+  (verde libre · ámbar reservado · azul ocupado), con animación suave al abrir.
 - **Ventaja**: más "tech", más premium, más privacidad.
 - **Ideal**: oficinas, coworkings, uso premium.
 
 > Ambas variantes usan el **mismo nodo electrónico** (ESP32 + NFC + cerradura + sensor de
-> puerta). La diferencia de costo está en la puerta y en el indicador (LED simple vs OLED).
+> puerta). La diferencia de costo está en la puerta y en el aro LED (LED puntual vs aro WS2812).
 
 ---
 

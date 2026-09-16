@@ -17,8 +17,7 @@ board = esp32dev
 framework = arduino
 monitor_speed = 115200
 lib_deps =
-    ; olikraus/U8g2                 ; OLED (variante Glow)
-    ; fastled/FastLED               ; LED WS2812 (variante Clear con anillo)
+    ; fastled/FastLED               ; aro LED WS2812 (Clear y Glow)
     ; knolleary/PubSubClient        ; MQTT (solo gateway)
 ```
 

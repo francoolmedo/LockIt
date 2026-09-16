@@ -6,9 +6,9 @@ Todas las dimensiones en MILÍMETROS. Este archivo es la única fuente de verdad
 de las medidas: lo importan `lockit_module.py` y `build.py`. Cambiá acá y todo
 el CAD y los planos se regeneran coherentes.
 
-Variantes:
-  - "clear": puerta transparente (policarbonato/acrílico) + LED de estado.
-  - "glow" : puerta opaca (melamina/chapa) + ventana para indicador OLED.
+Variantes (ambas con el mismo aro LED de estado):
+  - "clear": puerta transparente (policarbonato/acrílico) + aro LED.
+  - "glow" : puerta opaca (melamina/chapa) + aro LED embutido a ras.
 """
 
 from dataclasses import dataclass, field
@@ -40,12 +40,11 @@ class LockerParams:
     vent_slot_h: float = 6.0
     vent_rows: int = 3
 
-    # --- Variante e indicador ---
+    # --- Variante e indicador (aro LED WS2812 en ambas) ---
     variant: str = "clear"         # "clear" | "glow"
-    # Clear: agujero para LED puntual. Glow: ventana rectangular para OLED.
-    led_hole_d: float = 8.0
-    oled_win_w: float = 30.0
-    oled_win_h: float = 15.0
+    led_hole_d: float = 8.0        # paso de cable del aro
+    led_ring_dia: float = 46.0     # diámetro exterior del aro LED
+    led_ring_recess: float = 4.0   # profundidad del rebaje circular del aro (Glow)
 
     # --- Columna (apilado vertical de módulos) ---
     doors_per_column: int = 4      # cuántas puertas apiladas por columna

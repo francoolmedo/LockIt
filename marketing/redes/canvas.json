@@ -9,7 +9,8 @@
     { "file": "Precios.dc.html",      "title": "Carrusel 7 · Precios",     "x": 6960, "y": 0,    "w": 1080, "h": 1080 },
     { "file": "CTA.dc.html",          "title": "Carrusel 8 · CTA",         "x": 8120, "y": 0,    "w": 1080, "h": 1080 },
     { "file": "Perfil.dc.html",       "title": "Foto de perfil",           "x": 0,    "y": 1240, "w": 1080, "h": 1080 },
-    { "file": "StoryAnuncio.dc.html", "title": "Story · Anuncio",          "x": 1160, "y": 1240, "w": 1080, "h": 1920 }
+    { "file": "StoryAnuncio.dc.html", "title": "Story · Anuncio",          "x": 1160, "y": 1240, "w": 1080, "h": 1920 },
+    { "file": "Panel.dc.html",        "title": "Panel del local",          "x": 2320, "y": 1240, "w": 1080, "h": 1080 }
   ],
   "annotations": [
     { "id": "nota-carrusel", "x": 0, "y": -150, "w": 1100, "text": "Carrusel de lanzamiento (8 placas 1:1) → deslizá para editar. Abajo: foto de perfil y story. Testimonios y precios son plantilla: completá los [ ] con datos reales. Export PNG desde cada artboard." }

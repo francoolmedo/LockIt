@@ -6,7 +6,7 @@ CAD por código con CadQuery. Genera:
   - build_body(p)     -> cuerpo/gabinete (5 caras, frente abierto) con ventilación
                          y alojamiento de cerradura/ESP32.
   - build_door(p)     -> puerta según variante (Clear = ventana transparente,
-                         Glow = panel opaco con ventana para OLED), con agarre.
+                         Glow = panel opaco con rebaje para el aro LED), con agarre.
   - build_assembly(p) -> gabinete + puerta (cerrada), coloreado para preview.
   - build_column(p)   -> columna de N módulos apilados con base y tapa.
 
@@ -121,13 +121,20 @@ def build_door(p: LockerParams) -> cq.Workplane:
         door = door.cut(window)
         # Nota: el "vidrio" transparente se agrega en el assembly como pieza aparte.
     else:  # glow
-        # Ventana chica para el indicador OLED, arriba y centrada.
-        oled = (
-            cq.Workplane("XY")
-            .box(p.oled_win_w, dt * 2, p.oled_win_h, centered=(True, True, True))
-            .translate((0, 0, dh / 2 - p.oled_win_h))
+        # Rebaje circular para el aro LED WS2812 (embutido a ras), arriba y centrado,
+        # más un paso de cable pasante.
+        ring_cz = dh / 2 - p.led_ring_dia
+        recess = (
+            cq.Workplane("XZ")
+            .cylinder(p.led_ring_recess * 2, p.led_ring_dia / 2)
+            .translate((0, dt / 2, ring_cz))
         )
-        door = door.cut(oled)
+        cable = (
+            cq.Workplane("XZ")
+            .cylinder(dt * 3, p.led_hole_d / 2)
+            .translate((0, 0, ring_cz))
+        )
+        door = door.cut(recess).cut(cable)
 
     # Rebaje de agarre (semiesfera) del lado del cierre para tirar sin manija.
     sign = 1 if p.hinge_side == "left" else -1
@@ -163,8 +170,8 @@ def door_profile_2d(p: LockerParams) -> cq.Workplane:
         loops.append(cq.Workplane("XY").rect(dw - 2 * frame, dh - 2 * frame))  # ventana
     else:  # glow
         loops.append(
-            cq.Workplane("XY").center(0, dh / 2 - p.oled_win_h - 10)
-              .rect(p.oled_win_w, p.oled_win_h)  # ventana OLED
+            cq.Workplane("XY").center(0, dh / 2 - p.led_ring_dia)
+              .circle(p.led_hole_d / 2)  # paso de cable del aro LED (el rebaje se fresa aparte)
         )
 
     # Agujero de agarre del lado del cierre

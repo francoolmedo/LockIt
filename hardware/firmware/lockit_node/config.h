@@ -14,16 +14,16 @@
 #define LOCKER_ID     "014"          // id de esta puerta / this door id
 
 // ---- Variante / Variant ----------------------------------------------------
-#define VARIANT_CLEAR 0              // LED de estado
-#define VARIANT_GLOW  1              // OLED de estado
+// Ambas usan el mismo aro LED direccionable (WS2812); cambia solo la puerta.
+#define VARIANT_CLEAR 0              // puerta transparente + aro LED
+#define VARIANT_GLOW  1              // puerta opaca + aro LED
 #define VARIANT       VARIANT_CLEAR
 
 // ---- Pines / Pins (ESP32 WROOM-32) -----------------------------------------
 #define PIN_LOCK      25             // gate del MOSFET -> cerradura / lock MOSFET gate
 #define PIN_DOOR      34             // sensor Hall (input only) / door sensor
-#define PIN_LED       26             // LED o data WS2812 (Clear)
-#define PIN_OLED_SDA  21             // I2C SDA (Glow)
-#define PIN_OLED_SCL  22             // I2C SCL (Glow)
+#define PIN_LEDRING   26             // data del aro LED WS2812 (Clear y Glow)
+#define LEDRING_COUNT 16             // nº de LEDs del aro / ring pixel count
 
 // ---- Tiempos / Timings -----------------------------------------------------
 #define LOCK_PULSE_MS       200      // pulso para abrir la cerradura / open pulse

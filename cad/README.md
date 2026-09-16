@@ -34,7 +34,7 @@ Por cada variante (`clear`, `glow`):
 | Salida | Para qué sirve |
 |---|---|
 | `..._gabinete.step` / `.stl` | Gabinete 3D. STEP = para el taller / otro CAD (Fusion, SolidWorks). STL = impresión 3D / preview. |
-| `..._puerta.step` / `.stl` | Puerta 3D (con ventana o calado OLED según variante). |
+| `..._puerta.step` / `.stl` | Puerta 3D (ventana transparente en Clear o rebaje del aro LED en Glow). |
 | `..._modulo.step` / `.stl` | **Ensamble completo** (gabinete + puerta + policarbonato en Clear), coloreado. |
 | `..._puerta_corte2d.dxf` | **Plano de corte 2D** (contorno + calados) para láser/router CNC. Lo que va al taller. |
 | `..._puerta_corte2d.svg` | Vista rápida del plano de corte. |
@@ -46,7 +46,7 @@ Por cada variante (`clear`, `glow`):
 - **Exterior del módulo:** ~330 × 430 × 465 mm.
 - **Columna de 4 puertas:** ~1.845 mm de alto (con base y tapa).
 - **Material base:** panel de 15 mm (melamina resistente a humedad / chapa plegada equivalente).
-- **Puerta:** 12 mm. Clear = policarbonato/acrílico con marco; Glow = opaca con ventana OLED.
+- **Puerta:** 12 mm. Clear = policarbonato/acrílico con marco; Glow = opaca con rebaje para el aro LED.
 
 > Ver el criterio de estas medidas y materiales en
 > [`../docs/03-diseno-industrial.md`](../docs/03-diseno-industrial.md).

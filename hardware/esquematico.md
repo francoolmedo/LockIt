@@ -18,8 +18,7 @@ flowchart LR
     HALL[Sensor Hall A3144] -->|GPIO in| ESP
     MAG[Imán en la puerta] -.campo.- HALL
 
-    ESP -->|I2C SDA/SCL| OLED[OLED SSD1306 - Glow]
-    ESP -->|GPIO| LED[LED estado - Clear]
+    ESP -->|GPIO data| RING[Aro LED WS2812 - Clear y Glow]
 
     NFC[Tag NFC pasivo en la puerta] -.lo lee el celular.- PHONE[📱]
 ```
@@ -33,9 +32,7 @@ flowchart LR
 |---|---|---|
 | Cerradura (gate MOSFET) | GPIO 25 | Pulso 150–250 ms para abrir. Resistencia 100 Ω en gate, pulldown 10 kΩ. |
 | Sensor Hall (puerta) | GPIO 34 (input only) | Pull-up; LOW/HIGH = cerrada/abierta (según imán). |
-| LED estado (Clear) | GPIO 26 | LED o data de WS2812 (anillo direccionable). |
-| OLED SDA (Glow) | GPIO 21 | I2C. |
-| OLED SCL (Glow) | GPIO 22 | I2C. |
+| Aro LED estado (Clear y Glow) | GPIO 26 | Data de WS2812 (aro direccionable). |
 | Lector NFC PN532 (Pro) | GPIO 21/22 (I2C) o SPI | Solo variante Pro. |
 | Alimentación lógica | 3V3 / GND | Desde buck converter. |
 

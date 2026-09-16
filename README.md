@@ -29,8 +29,8 @@ mostrar, en conjunto, cuáles están libres y cuáles ocupados.
 ### La propuesta
 - 📱 **Apertura con NFC**: acercás el celu, se abre. Cero fricción, cero app para instalar.
 - 👀 **Estado visible**: dos líneas de producto —
-  - **LockIt Clear** → puerta transparente (ves si hay algo adentro) + LED de estado.
-  - **LockIt Glow** → puerta opaca + indicador OLED/LED "fachero".
+  - **LockIt Clear** → puerta transparente (ves si hay algo adentro) + aro LED de estado.
+  - **LockIt Glow** → puerta opaca + aro LED de color "fachero".
 - 🕸️ **Red en malla**: los lockers se hablan entre sí y con un panel central.
 - 🔒 **Confirmación real de cierre**: sensor de efecto Hall + imán detecta puerta cerrada.
 - 🧰 **Control del local**: panel para asignar, liberar, ver ocupación y cobrar por uso.
@@ -74,7 +74,7 @@ Ver el detalle de etapas en [`docs/06-roadmap.md`](docs/06-roadmap.md).
 | | **LockIt Clear** | **LockIt Glow** |
 |---|---|---|
 | Puerta | Transparente (policarbonato/acrílico) | Opaca (melamina/chapa) |
-| Estado | Se ve el interior + LED | Indicador OLED/LED en la puerta |
+| Estado | Se ve el interior + aro LED | Aro LED de color en la puerta |
 | Ideal para | Gimnasios, clubes, escuelas | Oficinas, coworkings, uso premium |
 | Costo relativo | Menor | Mayor (más electrónica) |
 

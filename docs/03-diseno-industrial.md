@@ -49,7 +49,7 @@ colgando.
 ### Puerta
 - **Clear:** **policarbonato** (resistente a impacto, no astilla) o **acrílico** (más barato,
   se raya más). Recomendado policarbonato para uso intenso.
-- **Glow:** melamina/MDF laminado o chapa, con **ventana** para el OLED.
+- **Glow:** melamina/MDF laminado o chapa, con **rebaje circular** para el aro LED.
 
 ### Herrajes
 - Bisagras ocultas o de piano (según variante y presupuesto).
@@ -60,10 +60,10 @@ colgando.
 
 ## "Chiches" y detalles (lo que da carácter)
 
-1. **LED perimetral / anillo de estado** (Clear): verde = libre, ámbar = ocupado, blanco
-   parpadeo = abriendo. Se lee de lejos en todo el vestuario.
-2. **OLED embutido** (Glow): muestra número de locker, ícono "acercá el celu", microanimación
-   de apertura. Es el "wow".
+1. **Aro LED de estado** (Clear y Glow): verde = libre, ámbar = reservado, azul = ocupado,
+   animación suave = abriendo. Se lee de lejos en todo el vestuario.
+2. **Aro embutido a ras** (Glow): mismo aro sobre puerta opaca, con rebaje circular prolijo.
+   Es el "wow", sin pantalla que envejezca.
 3. **Numeración grande y legible** grabada/impresa en cada puerta.
 4. **Rebaje de agarre** (sin manija que enganche ni se rompa) — modelado en el CAD.
 5. **Ventilación trasera** discreta (ranuras) para que no junte olor/humedad.

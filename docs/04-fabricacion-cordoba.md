@@ -14,7 +14,7 @@ Un módulo LockIt tiene tres "paquetes" de fabricación:
 |---|---|---|---|
 | **A. Estructura** | Gabinete (5 paneles), puerta, dividers, base | Corte CNC/láser + plegado o armado | `*.dxf` de corte + `*.step` de referencia |
 | **B. Electrónica** | Nodo ESP32, cerradura, sensor, indicador | Compra + ensamble en placa | [`../hardware/BOM.md`](../hardware/BOM.md) |
-| **C. Terminación** | Pintura/laminado, herrajes, numeración, LED/OLED | Pintura + montaje | Especificación de color y acabado |
+| **C. Terminación** | Pintura/laminado, herrajes, numeración, aro LED | Pintura + montaje | Especificación de color y acabado |
 
 ---
 
@@ -95,7 +95,7 @@ NECESITO:
 | Concepto (por columna de 4 puertas) | Estimado ARS | Nota |
 |---|---|---|
 | Estructura melamina (corte + armado) | 180.000 – 320.000 | Muy variable por taller |
-| Puertas (policarbonato x4 con marco) | 90.000 – 160.000 | Clear; Glow: melamina + ventana OLED |
+| Puertas (policarbonato x4 con marco) | 90.000 – 160.000 | Clear; Glow: melamina + rebaje para aro LED |
 | Herrajes + tornillería | 30.000 – 60.000 | |
 | Electrónica (4 nodos + prorrateo gateway) | ≈ 104.000 | Ver [BOM](../hardware/BOM.md) |
 | Ensamble + pruebas | 60.000 – 120.000 | Mano de obra |

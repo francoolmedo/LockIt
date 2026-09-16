@@ -28,7 +28,7 @@ protagonista.
 |---|---|---|---|
 | `--carbon` | **Carbón** | `#100E0B` / `#15120E` | Fondo principal / metal del locker. Casi negro **cálido** (no teal). |
 | `--panel` | Panel | `#1C1811` / `#FBF7F0` | Tarjetas y superficies. |
-| `--oro` | **Oro / Ámbar** ⭐ | `#E7A23C` | **Color de marca.** CTA, acentos, LED/OLED, logo. Cálido, premium. |
+| `--oro` | **Oro / Ámbar** ⭐ | `#E7A23C` | **Color de marca.** CTA, acentos, logo. Cálido, premium. |
 | `--oro-hi` | Oro alto | `#F2B255` | Hover / brillo. |
 | `--coral` | **Coral** | `#F0764F` | Segundo acento, amigable y trendy. Energía / estado "ocupado". |
 | `--crema` | Crema | `#F0E6D6` | Detalle cálido / textos sobre carbón. |
@@ -104,6 +104,6 @@ Todo se mueve con el **gesto del pulso**: una onda que se expande con easing sua
 ## Aplicaciones
 
 - **Web:** landing con 3D en vivo ([`../landing/`](../landing/)) y webapp NFC ([`../webapp/`](../webapp/)).
-- **Producto físico:** numeración y logo monocromo grabado en la puerta; LED/OLED con la
-  semántica de estado.
+- **Producto físico:** numeración y logo monocromo grabado en la puerta; aro LED de color con la
+  semántica de estado (verde libre · ámbar reservado · azul ocupado).
 - **Redes:** ver [`../marketing/`](../marketing/) (los copies y el guion usan esta voz y paleta).

@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600&family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+  <style>body{margin:0}</style>
+</helmet>
+<div style="position:relative; width:1080px; height:1080px; background:#F1EADC; overflow:hidden; font-family:'Newsreader',system-ui,Arial,sans-serif; box-sizing:border-box; padding:80px;">
+  <div style="position:absolute; inset:0; background-image:linear-gradient(rgba(43,35,24,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(43,35,24,.05) 1px,transparent 1px); background-size:54px 54px;"></div>
+  <div style="position:relative; height:100%; display:flex; flex-direction:column;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:22px; letter-spacing:5px; color:#B07A1E; text-transform:uppercase; border-top:1px solid #DDD2BE; padding-top:20px;">§ El panel del local</div>
+    <div style="font-weight:800; font-size:70px; line-height:1.02; letter-spacing:-2px; color:#2B2318; margin-top:22px; max-width:900px;">Ocupación en vivo, de un vistazo.</div>
+
+    <!-- Pantallazo del panel -->
+    <div style="margin-top:44px; background:#F7F1E6; border:1px solid #CEC1A8; border-radius:22px; overflow:hidden; box-shadow:0 24px 60px rgba(43,35,24,.14);">
+      <!-- barra superior del panel -->
+      <div style="display:flex; align-items:center; gap:14px; padding:26px 34px; border-bottom:1px solid #E4DAC6;">
+        <svg width="34" viewBox="0 0 128 128"><path d="M46 57 V44 a18 18 0 0 1 36 0 V57" fill="none" stroke="#B07A1E" stroke-width="9" stroke-linecap="round"/><rect x="38" y="56" width="52" height="48" rx="13" fill="#B07A1E"/><rect x="44.5" y="62.5" width="39" height="35" rx="9" fill="none" stroke="#F7F1E6" stroke-width="2" opacity="0.5"/><circle cx="64" cy="80" r="6" fill="#F7F1E6"/><path d="M60.5 81 L58 97 h12 L67.5 81 Z" fill="#F7F1E6"/></svg>
+        <div style="font-weight:800; font-size:30px; color:#2B2318;">Gimnasio Demo</div>
+        <div style="margin-left:auto; display:flex; align-items:center; gap:10px; font-family:'IBM Plex Mono',monospace; font-size:20px; color:#2F8F63;"><span style="width:11px; height:11px; border-radius:50%; background:#2F8F63; box-shadow:0 0 0 4px rgba(47,143,99,.18);"></span>Conectado</div>
+      </div>
+
+      <!-- métricas -->
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid #E4DAC6;">
+        <div style="padding:24px 34px; border-right:1px solid #E4DAC6;"><div style="font-family:'IBM Plex Mono',monospace; font-size:17px; letter-spacing:2px; color:#8A7D6B; text-transform:uppercase;">Total</div><div style="font-weight:800; font-size:44px; color:#2B2318;">20</div></div>
+        <div style="padding:24px 34px; border-right:1px solid #E4DAC6;"><div style="font-family:'IBM Plex Mono',monospace; font-size:17px; letter-spacing:2px; color:#8A7D6B; text-transform:uppercase;">Libres</div><div style="font-weight:800; font-size:44px; color:#2F8F63;">11</div></div>
+        <div style="padding:24px 34px; border-right:1px solid #E4DAC6;"><div style="font-family:'IBM Plex Mono',monospace; font-size:17px; letter-spacing:2px; color:#8A7D6B; text-transform:uppercase;">Ocupados</div><div style="font-weight:800; font-size:44px; color:#C25A38;">7</div></div>
+        <div style="padding:24px 34px;"><div style="font-family:'IBM Plex Mono',monospace; font-size:17px; letter-spacing:2px; color:#8A7D6B; text-transform:uppercase;">Usos hoy</div><div style="font-weight:800; font-size:44px; color:#2B2318;">143</div></div>
+      </div>
+
+      <!-- grilla de lockers -->
+      <div style="padding:30px 34px 34px;">
+        <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:16px;">
+          <!-- fila 1 -->
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">01</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#F6E7E0; border:1.5px solid #C25A38; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#C25A38;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">02</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">03</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#E3EEF5; border:1.5px solid #2E86B8; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2E86B8;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">04</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">05</span></div>
+          <!-- fila 2 -->
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#F6E7E0; border:1.5px solid #C25A38; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#C25A38;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">06</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">07</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">08</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#F6E7E0; border:1.5px solid #C25A38; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#C25A38;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">09</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">10</span></div>
+          <!-- fila 3 -->
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">11</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#E3EEF5; border:1.5px solid #2E86B8; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2E86B8;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">12</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#F6E7E0; border:1.5px solid #C25A38; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#C25A38;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">13</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">14</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">15</span></div>
+          <!-- fila 4 -->
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#F6E7E0; border:1.5px solid #C25A38; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#C25A38;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">16</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">17</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#E3EEF5; border:1.5px solid #2E86B8; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2E86B8;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">18</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#EAF3ED; border:1.5px solid #2F8F63; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#2F8F63;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">19</span></div>
+          <div style="aspect-ratio:1/1.15; border-radius:14px; background:#F6E7E0; border:1.5px solid #C25A38; display:flex; flex-direction:column; justify-content:space-between; padding:14px;"><span style="width:14px; height:14px; border-radius:50%; background:#C25A38;"></span><span style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:26px; color:#2B2318;">20</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:auto; display:flex; align-items:center; gap:30px; padding-top:26px; font-family:'IBM Plex Sans',sans-serif; font-size:24px; color:#5C5240;">
+      <span style="display:flex; align-items:center; gap:10px;"><span style="width:15px; height:15px; border-radius:50%; background:#2F8F63;"></span>Libre</span>
+      <span style="display:flex; align-items:center; gap:10px;"><span style="width:15px; height:15px; border-radius:50%; background:#C25A38;"></span>Ocupado</span>
+      <span style="display:flex; align-items:center; gap:10px;"><span style="width:15px; height:15px; border-radius:50%; background:#2E86B8;"></span>Reservado</span>
+      <span style="margin-left:auto; font-family:'IBM Plex Mono',monospace; font-size:19px; color:#8A7D6B;">// Demo — datos de ejemplo</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

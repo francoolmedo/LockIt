@@ -82,7 +82,7 @@ def main():
     jobs = [
         ("lockit_clear_modulo.stl", (0.60, 0.79, 0.88), "LockIt CLEAR — puerta transparente", 35, 15),
         ("lockit_clear_modulo.stl", (0.60, 0.79, 0.88), "LockIt CLEAR — 3/4 frontal", 62, 10),
-        ("lockit_glow_modulo.stl",  (0.20, 0.24, 0.27), "LockIt GLOW — puerta opaca + OLED", 35, 15),
+        ("lockit_glow_modulo.stl",  (0.20, 0.24, 0.27), "LockIt GLOW — puerta opaca + aro LED", 35, 15),
         ("lockit_clear_gabinete.stl",(0.34, 0.40, 0.44), "LockIt — gabinete abierto (interior)", 30, 22),
     ]
     print("▶ Renderizando 3D...")

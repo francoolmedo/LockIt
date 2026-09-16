@@ -309,21 +309,21 @@ footer .logo{color:var(--ink); font-family:"Newsreader",serif; font-weight:600} 
         <ul>
           <li>Puerta transparente en policarbonato resistente a golpes.</li>
           <li>Ves el interior de un vistazo: sabés al instante si está libre.</li>
-          <li>Indicador luminoso perimetral de estado.</li>
+          <li>Aro LED que cambia de color según el estado.</li>
           <li>La opción más accesible, ideal para gimnasios y clubes.</li>
         </ul>
-        <div class="spec"><div>MATERIAL<b>Policarbonato</b></div><div>ESTADO<b>LED perimetral</b></div><div>MEDIDA<b>330×430×465</b></div></div>
+        <div class="spec"><div>MATERIAL<b>Policarbonato</b></div><div>ESTADO<b>Aro LED de color</b></div><div>MEDIDA<b>330×430×465</b></div></div>
       </div>
       <div class="vitem glow reveal">
         <div class="vk">Línea Glow</div>
         <h3><span class="dot"></span>Glow</h3>
         <ul>
           <li>Puerta opaca para máxima privacidad.</li>
-          <li>Indicador OLED embutido con número y estado.</li>
+          <li>Aro LED que cambia de color: libre, ocupado o reservado.</li>
           <li>Estética premium, ideal para oficinas y coworkings.</li>
           <li>La misma cerradura electrónica con tag NFC.</li>
         </ul>
-        <div class="spec"><div>MATERIAL<b>Opaca + OLED</b></div><div>ESTADO<b>OLED embutido</b></div><div>MEDIDA<b>330×430×465</b></div></div>
+        <div class="spec"><div>MATERIAL<b>Opaca</b></div><div>ESTADO<b>Aro LED de color</b></div><div>MEDIDA<b>330×430×465</b></div></div>
       </div>
     </div>
   </div>
@@ -359,7 +359,7 @@ footer .logo{color:var(--ink); font-family:"Newsreader",serif; font-weight:600} 
         <dt>Apertura</dt><dd>Cerradura electrónica con tag NFC. Sin llaves ni app.</dd>
         <dt>Conectividad</dt><dd>Red propia entre lockers — no depende del WiFi del local.</dd>
         <dt>Cierre</dt><dd>Confirmación real de cierre por sensor magnético.</dd>
-        <dt>Estado</dt><dd>Indicador luminoso por puerta: libre u ocupado.</dd>
+        <dt>Estado</dt><dd>Aro LED de color por puerta: libre, ocupado o reservado.</dd>
         <dt>Medida interior</dt><dd>300 × 400 × 450 mm (módulo de gimnasio).</dd>
         <dt>Sin internet</dt><dd>Sigue funcionando en modo local.</dd>
       </dl>
@@ -398,6 +398,8 @@ footer .logo{color:var(--ink); font-family:"Newsreader",serif; font-weight:600} 
 
   var COL = { carbon:0x171310, metal:0x2b241b, oro:0xE7A23C, coral:0xF0764F };
   var renderer, scene, camera, group, env, parts=[], doors=[], TEX={};
+  // Estado del aro LED (soft): verde=libre · ámbar=reservado · azul=ocupado
+  var STAT=[new THREE.Color(0x5FC98C), new THREE.Color(0xE8B45A), new THREE.Color(0x6FB7E0)], STATUS=new THREE.Color();
   var W=3.3, D=4.65, MH=4.3, N=3, WALL=0.15, BASE=1.0, CAP=0.4;
 
   function makeTextures(){
@@ -453,19 +455,16 @@ footer .logo{color:var(--ink); font-family:"Newsreader",serif; font-weight:600} 
     var glass=box(dw-2*border+0.1,dh-2*border+0.1,0.05,glassMat); glass.position.set(0,cy,z); addPart(glass,out.clone(),4.6);
     var opaqueMat=new THREE.MeshStandardMaterial({color:0x241d13,metalness:0.5,roughness:0.5,transparent:true,opacity:0});
     var opaque=box(dw-2*border+0.1,dh-2*border+0.1,0.07,opaqueMat); opaque.position.set(0,cy,z); opaque.visible=false; addPart(opaque,out.clone(),4.6);
-    var oledMat=new THREE.MeshStandardMaterial({color:0x2a1a05,emissive:new THREE.Color(COL.oro),emissiveIntensity:0,transparent:true,opacity:0});
-    var oled=box(0.9,0.5,0.02,oledMat); oled.position.set(0,cy+dh/2-0.55,z+0.06); oled.visible=false; addPart(oled,out.clone(),4.6);
-    var ledMat=new THREE.MeshStandardMaterial({color:0x241805,emissive:new THREE.Color(COL.oro),emissiveIntensity:2.2});
-    var led=box(dw-2*border,0.09,0.06,ledMat); led.position.set(0,cy-dh/2+border/2,z+0.04); addPart(led,out.clone(),4.6);
-    var ledGlow=new THREE.Sprite(glowSprite(COL.oro)); ledGlow.scale.set(3,0.7,1); ledGlow.position.set(0,cy-dh/2+border/2,z+0.12); addPart(ledGlow,out.clone(),4.6);
-    var nfcMat=new THREE.MeshStandardMaterial({color:0x35291b,emissive:new THREE.Color(COL.oro),emissiveIntensity:0.5,metalness:0.3,roughness:0.5});
-    var nfc=new THREE.Mesh(new THREE.TorusGeometry(0.24,0.05,12,32),nfcMat); nfc.position.set(dw/2-0.55,cy-0.2,z+0.05); addPart(nfc,out.clone(),5.4);
+    // Aro LED de estado: único indicador (Clear y Glow). Centro-superior, lejos de la manija.
+    var ringMat=new THREE.MeshStandardMaterial({color:0x14100a,emissive:new THREE.Color(STAT[0]),emissiveIntensity:1.3,metalness:0.25,roughness:0.4});
+    var ring=new THREE.Mesh(new THREE.TorusGeometry(0.28,0.055,18,44),ringMat); ring.position.set(0,cy+dh*0.22,z+0.06); addPart(ring,out.clone(),5.0);
+    var ringGlow=new THREE.Sprite(glowSprite(0xffffff)); ringGlow.scale.set(1.5,1.5,1); ringGlow.material.color.copy(STAT[0]); ringGlow.position.set(0,cy+dh*0.22,z+0.03); addPart(ringGlow,out.clone(),5.0);
     var hwMat=mat(0x171009,0.8,0.34);
     [dh/2-0.55,-dh/2+0.55].forEach(function(hy){ var hg=cyl(0.075,0.5,hwMat,14); hg.position.set(-dw/2+0.07,cy+hy,z+0.02); addPart(hg,out.clone(),4.6); });
     var handle=box(0.09,1.1,0.16,mat(0x2f2717,0.85,0.28)); handle.position.set(dw/2-0.28,cy,z+0.13); addPart(handle,out.clone(),4.9);
     var scrMat=mat(0x40351f,0.9,0.3);
     [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(s2){ var sc=cyl(0.05,0.05,scrMat,10); sc.rotation.x=Math.PI/2; sc.position.set(s2[0]*(dw/2-0.22),cy+s2[1]*(dh/2-0.22),z+dt/2+0.01); addPart(sc,out.clone(),4.6); });
-    doors.push({glass:glass,opaque:opaque,oled:oled,led:led,ledGlow:ledGlow});
+    doors.push({glass:glass,opaque:opaque,ring:ring,ringGlow:ringGlow});
   }
   function glowSprite(color){ var c=document.createElement("canvas"); c.width=c.height=128; var g=c.getContext("2d"); var col=new THREE.Color(color);
     var grd=g.createRadialGradient(64,64,0,64,64,64); grd.addColorStop(0,"rgba("+(col.r*255|0)+","+(col.g*255|0)+","+(col.b*255|0)+",0.9)"); grd.addColorStop(1,"rgba(0,0,0,0)"); g.fillStyle=grd; g.fillRect(0,0,128,128);
@@ -514,7 +513,7 @@ footer .logo{color:var(--ink); font-family:"Newsreader",serif; font-weight:600} 
       [0.36,0.46,"ANATOMÍA · CLEAR","Tag NFC y sensor","Apertura por tag NFC y confirmación de cierre por sensor magnético."],
       [0.46,0.60,"MISMA TECNOLOGÍA","De Clear a Glow","La misma cerradura inteligente, otra terminación."],
       [0.62,0.72,"ANATOMÍA · GLOW","Puerta opaca premium","Privacidad total y estética sobria para oficinas."],
-      [0.72,0.82,"ANATOMÍA · GLOW","Indicador OLED","Número y estado de cada puerta, en pantalla."],
+      [0.72,0.82,"ANATOMÍA · GLOW","Aro LED de color","Verde libre · ámbar reservado · azul ocupado — se ve de lejos."],
       [0.82,0.94,"ANATOMÍA · GLOW","Lockers en red","Conectados entre sí y reportando a un panel central."]
     ];
     var a=null; for(var i=0;i<caps.length;i++){ if(p>=caps[i][0]&&p<caps[i][1]){ a=caps[i]; break; } }
@@ -525,12 +524,15 @@ footer .logo{color:var(--ink); font-family:"Newsreader",serif; font-weight:600} 
   function loop(now){
     var t=(now-t0)/1000, p=reduce?0:prog, E=reduce?0:explodeFactor(p), V=reduce?0:variantFactor(p);
     for(var i=0;i<parts.length;i++){ var pt=parts[i]; pt.mesh.position.copy(pt.mesh.userData.base).addScaledVector(pt.dir,E*pt.amt); }
-    var breathe=1.9+Math.sin(t*1.6)*0.5;
+    // Aro de estado: cicla suave verde→ámbar→azul (libre/reservado/ocupado)
+    var cyc=(t/3.2)%3, ci=Math.floor(cyc), cf=cyc-ci; cf=cf*cf*(3-2*cf);
+    STATUS.copy(STAT[ci]).lerp(STAT[(ci+1)%3],cf);
+    var ringI=1.3+Math.sin(t*0.8)*0.12;
     for(var d=0;d<doors.length;d++){ var D2=doors[d];
       D2.glass.material.opacity=0.24*(1-V); D2.glass.visible=V<0.98;
       D2.opaque.material.opacity=V; D2.opaque.visible=V>0.02;
-      D2.oled.material.opacity=V; D2.oled.material.emissiveIntensity=V*breathe; D2.oled.visible=V>0.02;
-      D2.led.material.emissiveIntensity=(1-V)*breathe; D2.ledGlow.material.opacity=(1-V); D2.ledGlow.visible=V<0.98;
+      D2.ring.material.emissive.copy(STATUS); D2.ring.material.emissiveIntensity=ringI;
+      D2.ringGlow.material.color.copy(STATUS); D2.ringGlow.material.opacity=0.5;
     }
     group.rotation.y=kf(p,[[0,-0.30],[0.12,-0.30],[0.33,-1.20],[0.50,0.0],[0.62,0.0],[0.86,-2*Math.PI],[1,-2*Math.PI-0.30]])+(reduce?0:Math.sin(t*0.35)*0.02);
     group.rotation.x=reduce?0:(-0.02+py*0.05);

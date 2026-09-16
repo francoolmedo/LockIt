@@ -31,14 +31,14 @@ void pulseLock() {
 }
 
 void showState(LockerState s) {
-  // Clear: LED (verde=libre, azul=ocupado). Glow: OLED con número + ícono.
-  // TODO: implementar según VARIANT (FastLED / U8g2).
+  // Aro LED WS2812 en ambas variantes (Clear y Glow): color por estado.
+  // TODO: implementar con FastLED/Adafruit_NeoPixel sobre PIN_LEDRING (LEDRING_COUNT).
   switch (s) {
-    case LIBRE:      /* LED verde  */ break;
-    case RESERVADO:  /* LED parpadeo */ break;
-    case ABRIENDO:   /* LED blanco */ break;
-    case ABIERTO:    /* LED azul   */ break;
-    case OCUPADO:    /* LED azul fijo */ break;
+    case LIBRE:      /* verde  */ break;
+    case RESERVADO:  /* ámbar  */ break;
+    case ABRIENDO:   /* animación suave */ break;
+    case ABIERTO:    /* azul   */ break;
+    case OCUPADO:    /* azul fijo */ break;
   }
 }
 
@@ -89,7 +89,7 @@ void setup() {
   pinMode(PIN_LOCK, OUTPUT);
   digitalWrite(PIN_LOCK, LOW);
   pinMode(PIN_DOOR, INPUT);
-  pinMode(PIN_LED, OUTPUT);
+  pinMode(PIN_LEDRING, OUTPUT);   // aro WS2812 (la lib toma este pin de data)
 
   netSetup();
   setState(LIBRE);

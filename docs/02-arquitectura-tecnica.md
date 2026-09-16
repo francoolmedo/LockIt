@@ -61,7 +61,7 @@ Cada puerta es un **nodo** autónomo con un ESP32. Detalle de componentes y cost
 | **Driver MOSFET / módulo relé** | Maneja los 12 V de la cerradura desde un pin de 3.3 V | MOSFET (ej. IRLZ44N) mejor que relé: silencioso, rápido, sin desgaste. Diodo flyback obligatorio. |
 | **Sensor de efecto Hall + imán** | Confirma puerta **cerrada/abierta** | Imán en la puerta, sensor en el marco. Alternativa: reed switch (más barato, menos robusto). |
 | **Lector NFC PN532** (opcional en el nodo) | Ver nota abajo sobre dónde va el NFC | En el modelo base el "NFC" es un **tag pasivo** en la puerta, no un lector. |
-| **Indicador de estado** | LED (Clear) u **OLED SSD1306 / anillo LED WS2812** (Glow) | Verde=libre, azul=ocupado, parpadeo=abriendo. |
+| **Indicador de estado** | **Aro LED direccionable WS2812** (Clear y Glow) | Verde=libre, ámbar=reservado, azul=ocupado; animación suave al abrir. |
 | **Alimentación** | 12 V para cerradura, 3.3 V para ESP32 (buck converter) | Una fuente por columna alimenta a todos los nodos. |
 
 ### 2.1 ¿Lector NFC o tag NFC? — Decisión clave

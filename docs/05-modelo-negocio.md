@@ -26,7 +26,7 @@ Da recurrencia y te diferencia de un simple mueble.
 ### Hardware (una vez)
 - **Columna de 4 puertas (Clear):** precio de venta objetivo **USD 700 – 1.000** por columna
   (según costo real ~USD 330–540 → margen bruto ~45–55%).
-- **Columna Glow (OLED):** +USD 150–250 por el indicador.
+- **Columna Glow (aro LED):** +USD 60–120 por la puerta opaca y el aro LED direccionable.
 - **Instalación y setup:** por proyecto (según cantidad de columnas).
 
 ### Suscripción (recurrente, por local)
