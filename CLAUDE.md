@@ -12,8 +12,10 @@ Monorepo: `docs/` (visión, arquitectura, negocio) · `hardware/` (BOM, firmware
 ## Reglas de diseño y voz (IMPORTANTE)
 - **Diseño:** todo lo visual sigue **[`brand/DESIGN.md`](brand/DESIGN.md)** (formato tipo
   google-labs/design.md: tokens en YAML + reglas + dials + lista negra de AI-tells). Leerlo
-  antes de diseñar. Dials de LockIt: minimalist-premium, varianza 6, motion 4, densidad 5,
-  easing `cubic-bezier(.4,0,.2,1)` (nunca bounce).
+  antes de diseñar. **Dirección activa: "Warm"** (Aesop) — ground **crema cálido** (no oscuro),
+  títulos **serif Newsreader**, cuerpo IBM Plex Sans, oro muteado, mucho aire (varianza 7,
+  densidad 3), easing `cubic-bezier(.4,0,.2,1)` (nunca bounce). El locker 3D queda sobre banda
+  oscura (foto de producto). Variantes oscuras (Dark Room/Editorial) en `landing/variants/`.
 - **Texto/copy:** todo el texto sigue **[`brand/VOICE.md`](brand/VOICE.md)** (Humanizer +
   Stop-Slop en español). Sin muletillas de IA, voz activa, no inventar datos → `[placeholder]`.
 

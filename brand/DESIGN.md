@@ -24,9 +24,10 @@ colors:
   st-ocupado:    "#F0764F"
   st-reservado:  "#74D3F0"
 typography:
-  display:  { family: "Archivo",        weights: [700, 800, 900], tracking: "-0.02em" }
+  display:  { family: "Newsreader",     weights: [400, 500, 600], use: "títulos serif editorial (dirección Warm)" }
+  display_alt: { family: "Archivo",     weights: [700, 800, 900], use: "alternativa sans para variantes oscuras" }
   body:     { family: "IBM Plex Sans",  weights: [400, 500, 600] }
-  mono:     { family: "IBM Plex Mono",  weights: [400, 500, 600], use: "datos, IDs, labels" }
+  mono:     { family: "IBM Plex Mono",  weights: [400, 500, 600], use: "datos, IDs (dashboard); usar poco" }
 rounded: { sm: "9px", md: "12px", lg: "14px", pill: "999px" }   # crisp, NO rounded-2xl en todo
 spacing: { xs: "6px", sm: "10px", md: "16px", lg: "24px", xl: "40px", xxl: "80px" }
 elevation:
@@ -38,7 +39,7 @@ components:
   card:           { bg: panel, border: line, rounded: md, shadow: flat, note: "NO anidar cards dentro de cards" }
 # Dials (taste-skill) — la personalidad de LockIt
 dials:
-  variant: "editorial-luxury"     # gimnasio premium (Equinox/Third Space): charcoal+bronce, editorial
+  variant: "warm-editorial"       # DIRECCIÓN ACTIVA: crema cálido (Aesop) + serif Newsreader + oro muteado. Ground CLARO, no oscuro
   design_variance: 7              # 1 centrado/limpio … 10 asimétrico. 7 = editorial con tensión
   motion_intensity: 4             # 1 hover … 10 scroll/magnético. Sutil, con propósito
   visual_density: 3               # 1 espacioso … 10 dashboard denso. BAJO = mucho aire
