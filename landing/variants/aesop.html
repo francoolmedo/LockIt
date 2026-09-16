@@ -21,18 +21,21 @@ p{margin:0}
 .wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(22px,5vw,72px)}
 .ic{fill:none; stroke:currentColor; stroke-width:1.4; stroke-linecap:round; stroke-linejoin:round}
 
-.btn{position:relative; display:inline-flex; align-items:center; gap:9px; border:none; cursor:pointer;
-  font-family:"IBM Plex Sans"; font-weight:500; font-size:15px; padding:15px 26px; border-radius:1px;
+.btn{position:relative; display:inline-flex; align-items:center; gap:8px; border:none; cursor:pointer;
+  font-family:"IBM Plex Sans"; font-weight:500; font-size:14px; letter-spacing:.01em; padding:12px 22px; border-radius:1px;
   background:var(--ink); color:var(--bg); text-decoration:none; transition:transform .16s cubic-bezier(.4,0,.2,1), background .2s}
-.btn:not(.ghost)::after{content:"→"; transition:transform .2s cubic-bezier(.4,0,.2,1)}
-.btn:not(.ghost):hover::after{transform:translateX(4px)}
 .btn:hover{transform:translateY(-1px); background:#3d3324}
 .btn:focus-visible{outline:2px solid var(--oro); outline-offset:3px}
-.btn.ghost{background:transparent; color:var(--ink); border:none; border-bottom:1px solid var(--ink-3); border-radius:0; padding:15px 2px}
+.btn.ghost{background:transparent; color:var(--ink); border:none; border-bottom:1px solid var(--ink-3); border-radius:0; padding:12px 2px}
 .btn.ghost:hover{color:var(--oro); border-color:var(--oro); background:transparent}
 .btn.on-dark{background:#F1EADC; color:#2B2318} .btn.on-dark:hover{background:#fff}
-.btn.ghost.on-dark{color:#f1ead c; color:#f1eadc; border-color:rgba(241,234,220,.4)}
+.btn.ghost.on-dark{color:#f1eadc; border-color:rgba(241,234,220,.4)}
 .btn.ghost.on-dark:hover{color:#fff; border-color:#fff}
+/* CTA en fondo claro: botones de tinta (no on-dark) para que se vean */
+.cta-band .btn.on-dark{background:var(--ink); color:var(--bg)}
+.cta-band .btn.on-dark:hover{background:#3d3324}
+.cta-band .btn.ghost.on-dark{color:var(--ink); border-color:var(--ink-3)}
+.cta-band .btn.ghost.on-dark:hover{color:var(--oro); border-color:var(--oro)}
 
 .nav{position:fixed; inset:0 0 auto 0; z-index:60; height:64px; padding-top:env(safe-area-inset-top,0px);
   backdrop-filter:blur(14px); background:rgba(21,18,14,.66); border-bottom:1px solid rgba(255,255,255,.06)}
