@@ -38,10 +38,10 @@ components:
   card:           { bg: panel, border: line, rounded: md, shadow: flat, note: "NO anidar cards dentro de cards" }
 # Dials (taste-skill) — la personalidad de LockIt
 dials:
-  variant: "minimalist-premium"   # Linear/Aesop lean, no brutalist ni corporate
-  design_variance: 6              # 1 centrado/limpio … 10 asimétrico. 6 = tensión con orden
+  variant: "editorial-luxury"     # gimnasio premium (Equinox/Third Space): charcoal+bronce, editorial
+  design_variance: 7              # 1 centrado/limpio … 10 asimétrico. 7 = editorial con tensión
   motion_intensity: 4             # 1 hover … 10 scroll/magnético. Sutil, con propósito
-  visual_density: 5               # 1 espacioso … 10 dashboard denso
+  visual_density: 3               # 1 espacioso … 10 dashboard denso. BAJO = mucho aire
   easing: "cubic-bezier(.4,0,.2,1)"   # NUNCA bounce/elastic (se siente viejo)
 ---
 
@@ -99,12 +99,20 @@ pieza · jerarquía fuerte · pasada final de reducción (sacar el 20% que sobra
 Al pedir cambios, usar verbos claros: `polish` (alinear al sistema), `critique` (jerarquía/
 claridad), `quieter`/`bolder` (subir/bajar intensidad), `distill` (reducir), `animate`.
 
-## Referencias (⚠️ COMPLETAR — Franco)
-Pegá 3–5 marcas/webs que ames; diseñamos sacando el lenguaje de ESTAS. Fuente de más ejemplos:
-`github.com/VoltAgent/awesome-design-md` (DESIGN.md reales de Stripe, Apple, Shopify, Tesla…).
-- [ ] `[Marca 1]` — qué te gusta: `[...]`
-- [ ] `[Marca 2]` — `[...]`
-- [ ] `[Marca 3]` — `[...]`
+## Referencias — "Editorial Locker Room" (dirección elegida)
+Dirección propia, a partir de los gimnasios premium del mundo. Diseñamos sacando el lenguaje
+de ESTAS (Franco puede sumar/cambiar cuando quiera):
+- **Equinox** — lujo editorial: blanco/negro confiado, acero ennegrecido, piedra natural,
+  campañas audaces, tipografía grande. (el "cómo comunica" premium)
+- **Third Space (Londres)** — oscuro, material, wellness premium; charcoal + latón.
+- **Barry's** — drama/moodiness: luz cálida sobre oscuro (tomamos la atmósfera, no el rojo).
+- **Vestuario de lujo (spa 5★)** — charcoal mate + **bronce** + madera + luz por capas →
+  es literalmente nuestro carbón + oro. Ese es el material de LockIt.
+- Athleisure elevado (Alo / Vuori) — calma cálida, mucho aire.
+
+Traducción a la web: charcoal + bronce, tipografía oversized, **mucho whitespace**, filas
+editoriales (no cajas), reglas finas, cromo mínimo. Cero look "instrumento técnico".
+Más formato en `github.com/VoltAgent/awesome-design-md`.
 
 ## Checklist antes de publicar
 - [ ] Tokens del front matter (nada inventado).

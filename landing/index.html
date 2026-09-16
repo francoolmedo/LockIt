@@ -2,238 +2,200 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* ================= TOKENS · Carbón + Oro + Coral ================= */
+/* ===== TOKENS · Carbón + Oro (charcoal + bronce) ===== */
 :root{
   --carbon:#15120E; --carbon-2:#100E0B;
-  --bg:#F5F0E8; --bg-2:#ECE5D8; --panel:#FCF8F1; --panel-2:#F3ECE0;
-  --ink:#211A12; --ink-2:#5A4F41; --ink-3:#8A7D6B; --line:#E1D7C6; --line-2:#D0C4AF;
+  --bg:#F5F0E8; --bg-2:#EEE7DA; --panel:#FCF8F1; --panel-2:#F3ECE0;
+  --ink:#211A12; --ink-2:#5A4F41; --ink-3:#8A7D6B; --line:#E1D7C6; --line-2:#D6CAB6;
   --oro:#B07A1E; --oro-bright:#E7A23C; --oro-hi:#F2B255; --coral:#CE543A;
-  --accent-ink:#1A1206; --grid:rgba(33,26,18,.05);
-  --radius:14px; --radius-s:10px; --maxw:1140px;
+  --accent-ink:#1A1206; --maxw:1180px;
   color-scheme:light;
 }
 :root:not([data-theme="light"]){ @media (prefers-color-scheme:dark){
-  --bg:#100E0B; --bg-2:#0B0A08; --panel:#1B1710; --panel-2:#151109;
+  --bg:#100E0B; --bg-2:#0C0A07; --panel:#1B1710; --panel-2:#151109;
   --ink:#F3EEE6; --ink-2:#BEB2A0; --ink-3:#897E6D; --line:#2A2418; --line-2:#3A3223;
-  --oro:#E7A23C; --coral:#F0764F; --grid:rgba(243,238,230,.045);
-  color-scheme:dark;
+  --oro:#E7A23C; --coral:#F0764F; color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#100E0B; --bg-2:#0B0A08; --panel:#1B1710; --panel-2:#151109;
+  --bg:#100E0B; --bg-2:#0C0A07; --panel:#1B1710; --panel-2:#151109;
   --ink:#F3EEE6; --ink-2:#BEB2A0; --ink-3:#897E6D; --line:#2A2418; --line-2:#3A3223;
-  --oro:#E7A23C; --coral:#F0764F; --grid:rgba(243,238,230,.045);
-  color-scheme:dark;
+  --oro:#E7A23C; --coral:#F0764F; color-scheme:dark;
 }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0; background:var(--bg); color:var(--ink); overflow-x:hidden;
-  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:"Archivo",system-ui,sans-serif; text-wrap:balance; margin:0; line-height:1.03; letter-spacing:-.02em}
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif; font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Archivo",system-ui,sans-serif; text-wrap:balance; margin:0; line-height:1.02; letter-spacing:-.03em}
 p{margin:0}
-.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:24px}
-.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
-.ic{width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round}
+.wrap{max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(22px,5vw,64px)}
+.ic{fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
 
-/* marca de registro (esquinas técnicas) */
-.framed{position:relative}
-.framed::before,.framed::after{content:""; position:absolute; width:13px; height:13px; border:1.5px solid var(--oro); opacity:.55; pointer-events:none}
-.framed::before{top:9px; left:9px; border-width:1.5px 0 0 1.5px}
-.framed::after{bottom:9px; right:9px; border-width:0 1.5px 1.5px 0}
-
-/* ================= BOTONES ================= */
+/* ===== BOTONES ===== */
 .btn{position:relative; display:inline-flex; align-items:center; gap:9px; border:none; cursor:pointer;
-  font-family:"IBM Plex Sans"; font-weight:600; font-size:15px; padding:13px 22px; border-radius:9px;
+  font-family:"IBM Plex Sans"; font-weight:600; font-size:15px; padding:15px 26px; border-radius:2px;
   background:var(--oro-bright); color:var(--accent-ink); text-decoration:none;
-  transition:transform .16s cubic-bezier(.4,0,.2,1), background .2s, box-shadow .2s;
-  box-shadow:inset 0 0 0 1px rgba(26,18,6,.12)}
-.btn:not(.ghost)::after{content:"→"; font-weight:600; transition:transform .2s cubic-bezier(.4,0,.2,1)}
+  transition:transform .16s cubic-bezier(.4,0,.2,1), background .2s}
+.btn:not(.ghost)::after{content:"→"; transition:transform .2s cubic-bezier(.4,0,.2,1)}
 .btn:not(.ghost):hover::after{transform:translateX(4px)}
 .btn:hover{transform:translateY(-2px); background:var(--oro-hi)}
-.btn:active{transform:translateY(0)}
 .btn:focus-visible{outline:2px solid var(--oro-bright); outline-offset:3px}
-.btn.ghost{background:transparent; color:var(--ink); border:1px solid var(--line-2); box-shadow:none}
-.btn.ghost:hover{border-color:var(--oro); color:var(--oro)}
+.btn.ghost{background:transparent; color:var(--ink); border-bottom:1px solid var(--line-2); border-radius:0; padding:15px 4px}
+.btn.ghost:hover{color:var(--oro); border-color:var(--oro); background:transparent}
 .btn.on-dark{color:var(--accent-ink)}
-.btn.ghost.on-dark{color:#f3eee6; border-color:rgba(243,238,230,.26)}
-.btn.ghost.on-dark:hover{border-color:var(--oro-bright); color:var(--oro-bright)}
+.btn.ghost.on-dark{color:#f3eee6; border-color:rgba(243,238,230,.4)}
+.btn.ghost.on-dark:hover{color:var(--oro-bright); border-color:var(--oro-bright)}
+.link{color:var(--oro); text-decoration:none; font-weight:600; border-bottom:1px solid transparent; transition:border-color .2s}
+.link:hover{border-color:var(--oro)}
 
-/* ================= NAV ================= */
-.nav{position:fixed; inset:0 0 auto 0; z-index:60; height:62px; padding-top:env(safe-area-inset-top,0px);
-  backdrop-filter:blur(14px); background:color-mix(in srgb,var(--carbon) 74%, transparent); border-bottom:1px solid rgba(255,255,255,.07)}
-.nav .wrap{display:flex; align-items:center; gap:16px; height:62px}
-.logo{display:flex; align-items:center; gap:11px; font-family:"Archivo"; font-weight:800; font-size:20px; letter-spacing:-.03em; color:#f3eee6; text-decoration:none}
+/* ===== NAV ===== */
+.nav{position:fixed; inset:0 0 auto 0; z-index:60; height:64px; padding-top:env(safe-area-inset-top,0px);
+  backdrop-filter:blur(14px); background:color-mix(in srgb,var(--carbon) 72%, transparent); border-bottom:1px solid rgba(255,255,255,.06)}
+.nav .wrap{display:flex; align-items:center; gap:16px; height:64px}
+.logo{display:flex; align-items:center; gap:11px; font-family:"Archivo"; font-weight:800; font-size:21px; letter-spacing:-.03em; color:#f3eee6; text-decoration:none}
 .logo svg{width:30px; height:30px; display:block}
 .logo b{color:var(--oro-bright)}
-.logo .tag{font-family:"IBM Plex Mono"; font-weight:400; font-size:10px; letter-spacing:.16em; color:#8a7d6b; text-transform:uppercase; border-left:1px solid rgba(243,238,230,.16); padding-left:11px; margin-left:2px}
-.nav nav{margin-left:auto; display:flex; gap:24px; font-size:14px; color:#c3b8a6}
+.nav nav{margin-left:auto; display:flex; gap:30px; font-size:14px; color:#c3b8a6}
 .nav nav a{text-decoration:none} .nav nav a:hover{color:#fff}
-.nav .btn{padding:9px 16px}
-@media(max-width:820px){ .nav nav, .logo .tag{display:none} }
+.nav .btn{padding:10px 18px}
+@media(max-width:820px){ .nav nav{display:none} }
 
-/* ================= SHOWCASE 3D ================= */
+/* ===== SHOWCASE 3D (escenario oscuro premium) ===== */
 .showcase{position:relative; height:560vh; background:var(--carbon)}
 .stage{position:sticky; top:0; height:100vh; height:100svh; overflow:hidden;
-  background:radial-gradient(130% 100% at 50% -12%, #1c1611, #100E0B 62%)}
-.stage::before{content:""; position:absolute; inset:0; z-index:0;
-  background-image:linear-gradient(rgba(243,238,230,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(243,238,230,.035) 1px,transparent 1px);
-  background-size:46px 46px; mask-image:radial-gradient(70% 70% at 50% 45%,#000,transparent 85%)}
-.stage::after{content:""; position:absolute; inset:0; z-index:0; pointer-events:none; box-shadow:inset 0 0 180px 40px rgba(9,7,5,.75)}
+  background:radial-gradient(135% 105% at 50% -14%, #241a10, #15120E 55%, #100E0B 100%)}
+.stage::after{content:""; position:absolute; inset:0; z-index:0; pointer-events:none; box-shadow:inset 0 0 220px 60px rgba(9,7,5,.7)}
 #gl{position:absolute; inset:0; width:100%; height:100%; display:block; z-index:1}
-.stage-fallback{position:absolute; inset:0; display:grid; place-items:center; color:#8a7d6b; font-family:"IBM Plex Mono"; font-size:13px}
+.stage-fallback{position:absolute; inset:0; display:grid; place-items:center; color:#8a7d6b; font-size:13px}
 
 .hero-copy{position:absolute; z-index:3; inset:0; pointer-events:none; display:flex; align-items:center}
 .hero-copy::before{content:""; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(90deg, rgba(10,8,6,.9) 0%, rgba(10,8,6,.6) 34%, rgba(10,8,6,0) 62%),
-             linear-gradient(0deg, rgba(10,8,6,.72) 0%, rgba(10,8,6,0) 26%)}
+  background:linear-gradient(90deg, rgba(10,8,6,.92) 0%, rgba(10,8,6,.55) 36%, rgba(10,8,6,0) 64%),
+             linear-gradient(0deg, rgba(10,8,6,.7) 0%, rgba(10,8,6,0) 24%)}
 .hero-copy .wrap{width:100%; position:relative}
-.hero-inner{max-width:560px; pointer-events:auto}
-.hero-tag{font-family:"IBM Plex Mono"; text-transform:uppercase; letter-spacing:.18em; font-size:11.5px; color:var(--oro-bright); display:inline-flex; align-items:center; gap:9px}
-.hero-tag::before{content:""; width:8px; height:8px; background:var(--oro-bright); border-radius:2px; flex:none}
-.hero-inner h1{color:#f7f2ea; font-size:clamp(42px,6.8vw,80px); font-weight:900; margin-top:16px; letter-spacing:-.035em; text-shadow:0 2px 34px rgba(0,0,0,.55)}
+.hero-inner{max-width:620px; pointer-events:auto}
+.hero-tag{font-size:13px; letter-spacing:.24em; text-transform:uppercase; color:var(--oro-bright); font-weight:600}
+.hero-inner h1{color:#f7f2ea; font-size:clamp(52px,9vw,116px); font-weight:900; margin-top:20px; letter-spacing:-.045em; line-height:.94; text-shadow:0 2px 40px rgba(0,0,0,.5)}
 .hero-inner h1 em{font-style:normal; color:var(--oro-bright)}
-.hero-inner .lead{color:#dccfbc; font-size:clamp(16px,2.2vw,20px); margin-top:20px; max-width:40ch; text-shadow:0 1px 16px rgba(0,0,0,.6)}
-@media(max-width:760px){ .hero-copy::before{background:linear-gradient(0deg, rgba(10,8,6,.78) 0%, rgba(10,8,6,.28) 42%, rgba(10,8,6,.68) 100%)} }
-.hero-inner .cta{display:flex; gap:12px; margin-top:28px; flex-wrap:wrap}
-.hero-inner .meta{margin-top:30px; display:flex; border-top:1px solid rgba(243,238,230,.14); padding-top:16px}
-.hero-inner .meta div{padding-right:22px; margin-right:22px; border-right:1px solid rgba(243,238,230,.12)}
-.hero-inner .meta div:last-child{border:none;margin:0;padding:0}
-.hero-inner .meta .v{font-family:"Archivo"; font-weight:800; font-size:21px; color:#f3eee6; display:block}
-.hero-inner .meta .k{font-family:"IBM Plex Mono"; font-size:10.5px; letter-spacing:.08em; color:#9c8f7c; text-transform:uppercase}
+.hero-inner .lead{color:#dccfbc; font-size:clamp(18px,2.2vw,22px); margin-top:26px; max-width:38ch; text-shadow:0 1px 16px rgba(0,0,0,.6)}
+@media(max-width:760px){ .hero-copy::before{background:linear-gradient(0deg, rgba(10,8,6,.82) 0%, rgba(10,8,6,.3) 44%, rgba(10,8,6,.62) 100%)} }
+.hero-inner .cta{display:flex; gap:22px; margin-top:34px; flex-wrap:wrap; align-items:center}
+.hero-inner .meta{margin-top:40px; display:flex; gap:clamp(24px,5vw,52px)}
+.hero-inner .meta .v{font-family:"Archivo"; font-weight:800; font-size:clamp(22px,2.4vw,28px); color:#f3eee6; display:block; letter-spacing:-.02em}
+.hero-inner .meta .k{font-size:12.5px; letter-spacing:.06em; color:#9c8f7c; margin-top:4px}
 
-.anatomy{position:absolute; z-index:3; left:0; right:0; bottom:8%; pointer-events:none; opacity:0; transition:opacity .35s}
-.anatomy .card{max-width:344px; background:rgba(16,14,11,.78); backdrop-filter:blur(8px); border:1px solid var(--line-2); border-radius:12px; padding:18px 20px}
-.anatomy .tag{font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; color:var(--oro-bright); text-transform:uppercase; display:flex; align-items:center; gap:8px}
-.anatomy .tag::before{content:""; width:6px; height:6px; background:var(--oro-bright); border-radius:1px}
-.anatomy h3{color:#f3eee6; font-size:21px; margin-top:8px; font-family:"Archivo"; font-weight:700}
-.anatomy p{color:#bcae9b; font-size:14px; margin-top:6px}
+.anatomy{position:absolute; z-index:3; left:0; right:0; bottom:9%; pointer-events:none; opacity:0; transition:opacity .4s}
+.anatomy .card{max-width:380px; background:rgba(16,14,11,.7); backdrop-filter:blur(10px); border-left:2px solid var(--oro-bright); padding:6px 0 6px 22px}
+.anatomy .tag{font-size:12px; letter-spacing:.2em; color:var(--oro-bright); text-transform:uppercase; font-weight:600}
+.anatomy h3{color:#f3eee6; font-size:26px; margin-top:8px; font-weight:800}
+.anatomy p{color:#bcae9b; font-size:15px; margin-top:8px; max-width:34ch}
 
-.variant-chip{position:absolute; z-index:3; top:calc(84px + env(safe-area-inset-top,0px)); right:24px;
-  font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.1em; color:#f3eee6;
-  background:rgba(16,14,11,.62); border:1px solid rgba(255,255,255,.12); border-radius:8px; padding:8px 13px; display:flex; align-items:center; gap:9px}
-.variant-chip .sq{width:9px;height:9px;border-radius:2px;background:var(--oro-bright)}
-@media(max-width:680px){ .variant-chip{top:auto; bottom:72px; right:16px} }
-.scroll-hint{position:absolute; z-index:3; bottom:22px; left:50%; transform:translateX(-50%);
-  color:#8a7d6b; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.18em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:8px; transition:opacity .3s}
+.variant-chip{position:absolute; z-index:3; top:calc(88px + env(safe-area-inset-top,0px)); right:clamp(22px,5vw,64px);
+  font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:#f3eee6; display:flex; align-items:center; gap:10px}
+.variant-chip .sq{width:8px;height:8px;border-radius:50%;background:var(--oro-bright)}
+@media(max-width:680px){ .variant-chip{top:auto; bottom:74px; right:22px} }
+.scroll-hint{position:absolute; z-index:3; bottom:24px; left:50%; transform:translateX(-50%);
+  color:#8a7d6b; font-size:11px; letter-spacing:.24em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:9px; transition:opacity .3s}
 .scroll-hint .m{width:22px;height:34px;border:1.5px solid #55493a;border-radius:11px;position:relative}
 .scroll-hint .m::after{content:"";position:absolute;top:6px;left:50%;transform:translateX(-50%);width:3px;height:6px;border-radius:2px;background:var(--oro-bright);animation:wheel 1.6s ease-in-out infinite}
 @keyframes wheel{0%,100%{opacity:.2;transform:translate(-50%,0)}50%{opacity:1;transform:translate(-50%,7px)}}
-@media(max-width:760px){ .anatomy{bottom:13%} .hero-inner .lead{max-width:100%} }
+@media(max-width:760px){ .anatomy{bottom:14%} .hero-inner .lead{max-width:100%} }
 
-/* ================= TICKER ================= */
+/* ===== TICKER (editorial) ===== */
 .ticker{overflow:hidden; background:var(--carbon); border-block:1px solid rgba(243,238,230,.08); position:relative; z-index:2}
-.ticker .track{display:inline-flex; white-space:nowrap; will-change:transform; animation:marq 30s linear infinite}
-.ticker b{font-family:"IBM Plex Mono"; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:#c3b8a6; font-size:12.5px; padding:13px 0; display:inline-flex; align-items:center}
-.ticker b span{padding:0 26px} .ticker b i{color:var(--oro-bright); font-style:normal}
+.ticker .track{display:inline-flex; white-space:nowrap; will-change:transform; animation:marq 34s linear infinite}
+.ticker b{font-family:"Archivo"; font-weight:700; letter-spacing:.02em; color:#e7ddcb; font-size:clamp(20px,2.4vw,30px); padding:18px 0; display:inline-flex; align-items:center}
+.ticker b span{padding:0 30px} .ticker b i{color:var(--oro-bright); font-style:normal; font-size:.7em; vertical-align:middle}
 @keyframes marq{to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){ .ticker .track{animation:none} }
 
-/* ================= SECCIONES ================= */
-section.content{padding-block:80px; position:relative; z-index:2; background:var(--bg)}
+/* ===== SECCIONES (editorial) ===== */
+section.content{padding-block:clamp(72px,11vw,148px); position:relative; z-index:2; background:var(--bg)}
 section.alt{background:var(--bg-2)}
-.shead{border-top:1px solid var(--line-2); padding-top:18px; margin-bottom:44px; max-width:62ch}
-.shead .tab{display:inline-flex; align-items:center; gap:10px; font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2)}
-.shead .tab .sq{width:8px;height:8px;border-radius:2px;background:var(--oro)}
-.shead .tab .code{color:var(--oro)}
-.shead h2{margin-top:18px; font-size:clamp(28px,3.9vw,44px); font-weight:800}
-.shead .sub{margin-top:14px; color:var(--ink-2); font-size:17px}
+.ed-head{max-width:66ch; margin-bottom:clamp(42px,6vw,76px)}
+.ed-head .lbl{font-size:13px; letter-spacing:.24em; text-transform:uppercase; color:var(--oro); font-weight:600}
+.ed-head h2{margin-top:20px; font-size:clamp(34px,5.6vw,66px); font-weight:800; line-height:1.0}
+.ed-head p{margin-top:22px; color:var(--ink-2); font-size:clamp(17px,1.9vw,21px); max-width:56ch}
 
-/* problemas */
-.problems{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
-.prob{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:24px 22px 22px; transition:transform .2s, border-color .2s}
-.prob:hover{transform:translateY(-3px); border-color:var(--line-2)}
-.prob .code{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.1em; color:var(--coral)}
-.prob h3{font-size:18px; margin-top:14px} .prob p{color:var(--ink-2); margin-top:8px; font-size:15px}
-@media(max-width:760px){ .problems{grid-template-columns:1fr} }
+/* problema — filas editoriales */
+.plist{margin-top:8px}
+.prow{display:grid; grid-template-columns:minmax(180px,1fr) 1.6fr; gap:clamp(16px,5vw,64px); padding:clamp(26px,4vw,44px) 0; border-top:1px solid var(--line-2); align-items:baseline}
+.plist .prow:last-child{border-bottom:1px solid var(--line-2)}
+.prow h3{font-size:clamp(24px,3.2vw,34px); font-weight:700}
+.prow p{color:var(--ink-2); font-size:clamp(16px,1.6vw,19px)}
+@media(max-width:700px){ .prow{grid-template-columns:1fr; gap:8px} }
 
-/* flujo (proceso) */
-.flow{position:relative; display:grid; grid-template-columns:repeat(4,1fr); gap:6px}
-.flow::before{content:""; position:absolute; top:28px; left:9%; right:9%; height:1px; background:var(--line-2); z-index:0}
-.step{position:relative; padding:52px 16px 0}
-.step .node{position:absolute; top:21px; left:16px; width:15px; height:15px; background:var(--bg); border:1.5px solid var(--oro); transform:rotate(45deg); z-index:1}
-.step.alt-node .node{background:var(--bg-2)}
-.step .code{font-family:"IBM Plex Mono"; font-size:12px; color:var(--oro); letter-spacing:.1em}
-.step h3{font-size:16px; margin-top:8px} .step p{color:var(--ink-2); font-size:14px; margin-top:8px}
-@media(max-width:860px){ .flow{grid-template-columns:repeat(2,1fr)} .flow::before{display:none} }
-@media(max-width:480px){ .flow{grid-template-columns:1fr} }
-
-/* uso (secuencia gráfica) */
-.usage-intro{margin:52px 0 18px; font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); display:flex; align-items:center; gap:10px}
-.usage-intro::before{content:""; width:8px;height:8px;border-radius:2px;background:var(--oro)}
-.usage{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
-.uframe{background:var(--carbon); border:1px solid var(--line-2); border-radius:14px; padding:16px; overflow:hidden}
-.usvg{width:100%; height:auto; display:block; margin-bottom:12px}
-.usvg .lk{fill:#1f1a12; stroke:#4a4130; stroke-width:2}
-.usvg .fig{stroke:#e9ddc7}
-.uframe .code{font-family:"IBM Plex Mono"; font-size:11px; color:var(--oro-bright); letter-spacing:.1em}
-.uframe h3{color:#f3eee6; font-size:15px; margin-top:5px; font-weight:700}
-.uframe p{color:#bcae9b; font-size:13px; margin-top:6px}
+/* cómo se usa — 4 escenas, sin cajas */
+.uses{display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(20px,3.5vw,44px); margin-top:clamp(20px,4vw,40px)}
+.use .usvg{width:100%; height:auto; display:block}
+.use h3{font-size:clamp(18px,1.8vw,21px); font-weight:700; margin-top:16px}
+.use p{color:var(--ink-2); font-size:15px; margin-top:8px}
+.use .step{font-family:"Archivo"; font-weight:800; color:var(--oro); font-size:15px}
+.usvg .lk{fill:none; stroke:var(--ink); stroke-width:2; opacity:.85}
+.usvg .fig{stroke:var(--ink); opacity:.7}
 @keyframes tapPulse{0%,100%{opacity:.15} 50%{opacity:1}}
 @media(prefers-reduced-motion:no-preference){ .usvg .r1{animation:tapPulse 1.8s ease-in-out infinite} .usvg .r2{animation:tapPulse 1.8s ease-in-out .3s infinite} .usvg .r3{animation:tapPulse 1.8s ease-in-out .6s infinite} }
-@media(max-width:860px){ .usage{grid-template-columns:1fr 1fr} }
+@media(max-width:760px){ .uses{grid-template-columns:1fr 1fr; gap:32px} }
 
-/* variantes */
-.variants{display:grid; grid-template-columns:1fr 1fr; gap:18px}
-.variant{border:1px solid var(--line-2); border-radius:var(--radius); background:var(--panel); overflow:hidden; transition:transform .2s, border-color .2s}
-.variant:hover{transform:translateY(-3px); border-color:var(--oro)}
-.variant .hd{padding:26px 26px 0}
-.variant .code{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.12em; color:var(--ink-3)}
-.variant h3{font-size:26px; margin-top:8px; font-weight:800; display:flex; align-items:center; gap:11px}
-.variant h3 .dot{width:12px; height:12px; border-radius:3px}
-.variant.clear h3 .dot{background:var(--coral)} .variant.glow h3 .dot{background:var(--oro-bright)}
-.variant ul{margin:18px 0 0; padding:0 26px; list-style:none; display:flex; flex-direction:column; gap:11px}
-.variant li{display:flex; gap:11px; color:var(--ink-2); font-size:15px}
-.variant li::before{content:"→"; color:var(--oro); font-family:"IBM Plex Mono"}
-.variant .spec{display:flex; gap:24px; flex-wrap:wrap; font-family:"IBM Plex Mono"; font-size:11px; color:var(--ink-3); padding:20px 26px; margin-top:22px; border-top:1px solid var(--line)}
-.variant .spec b{color:var(--ink); font-weight:600; display:block; font-family:"Archivo"; font-size:13px; margin-top:3px}
-@media(max-width:760px){ .variants{grid-template-columns:1fr} }
+/* líneas — dos paneles partidos por hairline, sin cards */
+.vlist{display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--line-2)}
+.vitem{padding:clamp(30px,3.5vw,52px) 0}
+.vitem:first-child{padding-right:clamp(24px,4vw,56px); border-right:1px solid var(--line-2)}
+.vitem:last-child{padding-left:clamp(24px,4vw,56px)}
+.vitem .vk{font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3)}
+.vitem h3{font-size:clamp(30px,4vw,46px); font-weight:800; margin-top:12px; display:flex; align-items:center; gap:14px}
+.vitem h3 .dot{width:13px; height:13px; border-radius:50%; flex:none}
+.vitem.clear h3 .dot{background:var(--coral)} .vitem.glow h3 .dot{background:var(--oro-bright)}
+.vitem ul{margin:22px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:14px}
+.vitem li{color:var(--ink-2); font-size:clamp(15px,1.5vw,17px); padding-left:22px; position:relative}
+.vitem li::before{content:""; position:absolute; left:0; top:11px; width:9px; height:1px; background:var(--oro)}
+.vitem .spec{display:flex; gap:28px; flex-wrap:wrap; margin-top:26px; font-size:13px; color:var(--ink-3)}
+.vitem .spec b{display:block; color:var(--ink); font-family:"Archivo"; font-weight:700; font-size:15px; margin-top:3px}
+@media(max-width:700px){ .vlist{grid-template-columns:1fr} .vitem:first-child{border-right:none; border-bottom:1px solid var(--line-2); padding-right:0} .vitem:last-child{padding-left:0} }
 
-/* segmentos */
-.segs{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
-.seg{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-s); padding:22px 20px; transition:transform .2s}
-.seg:hover{transform:translateY(-3px)}
-.seg .top{display:flex; align-items:center; justify-content:space-between}
-.seg .ic{color:var(--oro)} .seg .code{font-family:"IBM Plex Mono"; font-size:10.5px; color:var(--ink-3); letter-spacing:.08em}
-.seg h3{font-size:16px; margin-top:16px}
-.seg.anchor{border-color:var(--oro)}
-.seg.anchor .badge{display:inline-block; margin-top:10px; font-family:"IBM Plex Mono"; font-size:10px; letter-spacing:.1em; color:var(--oro)}
-.seg.anchor .badge::before{content:"[ "} .seg.anchor .badge::after{content:" ]"}
-@media(max-width:760px){ .segs{grid-template-columns:1fr 1fr} }
+/* para quién — lista editorial */
+.seglist{border-top:1px solid var(--line-2)}
+.segrow{display:flex; align-items:center; gap:clamp(16px,3vw,28px); padding:clamp(22px,3vw,34px) 0; border-bottom:1px solid var(--line-2)}
+.segrow .ic{width:30px; height:30px; color:var(--ink-3); flex:none}
+.segrow h3{font-size:clamp(24px,3.4vw,38px); font-weight:700}
+.segrow .tagline{margin-left:auto; color:var(--ink-3); font-size:15px; text-align:right}
+.segrow.anchor .ic{color:var(--oro)} .segrow.anchor h3{color:var(--oro)}
+.segrow.anchor .tagline{color:var(--oro); letter-spacing:.14em; text-transform:uppercase; font-size:12px; font-weight:600}
+@media(max-width:600px){ .segrow .tagline{display:none} }
 
-/* specs */
-.specs{display:grid; grid-template-columns:1.15fr .85fr; gap:22px; align-items:start}
-.spec-table{width:100%; border-collapse:collapse; font-size:14.5px}
-.spec-table td{padding:14px 4px; border-bottom:1px solid var(--line); vertical-align:top}
-.spec-table tr:first-child td{border-top:1px solid var(--line-2)}
-.spec-table td:first-child{color:var(--ink-3); font-family:"IBM Plex Mono"; width:40%; font-size:12.5px; letter-spacing:.03em}
-.note{background:var(--panel); border:1px solid var(--line-2); border-radius:12px; padding:22px}
-.note .k{display:flex; align-items:center; gap:9px; font-family:"IBM Plex Mono"; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--oro); margin-bottom:12px}
-.note .k::before{content:""; width:8px; height:8px; border-radius:2px; background:var(--oro-bright)}
-.note{font-size:14px; color:var(--ink-2)} .note b{color:var(--ink)}
-@media(max-width:760px){ .specs{grid-template-columns:1fr} }
+/* specs — dos columnas editoriales */
+.specwrap{display:grid; grid-template-columns:1fr 1.1fr; gap:clamp(30px,6vw,80px); align-items:start}
+.specwrap .lead{font-size:clamp(20px,2.2vw,26px); color:var(--ink); font-family:"Archivo"; font-weight:700; line-height:1.25; letter-spacing:-.02em}
+.specwrap .note{margin-top:26px; color:var(--ink-2); font-size:16px; border-left:2px solid var(--oro); padding-left:18px}
+.specwrap .note b{color:var(--ink)}
+.deflist{margin:0}
+.deflist dt{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3); padding-top:20px}
+.deflist dd{margin:6px 0 0; font-size:clamp(16px,1.7vw,19px); color:var(--ink); padding-bottom:20px; border-bottom:1px solid var(--line-2)}
+@media(max-width:760px){ .specwrap{grid-template-columns:1fr; gap:36px} }
 
 /* CTA */
-.cta-band{background:var(--carbon); border:1px solid var(--line-2); border-radius:20px; padding:52px 40px; text-align:center; overflow:hidden; position:relative;
-  background-image:radial-gradient(rgba(243,238,230,.05) 1px,transparent 1.3px); background-size:26px 26px}
-.cta-band .tab{font-family:"IBM Plex Mono"; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--oro-bright)}
-.cta-band h2{font-size:clamp(28px,4.3vw,44px); font-weight:900; color:#f7f2ea; margin-top:14px; letter-spacing:-.03em}
-.cta-band p{margin:14px auto 0; color:#c8bca8; max-width:46ch}
-.cta-band .cta{margin-top:28px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+.cta-band{background:linear-gradient(155deg,var(--carbon),#241a10); border-radius:3px; padding:clamp(48px,7vw,96px) clamp(28px,5vw,64px); text-align:center; position:relative; overflow:hidden}
+.cta-band::after{content:""; position:absolute; inset:0; background:radial-gradient(70% 90% at 50% 0%, rgba(231,162,60,.16), transparent 60%); pointer-events:none}
+.cta-band > *{position:relative}
+.cta-band .lbl{font-size:13px; letter-spacing:.24em; text-transform:uppercase; color:var(--oro-bright); font-weight:600}
+.cta-band h2{font-size:clamp(32px,5.4vw,64px); font-weight:900; color:#f7f2ea; margin-top:18px; letter-spacing:-.035em; line-height:1.0}
+.cta-band p{margin:22px auto 0; color:#c8bca8; max-width:46ch; font-size:clamp(17px,1.8vw,20px)}
+.cta-band .cta{margin-top:36px; display:flex; gap:22px; justify-content:center; align-items:center; flex-wrap:wrap}
 
-footer{border-top:1px solid var(--line-2); padding-block:34px; color:var(--ink-3); font-size:13px; background:var(--bg)}
+footer{border-top:1px solid var(--line-2); padding-block:40px; color:var(--ink-3); font-size:14px; background:var(--bg)}
 footer .wrap{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center}
 footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
 
 .reveal{opacity:1}
 @media (prefers-reduced-motion:no-preference){
-  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1)}
+  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
   .reveal.in{opacity:1; transform:none}
 }
 </style>
 
-<!-- ================= SVG defs (logo + íconos) ================= -->
+<!-- ===== SVG defs (logo + íconos) ===== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <g id="mark">
     <rect x="8" y="8" width="112" height="112" rx="30" fill="#15120E"/>
@@ -251,7 +213,7 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
 
 <header class="nav">
   <div class="wrap">
-    <a class="logo" href="#top"><svg viewBox="0 0 128 128"><use href="#mark"/></svg>Lock<b>It</b><span class="tag">Smart Lockers</span></a>
+    <a class="logo" href="#top"><svg viewBox="0 0 128 128"><use href="#mark"/></svg>Lock<b>It</b></a>
     <nav>
       <a href="#como">Cómo funciona</a><a href="#lineas">Líneas</a><a href="#para-quien">Para quién</a><a href="#specs">Specs</a>
     </nav>
@@ -283,7 +245,7 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
     </div>
 
     <div class="anatomy" id="anatomy">
-      <div class="wrap"><div class="card framed">
+      <div class="wrap"><div class="card">
         <div class="tag" id="an-tag">ANATOMÍA</div>
         <h3 id="an-title">El gabinete</h3>
         <p id="an-text">Cada pieza cumple una función.</p>
@@ -300,76 +262,66 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
 
 <section class="content" id="problema">
   <div class="wrap">
-    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§01</span><span>El problema</span></div>
-      <h2>Llaves que se pierden. Candados que no controlás. "¿Cuál está libre?"</h2></div>
-    <div class="problems">
-      <div class="prob reveal"><div class="code">ISSUE·01</div><h3>Llaves y fichas</h3><p>Se pierden, se roban y hay que reponerlas. Un costo y una fricción constante.</p></div>
-      <div class="prob reveal"><div class="code">ISSUE·02</div><h3>Ocupación a ciegas</h3><p>La gente prueba puerta por puerta para ver cuál está libre. Da imagen de desorden.</p></div>
-      <div class="prob reveal"><div class="code">ISSUE·03</div><h3>Candados propios</h3><p>El cliente trae el suyo: el local no puede liberar, ni auditar, ni cobrar por el uso.</p></div>
+    <div class="ed-head">
+      <div class="lbl">El problema</div>
+      <h2>El casillero no cambió en cincuenta años.</h2>
+    </div>
+    <div class="plist">
+      <div class="prow reveal"><h3>Llaves y fichas</h3><p>Se pierden, se roban y hay que reponerlas. Una fricción que el local arrastra todos los días.</p></div>
+      <div class="prow reveal"><h3>Ocupación a ciegas</h3><p>La gente prueba puerta por puerta cuál está libre. Da imagen de desorden en un lugar que quiere verse premium.</p></div>
+      <div class="prow reveal"><h3>Candados propios</h3><p>El cliente trae el suyo. El local no puede liberar, ni auditar, ni cobrar por el uso.</p></div>
     </div>
   </div>
 </section>
 
 <section class="content alt" id="como">
   <div class="wrap">
-    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§02</span><span>Cómo funciona</span></div>
-      <h2>Acercás. Se abre. El sistema sabe.</h2>
-      <p class="sub">Un tag NFC en la puerta abre una webapp rápida — sin instalar nada. Los lockers se hablan en malla por el WiFi del local y confirman con un sensor magnético si la puerta quedó bien cerrada.</p></div>
-    <div class="flow">
-      <div class="step alt-node reveal"><span class="node"></span><span class="code">01</span><h3>Acercás el celu</h3><p>El tag NFC abre la webapp de LockIt en el navegador. Sin app.</p></div>
-      <div class="step alt-node reveal"><span class="node"></span><span class="code">02</span><h3>Se identifica el locker</h3><p>Reconoce cuál es y valida que estás ahí, en el WiFi del local.</p></div>
-      <div class="step alt-node reveal"><span class="node"></span><span class="code">03</span><h3>Se libera la traba</h3><p>El ESP32 activa la cerradura con un pulso. La puerta se abre sola.</p></div>
-      <div class="step alt-node reveal"><span class="node"></span><span class="code">04</span><h3>Confirma el cierre</h3><p>Un sensor magnético detecta la puerta cerrada y actualiza el panel.</p></div>
+    <div class="ed-head">
+      <div class="lbl">Cómo funciona</div>
+      <h2>Acercás el celular. La puerta se abre sola.</h2>
+      <p>Un tag NFC en la puerta la desbloquea al instante, sin instalar ninguna app. Los lockers se comunican en malla por el WiFi del local y un sensor magnético confirma cuando la puerta quedó cerrada.</p>
     </div>
-
-    <div class="usage-intro">Así de simple para quien lo usa</div>
-    <div class="usage">
-      <div class="uframe reveal">
+    <div class="uses">
+      <div class="use reveal">
         <svg class="usvg" viewBox="0 0 140 116" aria-hidden="true">
           <rect class="lk" x="80" y="12" width="50" height="92" rx="8"/>
-          <rect x="86" y="18" width="38" height="80" rx="5" fill="none" stroke="#4a4130" stroke-width="1.3"/>
-          <rect x="99" y="90" width="16" height="4" rx="2" fill="#3a3223"/>
+          <rect x="86" y="18" width="38" height="80" rx="5" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".4"/>
           <path class="fig" d="M6 92 q16 -4 30 -12" fill="none" stroke-width="3" stroke-linecap="round"/>
-          <rect x="34" y="50" width="20" height="34" rx="4" transform="rotate(20 44 67)" fill="#241d13" stroke="#E7A23C" stroke-width="2"/>
+          <rect x="34" y="50" width="20" height="34" rx="4" transform="rotate(20 44 67)" fill="none" stroke="#E7A23C" stroke-width="2"/>
           <g fill="none" stroke="#E7A23C" stroke-linecap="round" stroke-width="2.4">
-            <path class="r1" d="M62 56 a12 12 0 0 1 0 24"/>
-            <path class="r2" d="M70 51 a18 18 0 0 1 0 34"/>
-            <path class="r3" d="M78 46 a24 24 0 0 1 0 44"/>
+            <path class="r1" d="M62 56 a12 12 0 0 1 0 24"/><path class="r2" d="M70 51 a18 18 0 0 1 0 34"/><path class="r3" d="M78 46 a24 24 0 0 1 0 44"/>
           </g>
         </svg>
-        <div class="code">01</div><h3>Acercás el celu</h3><p>A la puerta del locker. Sin app, sin llave.</p>
+        <div class="step">01</div><h3>Acercás el celu</h3><p>A la puerta del locker. Sin app, sin llave.</p>
       </div>
-      <div class="uframe reveal">
+      <div class="use reveal">
         <svg class="usvg" viewBox="0 0 140 116" aria-hidden="true">
           <rect class="lk" x="66" y="12" width="50" height="92" rx="8"/>
-          <rect x="72" y="18" width="38" height="80" rx="5" fill="#0e0c09"/>
-          <g transform="rotate(-36 72 58)"><rect x="34" y="18" width="38" height="80" rx="5" fill="#241d13" stroke="#E7A23C" stroke-width="1.6"/><circle cx="42" cy="58" r="3.4" fill="none" stroke="#E7A23C" stroke-width="1.6"/></g>
+          <g transform="rotate(-36 72 58)"><rect x="34" y="18" width="38" height="80" rx="5" fill="none" stroke="#E7A23C" stroke-width="1.8"/><circle cx="42" cy="58" r="3.4" fill="none" stroke="#E7A23C" stroke-width="1.6"/></g>
           <rect x="85" y="90" width="16" height="4" rx="2" fill="#E7A23C"/>
         </svg>
-        <div class="code">02</div><h3>Se abre sola</h3><p>La cerradura se libera y la puerta se abre.</p>
+        <div class="step">02</div><h3>Se abre sola</h3><p>La cerradura se libera y la puerta se abre.</p>
       </div>
-      <div class="uframe reveal">
+      <div class="use reveal">
         <svg class="usvg" viewBox="0 0 140 116" aria-hidden="true">
           <rect class="lk" x="74" y="12" width="50" height="92" rx="8"/>
-          <rect x="80" y="18" width="38" height="80" rx="5" fill="#0e0c09"/>
-          <rect x="26" y="54" width="42" height="26" rx="12" fill="#241d13" stroke="#8a7d6b" stroke-width="2"/>
-          <path d="M40 54 a11 8 0 0 1 18 0" fill="none" stroke="#8a7d6b" stroke-width="2"/>
+          <rect x="26" y="54" width="42" height="26" rx="12" fill="none" stroke="currentColor" stroke-width="2" opacity=".7"/>
+          <path d="M40 54 a11 8 0 0 1 18 0" fill="none" stroke="currentColor" stroke-width="2" opacity=".7"/>
           <path d="M70 67 h16 M86 67 l-6 -4 M86 67 l-6 4" fill="none" stroke="#E7A23C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div class="code">03</div><h3>Guardás tus cosas</h3><p>Dejás lo tuyo y cerrás la puerta.</p>
+        <div class="step">03</div><h3>Guardás tus cosas</h3><p>Dejás lo tuyo y cerrás la puerta.</p>
       </div>
-      <div class="uframe reveal">
+      <div class="use reveal">
         <svg class="usvg" viewBox="0 0 140 116" aria-hidden="true">
           <rect class="lk" x="42" y="12" width="50" height="92" rx="8"/>
-          <rect x="48" y="18" width="38" height="80" rx="5" fill="none" stroke="#4a4130" stroke-width="1.3"/>
           <rect x="60" y="90" width="16" height="4" rx="2" fill="#E7A23C"/>
           <g transform="translate(84 42)">
             <path d="M6 13 V9 a6 6 0 0 1 12 0 V13" fill="none" stroke="#E7A23C" stroke-width="2.6" stroke-linecap="round"/>
             <rect x="2" y="13" width="20" height="16" rx="4" fill="#E7A23C"/>
-            <path d="M8 21 l3 3 5 -6" fill="none" stroke="#171310" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 21 l3 3 5 -6" fill="none" stroke="#15120E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
           </g>
         </svg>
-        <div class="code">04</div><h3>Trabado y listo</h3><p>Queda cerrado y solo lo abrís vos.</p>
+        <div class="step">04</div><h3>Trabado y listo</h3><p>Queda cerrado y solo lo abrís vos.</p>
       </div>
     </div>
   </div>
@@ -377,17 +329,31 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
 
 <section class="content" id="lineas">
   <div class="wrap">
-    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§03</span><span>Dos líneas</span></div>
-      <h2>Elegís cómo se ve. La electrónica es la misma.</h2></div>
-    <div class="variants">
-      <div class="variant clear reveal">
-        <div class="hd"><div class="code">LÍNEA·01</div><h3><span class="dot"></span>LockIt Clear</h3></div>
-        <ul><li>Puerta transparente en policarbonato resistente a golpes.</li><li>Ves el interior de un vistazo: sabés al instante si está libre.</li><li>Indicador luminoso perimetral de estado.</li><li>La opción más accesible, ideal para gimnasios y clubes.</li></ul>
+    <div class="ed-head">
+      <div class="lbl">Dos líneas</div>
+      <h2>Elegís cómo se ve. La cerradura inteligente es la misma.</h2>
+    </div>
+    <div class="vlist">
+      <div class="vitem clear reveal">
+        <div class="vk">Línea Clear</div>
+        <h3><span class="dot"></span>Clear</h3>
+        <ul>
+          <li>Puerta transparente en policarbonato resistente a golpes.</li>
+          <li>Ves el interior de un vistazo: sabés al instante si está libre.</li>
+          <li>Indicador luminoso perimetral de estado.</li>
+          <li>La opción más accesible, ideal para gimnasios y clubes.</li>
+        </ul>
         <div class="spec"><div>MATERIAL<b>Policarbonato</b></div><div>ESTADO<b>LED perimetral</b></div><div>MEDIDA<b>330×430×465</b></div></div>
       </div>
-      <div class="variant glow reveal">
-        <div class="hd"><div class="code">LÍNEA·02</div><h3><span class="dot"></span>LockIt Glow</h3></div>
-        <ul><li>Puerta opaca para máxima privacidad.</li><li>Indicador OLED embutido con número y estado.</li><li>Estética premium, ideal para oficinas y coworkings.</li><li>La misma cerradura electrónica con tag NFC.</li></ul>
+      <div class="vitem glow reveal">
+        <div class="vk">Línea Glow</div>
+        <h3><span class="dot"></span>Glow</h3>
+        <ul>
+          <li>Puerta opaca para máxima privacidad.</li>
+          <li>Indicador OLED embutido con número y estado.</li>
+          <li>Estética premium, ideal para oficinas y coworkings.</li>
+          <li>La misma cerradura electrónica con tag NFC.</li>
+        </ul>
         <div class="spec"><div>MATERIAL<b>Opaca + OLED</b></div><div>ESTADO<b>OLED embutido</b></div><div>MEDIDA<b>330×430×465</b></div></div>
       </div>
     </div>
@@ -396,42 +362,48 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
 
 <section class="content alt" id="para-quien">
   <div class="wrap">
-    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§04</span><span>Para quién</span></div>
-      <h2>Arrancamos por gimnasios. Escala a todo lo demás.</h2></div>
-    <div class="segs">
-      <div class="seg anchor reveal"><div class="top"><svg class="ic"><use href="#ic-gym"/></svg><span class="code">SEG·01</span></div><h3>Gimnasios</h3><span class="badge">MERCADO ANCLA</span></div>
-      <div class="seg reveal"><div class="top"><svg class="ic"><use href="#ic-office"/></svg><span class="code">SEG·02</span></div><h3>Oficinas y coworkings</h3></div>
-      <div class="seg reveal"><div class="top"><svg class="ic"><use href="#ic-club"/></svg><span class="code">SEG·03</span></div><h3>Clubes, danza y música</h3></div>
-      <div class="seg reveal"><div class="top"><svg class="ic"><use href="#ic-air"/></svg><span class="code">SEG·04</span></div><h3>Aeropuertos y público</h3></div>
+    <div class="ed-head">
+      <div class="lbl">Para quién</div>
+      <h2>Arrancamos por gimnasios. Escala a todo lo demás.</h2>
+    </div>
+    <div class="seglist">
+      <div class="segrow anchor reveal"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-gym"/></svg><h3>Gimnasios</h3><span class="tagline">Mercado ancla</span></div>
+      <div class="segrow reveal"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-office"/></svg><h3>Oficinas y coworkings</h3><span class="tagline">Casillero asignado</span></div>
+      <div class="segrow reveal"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-club"/></svg><h3>Clubes, danza y música</h3><span class="tagline">Uso por clase</span></div>
+      <div class="segrow reveal"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-air"/></svg><h3>Aeropuertos y público</h3><span class="tagline">Pago por uso</span></div>
     </div>
   </div>
 </section>
 
 <section class="content" id="specs">
   <div class="wrap">
-    <div class="shead"><div class="tab"><span class="sq"></span><span class="code">§05</span><span>Ficha técnica</span></div>
-      <h2>Ingeniería honesta, fabricable en Córdoba.</h2></div>
-    <div class="specs">
-      <table class="spec-table">
-        <tr><td>Apertura</td><td>Cerradura electrónica con tag NFC. Sin llaves ni app.</td></tr>
-        <tr><td>Inteligencia</td><td>Cada puerta es autónoma y está conectada en red.</td></tr>
-        <tr><td>Conectividad</td><td>Red propia entre lockers — no depende del WiFi del local.</td></tr>
-        <tr><td>Cierre</td><td>Confirmación real de cierre por sensor magnético.</td></tr>
-        <tr><td>Estado</td><td>Indicador luminoso por puerta: libre / ocupado.</td></tr>
-        <tr><td>Medida interior</td><td>300 × 400 × 450 mm (módulo de gimnasio).</td></tr>
-        <tr><td>Sin internet</td><td>Sigue funcionando en modo local.</td></tr>
-      </table>
-      <div class="note framed"><div class="k">Estado del proyecto</div>LockIt está en etapa de fundación: producto, arquitectura, CAD paramétrico (STEP/STL/DXF listos para taller) y este material de venta. El próximo paso es el <b>prototipo físico</b> y un <b>gimnasio piloto</b> en Córdoba.</div>
+    <div class="ed-head">
+      <div class="lbl">Ficha técnica</div>
+      <h2>Ingeniería honesta, fabricable en Córdoba.</h2>
+    </div>
+    <div class="specwrap">
+      <div>
+        <div class="lead">Cada puerta es autónoma, se abre con un tag NFC y confirma su cierre. Todo conectado en una red propia que no depende del WiFi del local.</div>
+        <div class="note"><b>Estado del proyecto.</b> LockIt está en etapa de fundación: producto, arquitectura, CAD paramétrico (STEP/STL/DXF listos para taller) y este material de venta. El próximo paso es el prototipo físico y un gimnasio piloto en Córdoba.</div>
+      </div>
+      <dl class="deflist">
+        <dt>Apertura</dt><dd>Cerradura electrónica con tag NFC. Sin llaves ni app.</dd>
+        <dt>Conectividad</dt><dd>Red propia entre lockers — no depende del WiFi del local.</dd>
+        <dt>Cierre</dt><dd>Confirmación real de cierre por sensor magnético.</dd>
+        <dt>Estado</dt><dd>Indicador luminoso por puerta: libre u ocupado.</dd>
+        <dt>Medida interior</dt><dd>300 × 400 × 450 mm (módulo de gimnasio).</dd>
+        <dt>Sin internet</dt><dd>Sigue funcionando en modo local.</dd>
+      </dl>
     </div>
   </div>
 </section>
 
 <section class="content" id="contacto">
   <div class="wrap">
-    <div class="cta-band framed">
-      <div class="tab">Córdoba, Argentina</div>
-      <h2>¿Tenés un gimnasio o local con casilleros?</h2>
-      <p>Sumate al piloto de LockIt. Modernizás tus lockers, sacás las llaves del medio y te diferenciás.</p>
+    <div class="cta-band">
+      <div class="lbl">Córdoba, Argentina</div>
+      <h2>¿Tenés un gimnasio con casilleros?</h2>
+      <p>Sumate al piloto de LockIt. Sacá las llaves del medio y diferenciate.</p>
       <div class="cta">
         <a class="btn on-dark" href="mailto:olmedo.franco.fo@gmail.com?subject=Quiero%20LockIt%20en%20mi%20local">Escribinos</a>
         <a class="btn ghost on-dark" href="#como">Ver cómo funciona</a>
@@ -443,7 +415,7 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
 <footer>
   <div class="wrap">
     <a class="logo" href="#top"><svg viewBox="0 0 128 128" width="26" height="26"><use href="#mark"/></svg>Lock<b>It</b></a>
-    <span class="mono">Casilleros inteligentes NFC · Córdoba, AR · Tu locker, un toque</span>
+    <span>Casilleros inteligentes NFC · Córdoba, AR · Tu locker, un toque</span>
   </div>
 </footer>
 
@@ -459,21 +431,17 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
   var renderer, scene, camera, group, env, parts=[], doors=[], TEX={};
   var W=3.3, D=4.65, MH=4.3, N=3, WALL=0.15, BASE=1.0, CAP=0.4;
 
-  // --- Texturas procedurales (micro-detalle tipo "escaneado", sin assets externos) ---
   function makeTextures(){
-    // ruido de rugosidad
     var s=256, c=document.createElement("canvas"); c.width=c.height=s; var g=c.getContext("2d");
     var img=g.createImageData(s,s), d=img.data;
     for(var i=0;i<s*s;i++){ var v=150+Math.random()*95; d[i*4]=d[i*4+1]=d[i*4+2]=v; d[i*4+3]=255; }
     g.putImageData(img,0,0);
     TEX.rough=new THREE.CanvasTexture(c); TEX.rough.wrapS=TEX.rough.wrapT=THREE.RepeatWrapping; TEX.rough.repeat.set(3,3);
-    // micro-cepillado (bump)
     var c2=document.createElement("canvas"); c2.width=c2.height=s; var g2=c2.getContext("2d");
     g2.fillStyle="#7f7f7f"; g2.fillRect(0,0,s,s);
     for(var k=0;k<s*4;k++){ var y=Math.random()*s; g2.globalAlpha=0.06+Math.random()*0.14; g2.strokeStyle=Math.random()>0.5?"#d8d8d8":"#3a3a3a"; g2.beginPath(); g2.moveTo(0,y); g2.lineTo(s,y+(Math.random()-0.5)*1.5); g2.stroke(); }
     g2.globalAlpha=1;
     TEX.bump=new THREE.CanvasTexture(c2); TEX.bump.wrapS=TEX.bump.wrapT=THREE.RepeatWrapping; TEX.bump.repeat.set(1,4);
-    // sombra de contacto (AO blob)
     var c3=document.createElement("canvas"); c3.width=c3.height=256; var g3=c3.getContext("2d");
     var grd=g3.createRadialGradient(128,128,10,128,128,128); grd.addColorStop(0,"rgba(0,0,0,.6)"); grd.addColorStop(.55,"rgba(0,0,0,.28)"); grd.addColorStop(1,"rgba(0,0,0,0)");
     g3.fillStyle=grd; g3.fillRect(0,0,256,256); TEX.contact=new THREE.CanvasTexture(c3);
@@ -489,13 +457,9 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
 
   function buildEnv(){
     var s=new THREE.Scene(); s.background=new THREE.Color(0x120d09);
-    // sala envolvente tenue para reflejos con contexto
     s.add(new THREE.Mesh(new THREE.BoxGeometry(34,22,34), new THREE.MeshBasicMaterial({color:0x1a130c, side:THREE.BackSide})));
     function P(x,y,z,w,h,c,i){ var p=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:c})); p.position.set(x,y,z); p.lookAt(0,0,0); p.material.color.multiplyScalar(i); s.add(p); }
-    P(8,6,7,11,11,0xffe3b0,1.0);   // softbox cálido (key)
-    P(-9,4,3,8,13,0xE7A23C,0.5);   // rim oro
-    P(0,11,-3,15,7,0xfff2d8,0.95); // cenital
-    P(3,-8,4,13,9,0x241608,1.0);   // rebote piso
+    P(8,6,7,11,11,0xffe3b0,1.0); P(-9,4,3,8,13,0xE7A23C,0.5); P(0,11,-3,15,7,0xfff2d8,0.95); P(3,-8,4,13,9,0x241608,1.0);
     return new THREE.PMREMGenerator(renderer).fromScene(s,0.03).texture;
   }
   function buildLocker(){
@@ -527,7 +491,6 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
     var ledGlow=new THREE.Sprite(glowSprite(COL.oro)); ledGlow.scale.set(3,0.7,1); ledGlow.position.set(0,cy-dh/2+border/2,z+0.12); addPart(ledGlow,out.clone(),4.6);
     var nfcMat=new THREE.MeshStandardMaterial({color:0x35291b,emissive:new THREE.Color(COL.oro),emissiveIntensity:0.5,metalness:0.3,roughness:0.5});
     var nfc=new THREE.Mesh(new THREE.TorusGeometry(0.24,0.05,12,32),nfcMat); nfc.position.set(dw/2-0.55,cy-0.2,z+0.05); addPart(nfc,out.clone(),5.4);
-    // --- Herrajes reales ---
     var hwMat=mat(0x171009,0.8,0.34);
     [dh/2-0.55,-dh/2+0.55].forEach(function(hy){ var hg=cyl(0.075,0.5,hwMat,14); hg.position.set(-dw/2+0.07,cy+hy,z+0.02); addPart(hg,out.clone(),4.6); });
     var handle=box(0.09,1.1,0.16,mat(0x2f2717,0.85,0.28)); handle.position.set(dw/2-0.28,cy,z+0.13); addPart(handle,out.clone(),4.9);
@@ -555,7 +518,6 @@ footer .logo{color:var(--ink)} footer .logo b{color:var(--oro)}
     scene.add(new THREE.AmbientLight(0x2a2014,0.45));
     var Htot=buildLocker();
     var floor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.ShadowMaterial({opacity:0.4})); floor.rotation.x=-Math.PI/2; floor.position.y=-Htot/2; floor.receiveShadow=true; scene.add(floor);
-    // sombra de contacto suave (AO) bajo la columna
     var contact=new THREE.Mesh(new THREE.PlaneGeometry(W*2.4,D*2.6), new THREE.MeshBasicMaterial({map:TEX.contact,transparent:true,opacity:0.85,depthWrite:false,color:0x000000}));
     contact.rotation.x=-Math.PI/2; contact.position.y=-Htot/2+0.02; scene.add(contact);
     resize(); if(fallback) fallback.style.display="none";
